@@ -1,0 +1,16 @@
+-- is_staff() is invoked directly inside RLS USING clauses (profiles_select_admin,
+-- categories_write_admin, menu_items_write_admin, orders_select_staff,
+-- orders_update_staff, ratings_select_staff). RLS policy expressions run as the
+-- querying role, so that role needs EXECUTE on any function the policy calls —
+-- SECURITY DEFINER only changes privileges *inside* the function body, not
+-- whether it can be invoked from outside. The earlier lock-down migration
+-- revoked EXECUTE from `authenticated` too, which broke every staff query
+-- with "permission denied for function is_staff" even for rows a policy
+-- (like profiles_select_own) would otherwise have allowed, because Postgres
+-- errors out the whole query if ANY permissive policy's USING clause errors.
+--
+-- get_my_role() stays locked down: it's only ever called from inside other
+-- SECURITY DEFINER functions (is_staff, enforce_order_transition), which run
+-- with the function owner's privileges internally and don't need the
+-- caller's own EXECUTE grant on it.
+grant execute on function public.is_staff(public.role_type[]) to authenticated;

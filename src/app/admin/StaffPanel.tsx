@@ -15,8 +15,18 @@ type StaffRow = {
 
 const ROLES: Role[] = ["admin", "cashier", "kitchen"];
 
+type SecurityEvent = {
+  id: string;
+  event_type: string;
+  actor_id: string | null;
+  target_id: string | null;
+  detail: { old_role?: string | null; new_role?: string | null };
+  created_at: string;
+};
+
 export function StaffPanel() {
   const [staff, setStaff] = useState<StaffRow[]>([]);
+  const [events, setEvents] = useState<SecurityEvent[]>([]);
   const [loading, setLoading] = useState(true);
   const [myId, setMyId] = useState<string | null>(null);
   const [busyId, setBusyId] = useState<string | null>(null);
@@ -24,15 +34,22 @@ export function StaffPanel() {
 
   const load = async () => {
     const supabase = createClient();
-    const [{ data: staffData, error: staffError }, { data: userData }] = await Promise.all([
-      supabase.rpc("list_staff"),
-      supabase.auth.getUser(),
-    ]);
+    const [{ data: staffData, error: staffError }, { data: userData }, { data: eventData }] =
+      await Promise.all([
+        supabase.rpc("list_staff"),
+        supabase.auth.getUser(),
+        supabase
+          .from("security_events")
+          .select("id, event_type, actor_id, target_id, detail, created_at")
+          .order("created_at", { ascending: false })
+          .limit(20),
+      ]);
     if (staffError) {
       setError("Couldn't load staff list.");
     } else {
       setStaff(staffData ?? []);
     }
+    setEvents((eventData as SecurityEvent[]) ?? []);
     setMyId(userData.user?.id ?? null);
     setLoading(false);
   };
@@ -94,6 +111,26 @@ export function StaffPanel() {
         ))}
         {staff.length === 0 && (
           <p className="px-4 py-6 text-center text-sm text-charcoal-soft">No staff accounts yet.</p>
+        )}
+      </div>
+
+      <h2 className="mt-8 font-display text-lg font-semibold text-charcoal">Recent role changes</h2>
+      <div className="mt-3 overflow-hidden rounded-xl border border-line bg-cream-raised">
+        {events.map((e) => {
+          const actor = staff.find((s) => s.id === e.actor_id)?.email ?? "unknown";
+          const target = staff.find((s) => s.id === e.target_id)?.email ?? "unknown";
+          return (
+            <div key={e.id} className="border-b border-line px-4 py-2.5 text-sm last:border-b-0">
+              <span className="text-charcoal-soft">{new Date(e.created_at).toLocaleString()}</span>{" "}
+              <span className="text-charcoal">{actor}</span> changed{" "}
+              <span className="text-charcoal">{target}</span> from{" "}
+              <span className="font-medium">{e.detail.old_role ?? "no role"}</span> to{" "}
+              <span className="font-medium">{e.detail.new_role ?? "no role"}</span>
+            </div>
+          );
+        })}
+        {events.length === 0 && (
+          <p className="px-4 py-6 text-center text-sm text-charcoal-soft">No role changes yet.</p>
         )}
       </div>
     </section>

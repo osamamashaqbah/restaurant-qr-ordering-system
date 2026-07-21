@@ -231,6 +231,33 @@ export type Database = {
           },
         ]
       }
+      security_events: {
+        Row: {
+          actor_id: string | null
+          created_at: string
+          detail: Json
+          event_type: string
+          id: string
+          target_id: string | null
+        }
+        Insert: {
+          actor_id?: string | null
+          created_at?: string
+          detail?: Json
+          event_type: string
+          id?: string
+          target_id?: string | null
+        }
+        Update: {
+          actor_id?: string | null
+          created_at?: string
+          detail?: Json
+          event_type?: string
+          id?: string
+          target_id?: string | null
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never

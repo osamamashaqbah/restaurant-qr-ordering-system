@@ -249,9 +249,23 @@ export type Database = {
         Args: never
         Returns: Database["public"]["Enums"]["role_type"]
       }
+      get_sales_summary: {
+        Args: { p_end: string; p_start: string }
+        Returns: Json
+      }
       is_staff: {
         Args: { roles: Database["public"]["Enums"]["role_type"][] }
         Returns: boolean
+      }
+      list_staff: {
+        Args: never
+        Returns: {
+          id: string
+          email: string
+          full_name: string
+          role: Database["public"]["Enums"]["role_type"] | null
+          created_at: string
+        }[]
       }
       set_item_availability: {
         Args: { p_available: boolean; p_item_id: string }

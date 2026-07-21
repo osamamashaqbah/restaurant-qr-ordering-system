@@ -1,36 +1,92 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Restaurant QR Ordering System
 
-## Getting Started
+A single-QR ordering app for restaurants. One shared link opens the customer
+menu; customers type in their name, WhatsApp number, and table number by
+hand (never encoded in the QR). Kitchen, cashier, and admin each get a
+role-scoped dashboard with realtime updates.
 
-First, run the development server:
+## Stack
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+- **Frontend:** Next.js (App Router) + TypeScript + Tailwind CSS
+- **Backend:** Supabase — Postgres, Auth, Realtime, Storage
+- **Deploy:** Vercel (frontend) + Supabase (backend)
+
+## Project structure
+
+```
+src/
+  app/
+    (customer)/   # entry form, menu, cart, order tracker, rating
+    (kitchen)/    # kitchen kanban board
+    (cashier)/    # cashier dashboard: ready orders, availability toggle, invoice
+    (admin)/      # menu CRUD, sales reports
+    login/        # shared staff login (role decides redirect)
+  lib/
+    supabase/     # browser/server/middleware Supabase clients
+    validation/   # zod schemas for all user input
+    i18n/         # AR/EN copy + RTL helpers
+  types/          # generated Supabase DB types
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Getting started
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```bash
+npm install
+cp .env.example .env.local   # fill in your Supabase project URL + anon key
+npm run dev
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Open [http://localhost:3000](http://localhost:3000).
 
-## Learn More
+## Database & security model
 
-To learn more about Next.js, take a look at the following resources:
+Schema, RLS policies, and RPC functions live in Supabase (see migrations
+applied via the Supabase MCP tooling — check the Supabase dashboard's
+migration history for the full SQL). Key decisions:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- **Roles** (`admin` / `cashier` / `kitchen`) live in `public.profiles`,
+  linked 1:1 to `auth.users`. Only an admin can assign roles; no user can
+  ever write their own `role` column (no self-escalation path).
+- **Orders are never trusted from the client.** `create_order()` is the only
+  write path for placing an order — it re-prices every line item from
+  `menu_items` server-side, so a tampered client payload can't change totals.
+- **Status transitions are enforced in Postgres**, not just the UI
+  (`new → preparing → ready → closed`, plus `cancelled`), each gated to the
+  correct role via a `BEFORE UPDATE` trigger.
+- **Item availability** is the *only* thing a cashier can touch on
+  `menu_items`, and only through `set_item_availability()` — cashiers get no
+  direct table grant, so they can't edit prices/photos/names.
+- **Customer PII (name, WhatsApp number)** is excluded from the anon
+  column-grant on `orders`; anonymous customers can only read
+  `id/table_number/status/total/created_at/updated_at/closed_at` for the
+  live order tracker. Full rows are only visible to authenticated staff.
+- **Ratings** can only be submitted once, and only after an order is
+  `closed`, enforced inside `submit_rating()`.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### Bootstrapping the first admin
 
-## Deploy on Vercel
+1. Have the admin sign up once through Supabase Auth (dashboard, or the
+   app's login page once it supports sign-up).
+2. In the Supabase SQL editor, run:
+   ```sql
+   update public.profiles set role = 'admin' where id = '<their auth.users id>';
+   ```
+   This is intentionally not exposed through the app — the only way to
+   create the *first* admin is a direct DB action by whoever controls the
+   Supabase project.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Environment variables
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+See `.env.example`. Never commit `.env.local` or any real key — `.gitignore`
+already excludes all `.env*` files except the placeholder `.env.example`.
+
+## Implementation phases
+
+0. Project setup — Next.js, Supabase schema/RLS/RPCs, auth roles *(this commit)*
+1. Customer flow — QR entry form, bilingual menu, cart, order submission
+2. Kitchen board — New → Preparing → Ready
+3. Cashier dashboard — realtime orders, payment close, availability toggle, WhatsApp invoice
+4. Post-order rating
+5. Admin dashboard — menu CRUD, sales reports
+6. Role-based auth hardening pass
+7. UI polish, testing, deployment

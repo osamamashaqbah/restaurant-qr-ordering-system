@@ -41,6 +41,20 @@ public sealed class AdminTests
     }
 
     [Fact]
+    public async Task Admin_security_events_are_returned_without_cache()
+    {
+        var securityEvent = new SecurityEvent(Guid.NewGuid(), "role_change", null, null, null, null, "kitchen", "cashier", DateTimeOffset.UtcNow);
+        var store = new RecordingAdminStore { SecurityEvents = [securityEvent] };
+        var controller = CreateController(store, Guid.NewGuid());
+
+        var result = await controller.ListSecurityEvents(CancellationToken.None);
+
+        var response = Assert.IsType<OkObjectResult>(result.Result);
+        Assert.Same(store.SecurityEvents, response.Value);
+        Assert.Equal("no-store", controller.Response.Headers.CacheControl.ToString());
+    }
+
+    [Fact]
     public async Task Admin_role_update_rejects_self_role_changes()
     {
         var store = new RecordingAdminStore { UpdateResult = AdminCommandResult.SelfRoleChange };
@@ -98,12 +112,16 @@ public sealed class AdminTests
     private sealed class RecordingAdminStore : IAdminStore
     {
         public IReadOnlyList<StaffMember> Staff { get; init; } = [];
+        public IReadOnlyList<SecurityEvent> SecurityEvents { get; init; } = [];
         public AdminCommandResult UpdateResult { get; init; } = AdminCommandResult.NotFound;
         public bool UpdateCalled { get; private set; }
         public bool ReportCalled { get; private set; }
 
         public Task<IReadOnlyList<StaffMember>> ListStaffAsync(CancellationToken cancellationToken) =>
             Task.FromResult(Staff);
+
+        public Task<IReadOnlyList<SecurityEvent>> ListSecurityEventsAsync(CancellationToken cancellationToken) =>
+            Task.FromResult(SecurityEvents);
 
         public Task<AdminCommandResult> UpdateRoleAsync(
             Guid actorId,

@@ -1,14 +1,14 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import { DecimalPipe } from '@angular/common';
+import { DatePipe, DecimalPipe } from '@angular/common';
 import { Component, DestroyRef, inject, signal } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { RouterLink } from '@angular/router';
 import { EMPTY, catchError } from 'rxjs';
-import { AdminService, AdminStaffMember, SalesSummary, StaffRole } from '../../core/admin';
+import { AdminSecurityEvent, AdminService, AdminStaffMember, SalesSummary, StaffRole } from '../../core/admin';
 import { StaffAuthService } from '../../core/supabase-auth';
 
 @Component({
-  imports: [DecimalPipe, RouterLink],
+  imports: [DatePipe, DecimalPipe, RouterLink],
   selector: 'app-admin',
   styleUrl: './admin.scss',
   templateUrl: './admin.html',
@@ -21,6 +21,8 @@ export class Admin {
   readonly state = signal<'loading' | 'ready' | 'error'>('loading');
   readonly tab = signal<'staff' | 'reports'>('staff');
   readonly staff = signal<AdminStaffMember[]>([]);
+  readonly securityEvents = signal<AdminSecurityEvent[]>([]);
+  readonly eventsState = signal<'loading' | 'ready' | 'error'>('loading');
   readonly reportState = signal<'idle' | 'loading' | 'ready' | 'error'>('idle');
   readonly report = signal<SalesSummary | null>(null);
   readonly reportStart = signal(this.isoDate(-6));
@@ -31,6 +33,7 @@ export class Admin {
   readonly Math = Math;
 
   constructor() {
+    this.loadSecurityEvents();
     this.service.getStaff().pipe(
       catchError(() => {
         this.state.set('error');
@@ -40,6 +43,16 @@ export class Admin {
     ).subscribe((staff) => {
       this.staff.set(staff);
       this.state.set('ready');
+    });
+  }
+
+  private loadSecurityEvents(): void {
+    this.service.getSecurityEvents().pipe(takeUntilDestroyed(this.destroyRef)).subscribe({
+      next: (events) => {
+        this.securityEvents.set(events);
+        this.eventsState.set('ready');
+      },
+      error: () => this.eventsState.set('error'),
     });
   }
 

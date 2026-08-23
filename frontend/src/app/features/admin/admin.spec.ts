@@ -16,7 +16,11 @@ describe('Admin', () => {
       imports: [Admin],
       providers: [
         provideRouter([]),
-        { provide: AdminService, useValue: { getStaff: () => of([{ id: 'staff-1', email: 'chef@example.com', fullName: 'Chef', role: 'kitchen', createdAt: new Date().toISOString() }]), updateRole } },
+        { provide: AdminService, useValue: {
+          getStaff: () => of([{ id: 'staff-1', email: 'chef@example.com', fullName: 'Chef', role: 'kitchen', createdAt: new Date().toISOString() }]),
+          getSecurityEvents: () => of([]),
+          updateRole,
+        } },
         { provide: StaffAuthService, useValue: { identity: signal({ role: 'admin', fullName: 'Admin' }), signOut: vi.fn() } },
       ],
     }).compileComponents();

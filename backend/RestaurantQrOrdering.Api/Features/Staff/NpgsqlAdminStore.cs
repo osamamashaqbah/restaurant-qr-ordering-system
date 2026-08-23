@@ -36,6 +36,44 @@ public sealed class NpgsqlAdminStore(NpgsqlDataSource dataSource) : IAdminStore
         }
     }
 
+    public async Task<IReadOnlyList<SecurityEvent>> ListSecurityEventsAsync(CancellationToken cancellationToken)
+    {
+        try
+        {
+            await using var command = dataSource.CreateCommand("""
+                select e.id, e.event_type, e.actor_id, actor.email,
+                       e.target_id, target.email,
+                       e.detail->>'old_role', e.detail->>'new_role', e.created_at
+                  from public.security_events e
+                  left join auth.users actor on actor.id = e.actor_id
+                  left join auth.users target on target.id = e.target_id
+                 order by e.created_at desc
+                 limit 20
+                """);
+            await using var reader = await command.ExecuteReaderAsync(cancellationToken);
+            var events = new List<SecurityEvent>();
+            while (await reader.ReadAsync(cancellationToken))
+            {
+                events.Add(new SecurityEvent(
+                    reader.GetGuid(0),
+                    reader.GetString(1),
+                    reader.IsDBNull(2) ? null : reader.GetGuid(2),
+                    reader.IsDBNull(3) ? null : reader.GetString(3),
+                    reader.IsDBNull(4) ? null : reader.GetGuid(4),
+                    reader.IsDBNull(5) ? null : reader.GetString(5),
+                    reader.IsDBNull(6) ? null : reader.GetString(6),
+                    reader.IsDBNull(7) ? null : reader.GetString(7),
+                    reader.GetFieldValue<DateTimeOffset>(8)));
+            }
+
+            return events;
+        }
+        catch (NpgsqlException exception)
+        {
+            throw new AdminStoreUnavailableException(exception);
+        }
+    }
+
     public async Task<AdminCommandResult> UpdateRoleAsync(
         Guid actorId,
         Guid targetId,
@@ -100,6 +138,9 @@ public sealed class NpgsqlAdminStore(NpgsqlDataSource dataSource) : IAdminStore
 public sealed class UnavailableAdminStore : IAdminStore
 {
     public Task<IReadOnlyList<StaffMember>> ListStaffAsync(CancellationToken cancellationToken) =>
+        throw new AdminStoreUnavailableException();
+
+    public Task<IReadOnlyList<SecurityEvent>> ListSecurityEventsAsync(CancellationToken cancellationToken) =>
         throw new AdminStoreUnavailableException();
 
     public Task<AdminCommandResult> UpdateRoleAsync(

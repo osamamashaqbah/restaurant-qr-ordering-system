@@ -4,6 +4,8 @@ public interface IAdminStore
 {
     Task<IReadOnlyList<StaffMember>> ListStaffAsync(CancellationToken cancellationToken);
 
+    Task<IReadOnlyList<SecurityEvent>> ListSecurityEventsAsync(CancellationToken cancellationToken);
+
     Task<AdminCommandResult> UpdateRoleAsync(
         Guid actorId,
         Guid targetId,

@@ -22,6 +22,13 @@ describe('AdminService', () => {
     request.flush([]);
   });
 
+  it('loads recent role-change events through the admin endpoint', () => {
+    service.getSecurityEvents().subscribe();
+    const request = controller.expectOne('/api/staff/admin/security-events');
+    expect(request.request.method).toBe('GET');
+    request.flush([]);
+  });
+
   it('updates only a staff role command', () => {
     service.updateRole('staff-1', 'kitchen').subscribe();
     const request = controller.expectOne('/api/staff/admin/staff/staff-1/role');

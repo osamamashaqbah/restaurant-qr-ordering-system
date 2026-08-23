@@ -191,3 +191,17 @@ select {
 .message {
   margin-top: 1.5rem;
 }
+
+.events {
+  margin-top: 2rem;
+}
+
+.event-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+  padding: 0.65rem 0;
+  border-bottom: 1px solid #e1d8c9;
+  color: #6f675e;
+  font-size: 0.85rem;
+}

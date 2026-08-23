@@ -39,6 +39,26 @@
         <p class="message">No staff accounts found.</p>
       }
     </div>
+    <section class="events" aria-labelledby="events-title">
+      <h2 id="events-title" class="section-title">Recent role changes</h2>
+      @if (eventsState() === 'loading') {
+        <p class="message">Loading audit events…</p>
+      } @else if (eventsState() === 'error') {
+        <p class="message">We could not load audit events.</p>
+      } @else {
+        @for (event of securityEvents(); track event.id) {
+          <div class="event-row">
+            <time [attr.datetime]="event.createdAt">{{ event.createdAt | date: 'medium' }}</time>
+            <span>{{ event.actorEmail || 'Unknown actor' }}</span>
+            <span>changed</span>
+            <span>{{ event.targetEmail || 'Unknown account' }}</span>
+            <span>from {{ event.oldRole || 'no role' }} to {{ event.newRole || 'no role' }}</span>
+          </div>
+        } @empty {
+          <p class="message">No role changes yet.</p>
+        }
+      }
+    </section>
   } @else {
     <div class="report-controls">
       <label>From <input type="date" [value]="reportStart()" (change)="reportStart.set($any($event.target).value)" /></label>

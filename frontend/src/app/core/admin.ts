@@ -11,6 +11,16 @@ export interface AdminStaffMember {
   createdAt: string;
 }
 
+export interface AdminSecurityEvent {
+  id: string;
+  eventType: string;
+  actorEmail: string | null;
+  targetEmail: string | null;
+  oldRole: string | null;
+  newRole: string | null;
+  createdAt: string;
+}
+
 export interface SalesSummary {
   revenue: number;
   orderCount: number;
@@ -25,6 +35,10 @@ export class AdminService {
 
   getStaff() {
     return this.http.get<AdminStaffMember[]>('/api/staff/admin/staff');
+  }
+
+  getSecurityEvents() {
+    return this.http.get<AdminSecurityEvent[]>('/api/staff/admin/security-events');
   }
 
   updateRole(staffId: string, role: StaffRole) {

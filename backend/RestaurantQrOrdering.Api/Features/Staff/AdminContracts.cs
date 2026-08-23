@@ -9,6 +9,17 @@ public sealed record StaffMember(
     string? Role,
     DateTimeOffset CreatedAt);
 
+public sealed record SecurityEvent(
+    Guid Id,
+    string EventType,
+    Guid? ActorId,
+    string? ActorEmail,
+    Guid? TargetId,
+    string? TargetEmail,
+    string? OldRole,
+    string? NewRole,
+    DateTimeOffset CreatedAt);
+
 public sealed class UpdateStaffRoleRequest
 {
     public string Role { get; init; } = string.Empty;

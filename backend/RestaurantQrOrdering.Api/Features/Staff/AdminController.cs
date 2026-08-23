@@ -28,6 +28,22 @@ public sealed class AdminController(
         }
     }
 
+    [HttpGet("security-events")]
+    [ProducesResponseType(typeof(IReadOnlyList<SecurityEvent>), StatusCodes.Status200OK)]
+    public async Task<ActionResult<IReadOnlyList<SecurityEvent>>> ListSecurityEvents(CancellationToken cancellationToken)
+    {
+        try
+        {
+            Response.Headers.CacheControl = "no-store";
+            return Ok(await store.ListSecurityEventsAsync(cancellationToken));
+        }
+        catch (AdminStoreUnavailableException exception)
+        {
+            logger.LogError(exception, "Admin security events load failed");
+            return Problem(statusCode: StatusCodes.Status503ServiceUnavailable, title: "Admin service unavailable");
+        }
+    }
+
     [HttpGet("reports")]
     [ProducesResponseType(typeof(SalesSummary), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]

@@ -1,0 +1,31 @@
+@switch (state()) {
+  @case ('loading') {
+    <p class="message">Loading order…</p>
+  }
+  @case ('not-found') {
+    <p class="message">This order link is invalid or has expired.</p>
+  }
+  @case ('error') {
+    <p class="message">We could not load this order. Please try again.</p>
+  }
+  @case ('ready') {
+    @if (order(); as currentOrder) {
+      <div class="order">
+        <p class="status-label">Status</p>
+        <h2>{{ currentOrder.status }}</h2>
+        <div class="items">
+          @for (item of currentOrder.items; track $index) {
+            <div class="item">
+              <span>{{ item.quantity }}× {{ item.nameEn }}</span>
+              <span>{{ item.unitPrice * item.quantity | number: '1.2-2' }}</span>
+            </div>
+          }
+        </div>
+        <div class="total">
+          <span>Total</span>
+          <strong>{{ currentOrder.total | number: '1.2-2' }}</strong>
+        </div>
+      </div>
+    }
+  }
+}

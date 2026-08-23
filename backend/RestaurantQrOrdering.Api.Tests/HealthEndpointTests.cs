@@ -20,4 +20,12 @@ public sealed class HealthEndpointTests : IClassFixture<WebApplicationFactory<Pr
         Assert.Equal(HttpStatusCode.OK, response.StatusCode);
         Assert.Equal("{\"status\":\"ok\"}", await response.Content.ReadAsStringAsync());
     }
+
+    [Fact]
+    public async Task Invalid_tracking_token_returns_not_found_without_external_dependencies()
+    {
+        using var response = await _client.GetAsync("/api/public/orders/not-a-token/tracking");
+
+        Assert.Equal(HttpStatusCode.NotFound, response.StatusCode);
+    }
 }

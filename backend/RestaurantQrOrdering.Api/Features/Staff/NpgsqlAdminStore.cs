@@ -1,5 +1,6 @@
 using Npgsql;
 using NpgsqlTypes;
+using System.Text.Json;
 
 namespace RestaurantQrOrdering.Api.Features.Staff;
 
@@ -64,6 +65,36 @@ public sealed class NpgsqlAdminStore(NpgsqlDataSource dataSource) : IAdminStore
             throw new AdminStoreUnavailableException(exception);
         }
     }
+
+    public async Task<SalesSummary> GetSalesSummaryAsync(
+        Guid actorId,
+        DateTimeOffset start,
+        DateTimeOffset end,
+        CancellationToken cancellationToken)
+    {
+        try
+        {
+            await using var command = dataSource.CreateCommand(
+                "select public.admin_get_sales_summary($1, $2, $3)");
+            command.Parameters.Add(new NpgsqlParameter { NpgsqlDbType = NpgsqlDbType.Uuid, Value = actorId });
+            command.Parameters.Add(new NpgsqlParameter { NpgsqlDbType = NpgsqlDbType.TimestampTz, Value = start });
+            command.Parameters.Add(new NpgsqlParameter { NpgsqlDbType = NpgsqlDbType.TimestampTz, Value = end });
+
+            var json = (await command.ExecuteScalarAsync(cancellationToken))?.ToString();
+            return json is null
+                ? throw new AdminStoreUnavailableException()
+                : JsonSerializer.Deserialize<SalesSummary>(json, new JsonSerializerOptions(JsonSerializerDefaults.Web))
+                    ?? throw new AdminStoreUnavailableException();
+        }
+        catch (NpgsqlException exception)
+        {
+            throw new AdminStoreUnavailableException(exception);
+        }
+        catch (JsonException exception)
+        {
+            throw new AdminStoreUnavailableException(exception);
+        }
+    }
 }
 
 public sealed class UnavailableAdminStore : IAdminStore
@@ -75,6 +106,13 @@ public sealed class UnavailableAdminStore : IAdminStore
         Guid actorId,
         Guid targetId,
         string role,
+        CancellationToken cancellationToken) =>
+        throw new AdminStoreUnavailableException();
+
+    public Task<SalesSummary> GetSalesSummaryAsync(
+        Guid actorId,
+        DateTimeOffset start,
+        DateTimeOffset end,
         CancellationToken cancellationToken) =>
         throw new AdminStoreUnavailableException();
 }

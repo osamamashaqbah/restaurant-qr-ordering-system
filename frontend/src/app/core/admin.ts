@@ -11,6 +11,14 @@ export interface AdminStaffMember {
   createdAt: string;
 }
 
+export interface SalesSummary {
+  revenue: number;
+  orderCount: number;
+  averageOrderValue: number;
+  daily: { day: string; revenue: number }[];
+  topItems: { nameEn: string; quantity: number; revenue: number }[];
+}
+
 @Injectable({ providedIn: 'root' })
 export class AdminService {
   private readonly http = inject(HttpClient);
@@ -21,5 +29,9 @@ export class AdminService {
 
   updateRole(staffId: string, role: StaffRole) {
     return this.http.patch<void>(`/api/staff/admin/staff/${staffId}/role`, { role });
+  }
+
+  getSalesSummary(start: string, end: string) {
+    return this.http.get<SalesSummary>(`/api/staff/admin/reports?start=${encodeURIComponent(start)}&end=${encodeURIComponent(end)}`);
   }
 }

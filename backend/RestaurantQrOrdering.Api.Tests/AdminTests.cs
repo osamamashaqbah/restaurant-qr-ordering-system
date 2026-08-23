@@ -56,6 +56,21 @@ public sealed class AdminTests
     }
 
     [Fact]
+    public async Task Admin_reports_reject_an_invalid_date_range()
+    {
+        var store = new RecordingAdminStore();
+        var controller = CreateController(store, Guid.NewGuid());
+
+        var result = await controller.Reports(
+            DateTimeOffset.UtcNow,
+            DateTimeOffset.UtcNow.AddDays(-1),
+            CancellationToken.None);
+
+        Assert.IsType<BadRequestObjectResult>(result.Result);
+        Assert.False(store.ReportCalled);
+    }
+
+    [Fact]
     public async Task Admin_routes_require_authentication()
     {
         using var factory = new WebApplicationFactory<Program>();
@@ -85,6 +100,7 @@ public sealed class AdminTests
         public IReadOnlyList<StaffMember> Staff { get; init; } = [];
         public AdminCommandResult UpdateResult { get; init; } = AdminCommandResult.NotFound;
         public bool UpdateCalled { get; private set; }
+        public bool ReportCalled { get; private set; }
 
         public Task<IReadOnlyList<StaffMember>> ListStaffAsync(CancellationToken cancellationToken) =>
             Task.FromResult(Staff);
@@ -97,6 +113,16 @@ public sealed class AdminTests
         {
             UpdateCalled = true;
             return Task.FromResult(UpdateResult);
+        }
+
+        public Task<SalesSummary> GetSalesSummaryAsync(
+            Guid actorId,
+            DateTimeOffset start,
+            DateTimeOffset end,
+            CancellationToken cancellationToken)
+        {
+            ReportCalled = true;
+            return Task.FromResult(new SalesSummary(0, 0, 0, [], []));
         }
     }
 }

@@ -29,4 +29,11 @@ describe('AdminService', () => {
     expect(request.request.body).toEqual({ role: 'kitchen' });
     request.flush(null);
   });
+
+  it('loads reports with an explicit date range', () => {
+    service.getSalesSummary('2026-08-01T00:00:00Z', '2026-08-07T23:59:59Z').subscribe();
+    const request = controller.expectOne('/api/staff/admin/reports?start=2026-08-01T00%3A00%3A00Z&end=2026-08-07T23%3A59%3A59Z');
+    expect(request.request.method).toBe('GET');
+    request.flush({ revenue: 0, orderCount: 0, averageOrderValue: 0, daily: [], topItems: [] });
+  });
 });

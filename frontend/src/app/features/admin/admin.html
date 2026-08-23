@@ -2,7 +2,7 @@
   <header class="staff-header">
     <div>
       <p class="eyebrow">Admin</p>
-      <h1 id="admin-title">Staff roles</h1>
+      <h1 id="admin-title">{{ tab() === 'staff' ? 'Staff roles' : 'Sales reports' }}</h1>
     </div>
     <button type="button" class="sign-out" (click)="auth.signOut()">Sign out</button>
   </header>
@@ -10,11 +10,16 @@
   @if (error()) {
     <p class="error" role="alert">{{ error() }}</p>
   }
-  @if (state() === 'loading') {
+  <nav class="tabs" aria-label="Admin sections">
+    <button type="button" [class.active]="tab() === 'staff'" (click)="showStaff()">Staff</button>
+    <button type="button" [class.active]="tab() === 'reports'" (click)="showReports()">Reports</button>
+  </nav>
+
+  @if (tab() === 'staff' && state() === 'loading') {
     <p class="message">Loading staff…</p>
-  } @else if (state() === 'error') {
+  } @else if (tab() === 'staff' && state() === 'error') {
     <p class="message">We could not load staff.</p>
-  } @else {
+  } @else if (tab() === 'staff') {
     <div class="staff-list">
       @for (member of staff(); track member.id) {
         <div class="staff-row">
@@ -33,5 +38,44 @@
         <p class="message">No staff accounts found.</p>
       }
     </div>
+  } @else {
+    <div class="report-controls">
+      <label>From <input type="date" [value]="reportStart()" (change)="reportStart.set($any($event.target).value)" /></label>
+      <label>To <input type="date" [value]="reportEnd()" (change)="reportEnd.set($any($event.target).value)" /></label>
+      <button type="button" (click)="loadReport()" [disabled]="reportState() === 'loading'">Refresh</button>
+    </div>
+    @if (reportState() === 'loading' || reportState() === 'idle') {
+      <p class="message">Loading report…</p>
+    } @else if (reportState() === 'error') {
+      <p class="message">We could not load the report.</p>
+    } @else if (report(); as currentReport) {
+      <div class="report-stats">
+        <div><span>Revenue</span><strong>{{ currentReport.revenue | number: '1.2-2' }}</strong></div>
+        <div><span>Closed orders</span><strong>{{ currentReport.orderCount }}</strong></div>
+        <div><span>Average order</span><strong>{{ currentReport.averageOrderValue | number: '1.2-2' }}</strong></div>
+      </div>
+      <h2 class="section-title">Revenue by day</h2>
+      @if (currentReport.daily.length === 0) {
+        <p class="message">No closed orders in this range.</p>
+      } @else {
+        <div class="bars">
+          @for (day of currentReport.daily; track day.day) {
+            <div class="bar-item">
+              <span>{{ day.revenue | number: '1.2-2' }}</span>
+              <i [style.height.px]="Math.max(4, (day.revenue / maxDaily()) * 120)"></i>
+              <small>{{ day.day.slice(5) }}</small>
+            </div>
+          }
+        </div>
+      }
+      <h2 class="section-title">Top items</h2>
+      <div class="top-items">
+        @for (item of currentReport.topItems; track item.nameEn) {
+          <div><span>{{ item.nameEn }}</span><span>{{ item.quantity }}× · {{ item.revenue | number: '1.2-2' }}</span></div>
+        } @empty {
+          <p class="message">No data yet.</p>
+        }
+      </div>
+    }
   }
 </section>

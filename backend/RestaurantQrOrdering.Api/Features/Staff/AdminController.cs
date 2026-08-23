@@ -28,6 +28,32 @@ public sealed class AdminController(
         }
     }
 
+    [HttpGet("reports")]
+    [ProducesResponseType(typeof(SalesSummary), StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    public async Task<ActionResult<SalesSummary>> Reports(
+        [FromQuery] DateTimeOffset start,
+        [FromQuery] DateTimeOffset end,
+        CancellationToken cancellationToken)
+    {
+        if (end < start || end - start > TimeSpan.FromDays(366))
+            return BadRequest(new { error = "invalid_date_range" });
+
+        if (!TryGetActorId(out var actorId))
+            return Unauthorized();
+
+        try
+        {
+            Response.Headers.CacheControl = "no-store";
+            return Ok(await store.GetSalesSummaryAsync(actorId, start, end, cancellationToken));
+        }
+        catch (AdminStoreUnavailableException exception)
+        {
+            logger.LogError(exception, "Admin sales report failed");
+            return Problem(statusCode: StatusCodes.Status503ServiceUnavailable, title: "Admin service unavailable");
+        }
+    }
+
     [HttpPatch("staff/{staffId:guid}/role")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -63,5 +89,12 @@ public sealed class AdminController(
             logger.LogError(exception, "Admin staff role update failed");
             return Problem(statusCode: StatusCodes.Status503ServiceUnavailable, title: "Admin service unavailable");
         }
+    }
+
+    private bool TryGetActorId(out Guid actorId)
+    {
+        var subject = User.FindFirstValue(JwtRegisteredClaimNames.Sub)
+            ?? User.FindFirstValue(ClaimTypes.NameIdentifier);
+        return Guid.TryParse(subject, out actorId);
     }
 }

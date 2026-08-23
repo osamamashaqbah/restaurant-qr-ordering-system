@@ -1,11 +1,13 @@
 import { HttpErrorResponse } from '@angular/common/http';
+import { DecimalPipe } from '@angular/common';
 import { Component, DestroyRef, inject, signal } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { EMPTY, catchError } from 'rxjs';
-import { AdminService, AdminStaffMember, StaffRole } from '../../core/admin';
+import { AdminService, AdminStaffMember, SalesSummary, StaffRole } from '../../core/admin';
 import { StaffAuthService } from '../../core/supabase-auth';
 
 @Component({
+  imports: [DecimalPipe],
   selector: 'app-admin',
   styleUrl: './admin.scss',
   templateUrl: './admin.html',
@@ -16,10 +18,16 @@ export class Admin {
   private readonly destroyRef = inject(DestroyRef);
 
   readonly state = signal<'loading' | 'ready' | 'error'>('loading');
+  readonly tab = signal<'staff' | 'reports'>('staff');
   readonly staff = signal<AdminStaffMember[]>([]);
+  readonly reportState = signal<'idle' | 'loading' | 'ready' | 'error'>('idle');
+  readonly report = signal<SalesSummary | null>(null);
+  readonly reportStart = signal(this.isoDate(-6));
+  readonly reportEnd = signal(this.isoDate(0));
   readonly busyId = signal<string | null>(null);
   readonly error = signal<string | null>(null);
   readonly roles: StaffRole[] = ['admin', 'cashier', 'kitchen'];
+  readonly Math = Math;
 
   constructor() {
     this.service.getStaff().pipe(
@@ -50,5 +58,38 @@ export class Admin {
         this.error.set(error.status === 409 ? 'You cannot change your own role.' : 'Could not update this role.');
       },
     });
+  }
+
+  showStaff(): void {
+    this.tab.set('staff');
+  }
+
+  showReports(): void {
+    this.tab.set('reports');
+    if (this.reportState() === 'idle') this.loadReport();
+  }
+
+  loadReport(): void {
+    this.reportState.set('loading');
+    this.service.getSalesSummary(
+      `${this.reportStart()}T00:00:00Z`,
+      `${this.reportEnd()}T23:59:59.999999Z`,
+    ).pipe(takeUntilDestroyed(this.destroyRef)).subscribe({
+      next: (report) => {
+        this.report.set(report);
+        this.reportState.set('ready');
+      },
+      error: () => this.reportState.set('error'),
+    });
+  }
+
+  maxDaily(): number {
+    return Math.max(1, ...(this.report()?.daily.map((day) => day.revenue) ?? [0]));
+  }
+
+  private isoDate(daysFromToday: number): string {
+    const date = new Date();
+    date.setDate(date.getDate() + daysFromToday);
+    return date.toISOString().slice(0, 10);
   }
 }

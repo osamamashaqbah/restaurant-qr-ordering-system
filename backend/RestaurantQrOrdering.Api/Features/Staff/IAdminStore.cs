@@ -9,6 +9,12 @@ public interface IAdminStore
         Guid targetId,
         string role,
         CancellationToken cancellationToken);
+
+    Task<SalesSummary> GetSalesSummaryAsync(
+        Guid actorId,
+        DateTimeOffset start,
+        DateTimeOffset end,
+        CancellationToken cancellationToken);
 }
 
 public sealed class AdminStoreUnavailableException(Exception? innerException = null)

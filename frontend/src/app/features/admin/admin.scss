@@ -11,6 +11,29 @@
   gap: 1rem;
 }
 
+.tabs {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1.5rem;
+  border-bottom: 1px solid #e1d8c9;
+}
+
+.tabs button {
+  padding: 0 0 0.65rem;
+  border: 0;
+  border-bottom: 2px solid transparent;
+  background: transparent;
+  color: #6f675e;
+  cursor: pointer;
+  font: inherit;
+  font-weight: 700;
+}
+
+.tabs button.active {
+  border-bottom-color: #a65d3e;
+  color: #2d2a26;
+}
+
 .eyebrow {
   margin: 0;
   color: #a65d3e;
@@ -65,6 +88,104 @@ select {
 .error {
   margin-top: 1rem;
   color: #a33e35;
+}
+
+.report-controls,
+.report-stats,
+.bars,
+.top-items {
+  display: flex;
+  gap: 0.75rem;
+  margin-top: 1.25rem;
+}
+
+.report-controls {
+  align-items: end;
+  flex-wrap: wrap;
+}
+
+.report-controls label {
+  display: grid;
+  gap: 0.25rem;
+  color: #6f675e;
+  font-size: 0.8rem;
+}
+
+.report-controls input,
+.report-controls button {
+  padding: 0.5rem 0.65rem;
+  border: 1px solid #d8cdbc;
+  border-radius: 0.55rem;
+  background: #fffdf8;
+  font: inherit;
+}
+
+.report-controls button {
+  cursor: pointer;
+  font-weight: 700;
+}
+
+.report-stats > div {
+  display: grid;
+  flex: 1;
+  gap: 0.25rem;
+  padding: 0.75rem;
+  border: 1px solid #e1d8c9;
+  border-radius: 0.75rem;
+}
+
+.report-stats span,
+.bar-item span,
+.bar-item small {
+  color: #6f675e;
+  font-size: 0.75rem;
+}
+
+.section-title {
+  margin: 1.5rem 0 0;
+  font-size: 1rem;
+}
+
+.bars {
+  align-items: end;
+  overflow-x: auto;
+  padding: 1rem;
+  border: 1px solid #e1d8c9;
+  border-radius: 0.75rem;
+}
+
+.bar-item {
+  display: grid;
+  min-width: 3.5rem;
+  justify-items: center;
+  gap: 0.25rem;
+}
+
+.bar-item i {
+  display: block;
+  width: 1.5rem;
+  border-radius: 0.3rem 0.3rem 0 0;
+  background: #a65d3e;
+}
+
+.top-items {
+  display: grid;
+  gap: 0;
+  margin-top: 0.75rem;
+  border: 1px solid #e1d8c9;
+  border-radius: 0.75rem;
+}
+
+.top-items > div {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.65rem 0.75rem;
+  border-bottom: 1px solid #e1d8c9;
+}
+
+.top-items > div:last-child {
+  border-bottom: 0;
 }
 
 .message {

@@ -45,7 +45,8 @@ npm --prefix frontend start
 The Angular app runs at [http://localhost:4200](http://localhost:4200). Set
 the browser Supabase values in `frontend/public/runtime-config.js` and the
 API values with `ConnectionStrings__SupabaseDatabase`,
-`Supabase__JwtIssuer`, and `Supabase__JwtSecret`.
+`Supabase__JwtIssuer`, `Supabase__JwtSecret`, and one or more
+`Cors__AllowedOrigins__0` values for the deployed Angular origin.
 
 Run the API with:
 

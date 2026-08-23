@@ -14,6 +14,16 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
 builder.Services.AddProblemDetails();
+var allowedCorsOrigins = builder.Configuration.GetSection("Cors:AllowedOrigins").Get<string[]>() ?? [];
+builder.Services.AddCors(options => options.AddPolicy("Frontend", policy =>
+{
+    if (allowedCorsOrigins.Length > 0)
+    {
+        policy.WithOrigins(allowedCorsOrigins)
+            .AllowAnyHeader()
+            .AllowAnyMethod();
+    }
+}));
 var jwtSecret = builder.Configuration["Supabase:JwtSecret"];
 var signingKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(
     string.IsNullOrWhiteSpace(jwtSecret)
@@ -95,6 +105,7 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseExceptionHandler();
+app.UseCors("Frontend");
 app.UseAuthentication();
 app.UseAuthorization();
 

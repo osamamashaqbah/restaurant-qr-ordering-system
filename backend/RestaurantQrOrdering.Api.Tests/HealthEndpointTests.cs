@@ -1,4 +1,5 @@
 using System.Net;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Testing;
 
 namespace RestaurantQrOrdering.Api.Tests;
@@ -37,5 +38,20 @@ public sealed class HealthEndpointTests : IClassFixture<WebApplicationFactory<Pr
 
         Assert.Equal(HttpStatusCode.ServiceUnavailable, response.StatusCode);
         Assert.DoesNotContain("Supabase", body, StringComparison.OrdinalIgnoreCase);
+    }
+
+    [Fact]
+    public async Task Development_frontend_origin_is_allowed_for_preflight_requests()
+    {
+        using var factory = new WebApplicationFactory<Program>()
+            .WithWebHostBuilder(builder => builder.UseEnvironment("Development"));
+        using var request = new HttpRequestMessage(HttpMethod.Options, "/api/health");
+        request.Headers.Add("Origin", "http://localhost:4200");
+        request.Headers.Add("Access-Control-Request-Method", "GET");
+
+        using var response = await factory.CreateClient().SendAsync(request);
+
+        Assert.True(response.IsSuccessStatusCode);
+        Assert.Equal("http://localhost:4200", response.Headers.GetValues("Access-Control-Allow-Origin").Single());
     }
 }

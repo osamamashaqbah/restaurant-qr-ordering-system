@@ -18,10 +18,11 @@ describe('PublicOrders', () => {
   afterEach(() => http.verify());
 
   it('creates orders through the ASP.NET API', () => {
-    service.create({ customerName: 'Sara', customerWhatsapp: '962791234567', tableNumber: '7', items: [] }).subscribe();
+    service.create({ customerName: 'Sara', customerWhatsapp: '962791234567', tableNumber: '7', items: [] }, 'a'.repeat(43)).subscribe();
 
     const request = http.expectOne('/api/public/orders');
     expect(request.request.method).toBe('POST');
+    expect(request.request.headers.get('Idempotency-Key')).toBe('a'.repeat(43));
     expect(request.request.body).not.toHaveProperty('total');
     request.flush({ trackingToken: 'a'.repeat(43) });
   });

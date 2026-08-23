@@ -21,11 +21,22 @@ public sealed class PublicOrdersController(
             return BadRequest(new ValidationProblemDetails(validationErrors));
 
         var token = TrackingToken.Create();
+        if (Request.Headers.TryGetValue("Idempotency-Key", out var idempotencyKey) && !string.IsNullOrWhiteSpace(idempotencyKey))
+        {
+            if (!TrackingToken.TryParse(idempotencyKey.ToString(), out token))
+                return BadRequest(new { error = "invalid_idempotency_key" });
+        }
+
+        var requestHash = PublicOrderRequestFingerprint.Create(request);
         try
         {
-            await store.CreateAsync(request, token.Hash, cancellationToken);
+            await store.CreateAsync(request, token.Hash, requestHash, cancellationToken);
             Response.Headers.CacheControl = "no-store";
             return StatusCode(StatusCodes.Status201Created, new CreateOrderResponse(token.Value));
+        }
+        catch (PublicOrderIdempotencyConflictException)
+        {
+            return Conflict(new { error = "idempotency_key_reused" });
         }
         catch (PublicOrderStoreUnavailableException exception)
         {

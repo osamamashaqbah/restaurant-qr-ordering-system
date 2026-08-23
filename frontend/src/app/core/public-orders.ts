@@ -16,7 +16,9 @@ export interface CreateOrderResponse {
 export class PublicOrdersService {
   private readonly http = inject(HttpClient);
 
-  create(request: CreateOrderRequest) {
-    return this.http.post<CreateOrderResponse>('/api/public/orders', request);
+  create(request: CreateOrderRequest, idempotencyKey: string) {
+    return this.http.post<CreateOrderResponse>('/api/public/orders', request, {
+      headers: { 'Idempotency-Key': idempotencyKey },
+    });
   }
 }

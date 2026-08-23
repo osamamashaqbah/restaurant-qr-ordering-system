@@ -31,6 +31,18 @@ public sealed record TrackingToken(string Value, byte[] Hash)
         }
     }
 
+    public static bool TryParse(string value, out TrackingToken token)
+    {
+        if (TryHash(value, out var hash))
+        {
+            token = new TrackingToken(value, hash);
+            return true;
+        }
+
+        token = null!;
+        return false;
+    }
+
     private static string ToBase64Url(byte[] bytes) =>
         Convert.ToBase64String(bytes).TrimEnd('=').Replace('+', '-').Replace('/', '_');
 }

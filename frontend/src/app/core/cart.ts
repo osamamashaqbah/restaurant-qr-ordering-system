@@ -13,6 +13,7 @@ export interface CartItem {
 @Injectable({ providedIn: 'root' })
 export class CartService {
   private readonly storageKey = 'cart_items';
+  private readonly orderAttemptKeyStorageKey = 'cart_order_attempt_key';
   private readonly storage = typeof sessionStorage === 'undefined' ? null : sessionStorage;
   private readonly current = signal<CartItem[]>(this.load());
 
@@ -34,6 +35,7 @@ export class CartService {
         { menuItemId: item.id, nameEn: item.nameEn, nameAr: item.nameAr, price: item.price, quantity: 1, notes: '' },
       ];
     });
+    this.clearOrderAttemptKey();
     this.persist();
   }
 
@@ -43,6 +45,7 @@ export class CartService {
         .map((item) => (item.menuItemId === menuItemId ? { ...item, quantity: Math.min(50, quantity) } : item))
         .filter((item) => item.quantity > 0),
     );
+    this.clearOrderAttemptKey();
     this.persist();
   }
 
@@ -50,16 +53,34 @@ export class CartService {
     this.current.update((items) =>
       items.map((item) => (item.menuItemId === menuItemId ? { ...item, notes: notes.slice(0, 300) } : item)),
     );
+    this.clearOrderAttemptKey();
     this.persist();
   }
 
   clear() {
     this.current.set([]);
+    this.clearOrderAttemptKey();
     this.storage?.removeItem(this.storageKey);
+  }
+
+  getOrderAttemptKey(): string {
+    const existing = this.storage?.getItem(this.orderAttemptKeyStorageKey);
+    if (existing && /^[A-Za-z0-9_-]{43}$/.test(existing)) return existing;
+
+    const bytes = new Uint8Array(32);
+    globalThis.crypto.getRandomValues(bytes);
+    const raw = btoa(String.fromCharCode(...bytes));
+    const key = raw.replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
+    this.storage?.setItem(this.orderAttemptKeyStorageKey, key);
+    return key;
   }
 
   private persist() {
     this.storage?.setItem(this.storageKey, JSON.stringify(this.current()));
+  }
+
+  private clearOrderAttemptKey() {
+    this.storage?.removeItem(this.orderAttemptKeyStorageKey);
   }
 
   private load(): CartItem[] {

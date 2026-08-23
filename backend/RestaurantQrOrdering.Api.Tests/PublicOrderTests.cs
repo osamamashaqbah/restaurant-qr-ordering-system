@@ -17,6 +17,28 @@ public sealed class PublicOrderTests
         Assert.Equal(43, token.Value.Length);
     }
 
+    [Fact]
+    public void Request_fingerprint_is_stable_for_the_same_normalized_order()
+    {
+        var itemId = Guid.NewGuid();
+        var first = new CreateOrderRequest
+        {
+            CustomerName = " Sara ",
+            CustomerWhatsapp = " 962791234567 ",
+            TableNumber = " 7 ",
+            Items = [new CreateOrderItemRequest { MenuItemId = itemId, Quantity = 2, Notes = null }],
+        };
+        var retry = new CreateOrderRequest
+        {
+            CustomerName = "Sara",
+            CustomerWhatsapp = "962791234567",
+            TableNumber = "7",
+            Items = [new CreateOrderItemRequest { MenuItemId = itemId, Quantity = 2, Notes = string.Empty }],
+        };
+
+        Assert.Equal(PublicOrderRequestFingerprint.Create(first), PublicOrderRequestFingerprint.Create(retry));
+    }
+
     [Theory]
     [InlineData("")]
     [InlineData("not-a-token")]
@@ -104,6 +126,43 @@ public sealed class PublicOrderTests
     }
 
     [Fact]
+    public async Task Invalid_idempotency_key_is_rejected_before_order_creation()
+    {
+        var store = new RecordingStore();
+        var controller = CreateController(store, "not-a-token");
+        var request = new CreateOrderRequest
+        {
+            CustomerName = "Sara",
+            CustomerWhatsapp = "962791234567",
+            TableNumber = "7",
+            Items = [new CreateOrderItemRequest { MenuItemId = Guid.NewGuid(), Quantity = 1 }],
+        };
+
+        var result = await controller.Create(request, CancellationToken.None);
+
+        Assert.IsType<BadRequestObjectResult>(result.Result);
+        Assert.False(store.CreateCalled);
+    }
+
+    [Fact]
+    public async Task Reusing_an_idempotency_key_for_different_data_returns_conflict()
+    {
+        var store = new RecordingStore { CreateException = new PublicOrderIdempotencyConflictException() };
+        var controller = CreateController(store, TrackingToken.Create().Value);
+        var request = new CreateOrderRequest
+        {
+            CustomerName = "Sara",
+            CustomerWhatsapp = "962791234567",
+            TableNumber = "7",
+            Items = [new CreateOrderItemRequest { MenuItemId = Guid.NewGuid(), Quantity = 1 }],
+        };
+
+        var result = await controller.Create(request, CancellationToken.None);
+
+        Assert.IsType<ConflictObjectResult>(result.Result);
+    }
+
+    [Fact]
     public void Null_whatsapp_is_rejected_without_throwing()
     {
         var errors = PublicOrderValidation.Validate(new CreateOrderRequest
@@ -117,11 +176,15 @@ public sealed class PublicOrderTests
         Assert.Contains(nameof(CreateOrderRequest.CustomerWhatsapp), errors.Keys);
     }
 
-    private static PublicOrdersController CreateController(RecordingStore store)
+    private static PublicOrdersController CreateController(RecordingStore store, string? idempotencyKey = null)
     {
+        var httpContext = new DefaultHttpContext();
+        if (idempotencyKey is not null)
+            httpContext.Request.Headers["Idempotency-Key"] = idempotencyKey;
+
         var controller = new PublicOrdersController(store, NullLogger<PublicOrdersController>.Instance)
         {
-            ControllerContext = new ControllerContext { HttpContext = new DefaultHttpContext() },
+            ControllerContext = new ControllerContext { HttpContext = httpContext },
         };
         return controller;
     }
@@ -130,14 +193,20 @@ public sealed class PublicOrderTests
     {
         public bool LookupCalled { get; private set; }
         public bool CreateCalled { get; private set; }
+        public Exception? CreateException { get; init; }
         public PublicOrderTracking? Tracking { get; init; }
 
-        public Task<Guid> CreateAsync(CreateOrderRequest request, ReadOnlyMemory<byte> tokenHash, CancellationToken cancellationToken) =>
+        public Task<Guid> CreateAsync(
+            CreateOrderRequest request,
+            ReadOnlyMemory<byte> tokenHash,
+            ReadOnlyMemory<byte> requestHash,
+            CancellationToken cancellationToken) =>
             CreateOrder();
 
         private Task<Guid> CreateOrder()
         {
             CreateCalled = true;
+            if (CreateException is not null) return Task.FromException<Guid>(CreateException);
             return Task.FromResult(Guid.NewGuid());
         }
 

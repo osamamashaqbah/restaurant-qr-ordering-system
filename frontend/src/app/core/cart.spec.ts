@@ -34,6 +34,16 @@ describe('Cart', () => {
     expect(JSON.parse(sessionStorage.getItem('cart_items')!)[0].notes).toHaveLength(300);
   });
 
+  it('keeps the order attempt key for retries and rotates it when the cart changes', () => {
+    const first = service.getOrderAttemptKey();
+    expect(first).toHaveLength(43);
+    expect(service.getOrderAttemptKey()).toBe(first);
+
+    service.updateNotes('missing-item', 'changed');
+
+    expect(service.getOrderAttemptKey()).not.toBe(first);
+  });
+
   it('is provided by the root injector', () => {
     expect(service).toBeTruthy();
   });

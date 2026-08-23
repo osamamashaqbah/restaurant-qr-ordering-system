@@ -11,12 +11,13 @@ public sealed class NpgsqlPublicOrderStore(NpgsqlDataSource dataSource) : IPubli
     public async Task<Guid> CreateAsync(
         CreateOrderRequest request,
         ReadOnlyMemory<byte> tokenHash,
+        ReadOnlyMemory<byte> requestHash,
         CancellationToken cancellationToken)
     {
         try
         {
             await using var command = dataSource.CreateCommand(
-                "select public.create_order_with_tracking_token($1, $2, $3, $4, $5)");
+                "select public.create_order_with_tracking_token($1, $2, $3, $4, $5, $6)");
             command.Parameters.Add(new NpgsqlParameter { NpgsqlDbType = NpgsqlDbType.Text, Value = request.CustomerName.Trim() });
             command.Parameters.Add(new NpgsqlParameter { NpgsqlDbType = NpgsqlDbType.Text, Value = request.CustomerWhatsapp.Trim() });
             command.Parameters.Add(new NpgsqlParameter { NpgsqlDbType = NpgsqlDbType.Text, Value = request.TableNumber.Trim() });
@@ -33,11 +34,16 @@ public sealed class NpgsqlPublicOrderStore(NpgsqlDataSource dataSource) : IPubli
                     JsonOptions),
             });
             command.Parameters.Add(new NpgsqlParameter { NpgsqlDbType = NpgsqlDbType.Bytea, Value = tokenHash.ToArray() });
+            command.Parameters.Add(new NpgsqlParameter { NpgsqlDbType = NpgsqlDbType.Bytea, Value = requestHash.ToArray() });
 
             var result = await command.ExecuteScalarAsync(cancellationToken);
             return result is Guid orderId
                 ? orderId
                 : throw new PublicOrderStoreUnavailableException();
+        }
+        catch (PostgresException exception) when (exception.SqlState == "P0001" && exception.MessageText == "Idempotency key reused")
+        {
+            throw new PublicOrderIdempotencyConflictException();
         }
         catch (NpgsqlException exception)
         {
@@ -75,7 +81,11 @@ public sealed class NpgsqlPublicOrderStore(NpgsqlDataSource dataSource) : IPubli
 
 public sealed class UnavailablePublicOrderStore : IPublicOrderStore
 {
-    public Task<Guid> CreateAsync(CreateOrderRequest request, ReadOnlyMemory<byte> tokenHash, CancellationToken cancellationToken) =>
+    public Task<Guid> CreateAsync(
+        CreateOrderRequest request,
+        ReadOnlyMemory<byte> tokenHash,
+        ReadOnlyMemory<byte> requestHash,
+        CancellationToken cancellationToken) =>
         throw new PublicOrderStoreUnavailableException();
 
     public Task<PublicOrderTracking?> FindByTokenHashAsync(ReadOnlyMemory<byte> tokenHash, CancellationToken cancellationToken) =>

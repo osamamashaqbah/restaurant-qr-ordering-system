@@ -21,11 +21,21 @@
                     <small>{{ item.descriptionEn }}</small>
                   }
                 </div>
-                <strong>{{ item.price | number: '1.2-2' }}</strong>
+                <div class="item-actions">
+                  <strong>{{ item.price | number: '1.2-2' }}</strong>
+                  @if (item.isAvailable) {
+                    <button type="button" (click)="cart.add(item)">Add</button>
+                  } @else {
+                    <small>Unavailable</small>
+                  }
+                </div>
               </article>
             }
           </div>
         </section>
+      }
+      @if (cart.count() > 0) {
+        <a class="cart-link" routerLink="/cart">View cart ({{ cart.count() }})</a>
       }
     }
   }

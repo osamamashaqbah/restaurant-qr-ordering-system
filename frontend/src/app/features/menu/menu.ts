@@ -1,11 +1,13 @@
 import { Component, DestroyRef, computed, inject, signal } from '@angular/core';
 import { DecimalPipe } from '@angular/common';
+import { RouterLink } from '@angular/router';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { catchError, of } from 'rxjs';
+import { CartService } from '../../core/cart';
 import { PublicMenuResponse, PublicMenuService } from '../../core/public-menu';
 
 @Component({
-  imports: [DecimalPipe],
+  imports: [DecimalPipe, RouterLink],
   selector: 'app-menu',
   styleUrl: './menu.scss',
   templateUrl: './menu.html',
@@ -13,6 +15,7 @@ import { PublicMenuResponse, PublicMenuService } from '../../core/public-menu';
 export class Menu {
   private readonly service = inject(PublicMenuService);
   private readonly destroyRef = inject(DestroyRef);
+  readonly cart = inject(CartService);
 
   readonly state = signal<'loading' | 'ready' | 'error'>('loading');
   readonly menu = signal<PublicMenuResponse | null>(null);

@@ -43,3 +43,27 @@ p {
 .item.unavailable {
   opacity: 0.5;
 }
+
+.item-actions {
+  display: grid;
+  align-content: start;
+  justify-items: end;
+  gap: 0.5rem;
+}
+
+.item-actions button {
+  padding: 0.35rem 0.65rem;
+  border: 1px solid #a65d3e;
+  border-radius: 0.5rem;
+  background: transparent;
+  color: #a65d3e;
+  cursor: pointer;
+  font-weight: 700;
+}
+
+.cart-link {
+  display: inline-block;
+  margin-top: 2rem;
+  color: #a65d3e;
+  font-weight: 700;
+}

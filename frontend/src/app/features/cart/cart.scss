@@ -1,0 +1,91 @@
+.message {
+  margin-top: 2rem;
+  color: #6f675e;
+}
+
+a {
+  display: inline-block;
+  margin-top: 1rem;
+  color: #a65d3e;
+  font-weight: 700;
+}
+
+.items {
+  display: grid;
+  gap: 0.75rem;
+  margin-top: 2rem;
+}
+
+.item {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1rem;
+  border: 1px solid #e1d8c9;
+  border-radius: 1rem;
+}
+
+h2,
+p {
+  margin: 0;
+}
+
+.item p {
+  color: #6f675e;
+}
+
+input {
+  display: block;
+  width: 100%;
+  margin-top: 0.75rem;
+  padding: 0.5rem;
+  border: 1px solid #d8cdbc;
+  border-radius: 0.5rem;
+}
+
+.controls {
+  display: grid;
+  align-content: start;
+  justify-items: center;
+  gap: 0.35rem;
+}
+
+.controls button {
+  width: 2rem;
+  height: 2rem;
+  border: 1px solid #d8cdbc;
+  border-radius: 50%;
+  background: transparent;
+  cursor: pointer;
+}
+
+.summary {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 1.5rem;
+  padding-top: 1rem;
+  border-top: 1px dashed #e1d8c9;
+}
+
+.error {
+  margin-top: 1rem;
+  color: #a33e35;
+}
+
+.submit {
+  width: 100%;
+  margin-top: 1rem;
+  padding: 0.8rem 1rem;
+  border: 0;
+  border-radius: 0.75rem;
+  background: #a65d3e;
+  color: white;
+  cursor: pointer;
+  font: inherit;
+  font-weight: 700;
+}
+
+.submit:disabled {
+  cursor: wait;
+  opacity: 0.6;
+}

@@ -14,7 +14,7 @@ public static partial class PublicOrderValidation
         if (string.IsNullOrWhiteSpace(request.CustomerName) || request.CustomerName.Trim().Length > 100)
             errors[nameof(request.CustomerName)] = ["Customer name must be between 1 and 100 characters."];
 
-        if (!E164Number().IsMatch(request.CustomerWhatsapp.Trim()))
+        if (string.IsNullOrWhiteSpace(request.CustomerWhatsapp) || !E164Number().IsMatch(request.CustomerWhatsapp.Trim()))
             errors[nameof(request.CustomerWhatsapp)] = ["Customer WhatsApp must be a 7-15 digit international number."];
 
         if (string.IsNullOrWhiteSpace(request.TableNumber) || request.TableNumber.Trim().Length > 20)

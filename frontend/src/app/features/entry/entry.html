@@ -1,0 +1,33 @@
+<form class="form" [formGroup]="form" (ngSubmit)="submit()" novalidate>
+  <label>
+    <span>Name</span>
+    <input formControlName="name" autocomplete="name" />
+    @if (form.controls.name.touched && form.controls.name.invalid) {
+      <small>Name is required and must be at most 100 characters.</small>
+    }
+  </label>
+
+  <div class="phone-row">
+    <label>
+      <span>Country code</span>
+      <input formControlName="countryCode" inputmode="numeric" />
+    </label>
+    <label>
+      <span>WhatsApp number</span>
+      <input formControlName="whatsappLocal" inputmode="tel" autocomplete="tel" />
+    </label>
+  </div>
+  @if (form.controls.whatsappLocal.touched && form.controls.whatsappLocal.invalid) {
+    <small>Enter a valid WhatsApp number.</small>
+  }
+
+  <label>
+    <span>Table number</span>
+    <input formControlName="tableNumber" />
+    @if (form.controls.tableNumber.touched && form.controls.tableNumber.invalid) {
+      <small>Table number is required and must be at most 20 characters.</small>
+    }
+  </label>
+
+  <button type="submit">See the menu</button>
+</form>

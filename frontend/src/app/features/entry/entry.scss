@@ -1,0 +1,43 @@
+.form {
+  display: grid;
+  gap: 1rem;
+  margin-top: 2rem;
+}
+
+label {
+  display: grid;
+  gap: 0.35rem;
+  color: #2d2a26;
+  font-weight: 600;
+}
+
+input {
+  width: 100%;
+  padding: 0.7rem 0.8rem;
+  border: 1px solid #d8cdbc;
+  border-radius: 0.65rem;
+  font: inherit;
+}
+
+small {
+  color: #a33e35;
+  font-weight: 500;
+}
+
+.phone-row {
+  display: grid;
+  grid-template-columns: 6rem 1fr;
+  gap: 0.75rem;
+}
+
+button {
+  margin-top: 0.5rem;
+  padding: 0.8rem 1rem;
+  border: 0;
+  border-radius: 0.75rem;
+  background: #a65d3e;
+  color: white;
+  cursor: pointer;
+  font: inherit;
+  font-weight: 700;
+}

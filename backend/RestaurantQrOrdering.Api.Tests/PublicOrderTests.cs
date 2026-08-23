@@ -81,6 +81,42 @@ public sealed class PublicOrderTests
         Assert.False(store.CreateCalled);
     }
 
+    [Fact]
+    public async Task Valid_create_request_returns_only_a_tracking_token()
+    {
+        var store = new RecordingStore();
+        var controller = CreateController(store);
+        var request = new CreateOrderRequest
+        {
+            CustomerName = "Sara",
+            CustomerWhatsapp = "962791234567",
+            TableNumber = "7",
+            Items = [new CreateOrderItemRequest { MenuItemId = Guid.NewGuid(), Quantity = 2 }],
+        };
+
+        var result = await controller.Create(request, CancellationToken.None);
+
+        var response = Assert.IsType<ObjectResult>(result.Result);
+        var body = Assert.IsType<CreateOrderResponse>(response.Value);
+        Assert.Equal(StatusCodes.Status201Created, response.StatusCode);
+        Assert.True(TrackingToken.TryHash(body.TrackingToken, out _));
+        Assert.True(store.CreateCalled);
+    }
+
+    [Fact]
+    public void Null_whatsapp_is_rejected_without_throwing()
+    {
+        var errors = PublicOrderValidation.Validate(new CreateOrderRequest
+        {
+            CustomerName = "Sara",
+            CustomerWhatsapp = null!,
+            TableNumber = "7",
+            Items = [new CreateOrderItemRequest { MenuItemId = Guid.NewGuid(), Quantity = 1 }],
+        });
+
+        Assert.Contains(nameof(CreateOrderRequest.CustomerWhatsapp), errors.Keys);
+    }
+
     private static PublicOrdersController CreateController(RecordingStore store)
     {
         var controller = new PublicOrdersController(store, NullLogger<PublicOrdersController>.Instance)

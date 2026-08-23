@@ -1,0 +1,37 @@
+<section class="staff-page" aria-labelledby="admin-title">
+  <header class="staff-header">
+    <div>
+      <p class="eyebrow">Admin</p>
+      <h1 id="admin-title">Staff roles</h1>
+    </div>
+    <button type="button" class="sign-out" (click)="auth.signOut()">Sign out</button>
+  </header>
+
+  @if (error()) {
+    <p class="error" role="alert">{{ error() }}</p>
+  }
+  @if (state() === 'loading') {
+    <p class="message">Loading staff…</p>
+  } @else if (state() === 'error') {
+    <p class="message">We could not load staff.</p>
+  } @else {
+    <div class="staff-list">
+      @for (member of staff(); track member.id) {
+        <div class="staff-row">
+          <div>
+            <strong>{{ member.fullName || 'Unnamed staff' }}</strong>
+            <p>{{ member.email }}</p>
+          </div>
+          <select [value]="member.role ?? ''" [disabled]="busyId() === member.id" (change)="updateRole(member, $event)">
+            <option value="" disabled>Unassigned</option>
+            @for (role of roles; track role) {
+              <option [value]="role">{{ role }}</option>
+            }
+          </select>
+        </div>
+      } @empty {
+        <p class="message">No staff accounts found.</p>
+      }
+    </div>
+  }
+</section>

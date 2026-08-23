@@ -41,9 +41,75 @@ p {
   color: #6f675e;
 }
 
+.tabs {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1.5rem;
+  border-bottom: 1px solid #e1d8c9;
+}
+
+.tabs button {
+  padding: 0 0 0.65rem;
+  border: 0;
+  border-bottom: 2px solid transparent;
+  background: transparent;
+  color: #6f675e;
+  cursor: pointer;
+  font: inherit;
+  font-weight: 700;
+}
+
+.tabs button.active {
+  border-bottom-color: #a65d3e;
+  color: #2d2a26;
+}
+
 .summary,
 .orders {
   margin-top: 1.5rem;
+}
+
+.availability {
+  display: grid;
+  gap: 1.5rem;
+  margin-top: 1.5rem;
+}
+
+.availability h2 {
+  margin: 0 0 0.5rem;
+  font-size: 1.1rem;
+}
+
+.availability-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.85rem 0;
+  border-bottom: 1px solid #e1d8c9;
+}
+
+.availability-row p {
+  margin: 0.2rem 0 0;
+  color: #6f675e;
+}
+
+.availability-toggle {
+  min-width: 6.5rem;
+  padding: 0.55rem 0.7rem;
+  border: 0;
+  border-radius: 999px;
+  background: #6f8b6c;
+  color: #fff;
+  cursor: pointer;
+  font: inherit;
+  font-size: 0.8rem;
+  font-weight: 700;
+}
+
+.availability-toggle.off {
+  background: #d8cdbc;
+  color: #6f675e;
 }
 
 .orders {

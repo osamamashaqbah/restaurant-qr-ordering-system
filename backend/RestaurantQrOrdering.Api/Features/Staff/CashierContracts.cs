@@ -19,3 +19,8 @@ public enum CashierCommandResult
     InvalidTransition,
     NotAuthorized,
 }
+
+public sealed class SetAvailabilityRequest
+{
+    public bool IsAvailable { get; init; }
+}

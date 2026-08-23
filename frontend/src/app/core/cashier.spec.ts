@@ -28,4 +28,18 @@ describe('CashierService', () => {
     expect(request.request.method).toBe('POST');
     request.flush(null);
   });
+
+  it('loads cashier availability through the staff endpoint', () => {
+    service.getMenu().subscribe();
+    const request = controller.expectOne('/api/staff/cashier/menu');
+    expect(request.request.method).toBe('GET');
+    request.flush({ categories: [], items: [] });
+  });
+
+  it('uses the explicit availability command', () => {
+    service.setAvailability('item-1', false).subscribe();
+    const request = controller.expectOne('/api/staff/cashier/menu/items/item-1/availability');
+    expect(request.request.body).toEqual({ isAvailable: false });
+    request.flush(null);
+  });
 });

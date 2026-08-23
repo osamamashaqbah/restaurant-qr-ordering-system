@@ -90,6 +90,34 @@ public sealed class NpgsqlCashierStore(NpgsqlDataSource dataSource) : ICashierSt
             throw new CashierStoreUnavailableException(exception);
         }
     }
+
+    public async Task<CashierCommandResult> SetAvailabilityAsync(
+        Guid itemId,
+        Guid actorId,
+        bool isAvailable,
+        CancellationToken cancellationToken)
+    {
+        try
+        {
+            await using var command = dataSource.CreateCommand(
+                "select public.staff_set_item_availability($1, $2, $3)");
+            command.Parameters.Add(new NpgsqlParameter { NpgsqlDbType = NpgsqlDbType.Uuid, Value = itemId });
+            command.Parameters.Add(new NpgsqlParameter { NpgsqlDbType = NpgsqlDbType.Uuid, Value = actorId });
+            command.Parameters.Add(new NpgsqlParameter { NpgsqlDbType = NpgsqlDbType.Boolean, Value = isAvailable });
+
+            return (await command.ExecuteScalarAsync(cancellationToken))?.ToString() switch
+            {
+                "ok" => CashierCommandResult.Succeeded,
+                "not_found" => CashierCommandResult.NotFound,
+                "not_authorized" => CashierCommandResult.NotAuthorized,
+                _ => throw new CashierStoreUnavailableException(),
+            };
+        }
+        catch (NpgsqlException exception)
+        {
+            throw new CashierStoreUnavailableException(exception);
+        }
+    }
 }
 
 public sealed class UnavailableCashierStore : ICashierStore
@@ -100,6 +128,13 @@ public sealed class UnavailableCashierStore : ICashierStore
     public Task<CashierCommandResult> CloseAsync(
         Guid orderId,
         Guid actorId,
+        CancellationToken cancellationToken) =>
+        throw new CashierStoreUnavailableException();
+
+    public Task<CashierCommandResult> SetAvailabilityAsync(
+        Guid itemId,
+        Guid actorId,
+        bool isAvailable,
         CancellationToken cancellationToken) =>
         throw new CashierStoreUnavailableException();
 }

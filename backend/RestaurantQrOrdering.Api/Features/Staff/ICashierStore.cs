@@ -8,6 +8,12 @@ public interface ICashierStore
         Guid orderId,
         Guid actorId,
         CancellationToken cancellationToken);
+
+    Task<CashierCommandResult> SetAvailabilityAsync(
+        Guid itemId,
+        Guid actorId,
+        bool isAvailable,
+        CancellationToken cancellationToken);
 }
 
 public sealed class CashierStoreUnavailableException(Exception? innerException = null)

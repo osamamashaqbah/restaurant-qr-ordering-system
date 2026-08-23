@@ -2,6 +2,7 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using RestaurantQrOrdering.Api.Features.PublicMenu;
 
 namespace RestaurantQrOrdering.Api.Features.Staff;
 
@@ -10,6 +11,7 @@ namespace RestaurantQrOrdering.Api.Features.Staff;
 [Authorize(Policy = StaffPolicies.Cashier)]
 public sealed class CashierController(
     ICashierStore store,
+    IPublicMenuStore menuStore,
     ILogger<CashierController> logger) : ControllerBase
 {
     [HttpGet("orders")]
@@ -57,6 +59,52 @@ public sealed class CashierController(
         catch (CashierStoreUnavailableException exception)
         {
             logger.LogError(exception, "Cashier order close failed");
+            return Problem(statusCode: StatusCodes.Status503ServiceUnavailable, title: "Cashier service unavailable");
+        }
+    }
+
+    [HttpGet("menu")]
+    [ProducesResponseType(typeof(PublicMenuResponse), StatusCodes.Status200OK)]
+    public async Task<ActionResult<PublicMenuResponse>> GetMenu(CancellationToken cancellationToken)
+    {
+        try
+        {
+            Response.Headers.CacheControl = "no-store";
+            return Ok(await menuStore.GetAsync(cancellationToken));
+        }
+        catch (PublicMenuStoreUnavailableException exception)
+        {
+            logger.LogError(exception, "Cashier menu load failed");
+            return Problem(statusCode: StatusCodes.Status503ServiceUnavailable, title: "Cashier service unavailable");
+        }
+    }
+
+    [HttpPost("menu/items/{itemId:guid}/availability")]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    public async Task<ActionResult> SetAvailability(
+        Guid itemId,
+        SetAvailabilityRequest request,
+        CancellationToken cancellationToken)
+    {
+        var subject = User.FindFirstValue(JwtRegisteredClaimNames.Sub)
+            ?? User.FindFirstValue(ClaimTypes.NameIdentifier);
+        if (!Guid.TryParse(subject, out var actorId))
+            return Unauthorized();
+
+        try
+        {
+            return await store.SetAvailabilityAsync(itemId, actorId, request.IsAvailable, cancellationToken) switch
+            {
+                CashierCommandResult.Succeeded => NoContent(),
+                CashierCommandResult.NotFound => NotFound(),
+                CashierCommandResult.NotAuthorized => Forbid(),
+                _ => Problem(statusCode: StatusCodes.Status503ServiceUnavailable, title: "Cashier service unavailable"),
+            };
+        }
+        catch (CashierStoreUnavailableException exception)
+        {
+            logger.LogError(exception, "Cashier availability update failed");
             return Problem(statusCode: StatusCodes.Status503ServiceUnavailable, title: "Cashier service unavailable");
         }
     }

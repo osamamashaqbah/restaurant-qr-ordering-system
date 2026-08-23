@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
+import { PublicMenuResponse } from './public-menu';
 
 export interface CashierOrder {
   id: string;
@@ -29,5 +30,13 @@ export class CashierService {
 
   close(orderId: string) {
     return this.http.post<void>(`/api/staff/cashier/orders/${orderId}/close`, {});
+  }
+
+  getMenu() {
+    return this.http.get<PublicMenuResponse>('/api/staff/cashier/menu');
+  }
+
+  setAvailability(itemId: string, isAvailable: boolean) {
+    return this.http.post<void>(`/api/staff/cashier/menu/items/${itemId}/availability`, { isAvailable });
   }
 }

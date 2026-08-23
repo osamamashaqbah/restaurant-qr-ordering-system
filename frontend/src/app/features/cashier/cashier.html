@@ -2,7 +2,7 @@
   <header class="staff-header">
     <div>
       <p class="eyebrow">Cashier</p>
-      <h1 id="cashier-title">Ready orders</h1>
+      <h1 id="cashier-title">{{ tab() === 'orders' ? 'Ready orders' : 'Menu availability' }}</h1>
     </div>
     <button type="button" class="sign-out" (click)="auth.signOut()">Sign out</button>
   </header>
@@ -11,11 +11,16 @@
     <p class="error" role="alert">{{ error() }}</p>
   }
 
-  @if (state() === 'loading') {
+  <nav class="tabs" aria-label="Cashier sections">
+    <button type="button" [class.active]="tab() === 'orders'" (click)="showOrders()">Orders</button>
+    <button type="button" [class.active]="tab() === 'availability'" (click)="showAvailability()">Availability</button>
+  </nav>
+
+  @if (tab() === 'orders' && state() === 'loading') {
     <p class="message">Loading orders…</p>
-  } @else if (state() === 'error') {
+  } @else if (tab() === 'orders' && state() === 'error') {
     <p class="message">We could not load cashier orders.</p>
-  } @else {
+  } @else if (tab() === 'orders') {
     <p class="summary">{{ newCount() }} new · {{ preparingCount() }} preparing · {{ readyOrders().length }} ready</p>
 
     <div class="orders">
@@ -39,6 +44,40 @@
         </article>
       } @empty {
         <p class="empty">No orders ready yet.</p>
+      }
+    </div>
+  } @else if (menuState() === 'loading') {
+    <p class="message">Loading menu…</p>
+  } @else if (menuState() === 'error') {
+    <p class="message">We could not load menu availability.</p>
+  } @else if (menu(); as currentMenu) {
+    <div class="availability">
+      @for (category of currentMenu.categories; track category.id) {
+        @if (itemsByCategory().get(category.id); as items) {
+          @if (items.length > 0) {
+            <section>
+              <h2>{{ category.nameEn }}</h2>
+              @for (item of items; track item.id) {
+                <div class="availability-row">
+                  <div>
+                    <strong>{{ item.nameEn }}</strong>
+                    <p>{{ item.price | number: '1.2-2' }}</p>
+                  </div>
+                  <button
+                    type="button"
+                    class="availability-toggle"
+                    role="switch"
+                    [attr.aria-checked]="item.isAvailable"
+                    [class.off]="!item.isAvailable"
+                    [disabled]="busyId() === item.id"
+                    (click)="toggleAvailability(item)">
+                    {{ item.isAvailable ? 'Available' : 'Unavailable' }}
+                  </button>
+                </div>
+              }
+            </section>
+          }
+        }
       }
     </div>
   }

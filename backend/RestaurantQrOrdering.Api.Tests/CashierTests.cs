@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.Extensions.Logging.Abstractions;
+using RestaurantQrOrdering.Api.Features.PublicMenu;
 using RestaurantQrOrdering.Api.Features.Staff;
 
 namespace RestaurantQrOrdering.Api.Tests;
@@ -70,6 +71,23 @@ public sealed class CashierTests
     }
 
     [Fact]
+    public async Task Cashier_availability_uses_a_separate_command()
+    {
+        var store = new RecordingCashierStore { CommandResult = CashierCommandResult.Succeeded };
+        var actorId = Guid.NewGuid();
+        var controller = CreateController(store, actorId);
+
+        var result = await controller.SetAvailability(
+            Guid.NewGuid(),
+            new SetAvailabilityRequest { IsAvailable = false },
+            CancellationToken.None);
+
+        Assert.IsType<NoContentResult>(result);
+        Assert.Equal(actorId, store.ActorId);
+        Assert.False(store.IsAvailable);
+    }
+
+    [Fact]
     public async Task Cashier_routes_require_authentication()
     {
         using var factory = new WebApplicationFactory<Program>();
@@ -90,7 +108,10 @@ public sealed class CashierTests
                     [new Claim(JwtRegisteredClaimNames.Sub, actorId.Value.ToString())],
                     "test")),
         };
-        return new CashierController(store, NullLogger<CashierController>.Instance)
+        return new CashierController(
+            store,
+            new FakeMenuStore(),
+            NullLogger<CashierController>.Instance)
         {
             ControllerContext = new ControllerContext { HttpContext = httpContext },
         };
@@ -102,6 +123,7 @@ public sealed class CashierTests
         public CashierCommandResult CommandResult { get; init; } = CashierCommandResult.NotFound;
         public bool CommandCalled { get; private set; }
         public Guid ActorId { get; private set; }
+        public bool IsAvailable { get; private set; }
 
         public Task<IReadOnlyList<CashierOrder>> GetOrdersAsync(CancellationToken cancellationToken) =>
             Task.FromResult(Orders);
@@ -115,5 +137,23 @@ public sealed class CashierTests
             ActorId = actorId;
             return Task.FromResult(CommandResult);
         }
+
+        public Task<CashierCommandResult> SetAvailabilityAsync(
+            Guid itemId,
+            Guid actorId,
+            bool isAvailable,
+            CancellationToken cancellationToken)
+        {
+            CommandCalled = true;
+            ActorId = actorId;
+            IsAvailable = isAvailable;
+            return Task.FromResult(CommandResult);
+        }
+    }
+
+    private sealed class FakeMenuStore : IPublicMenuStore
+    {
+        public Task<PublicMenuResponse> GetAsync(CancellationToken cancellationToken) =>
+            Task.FromResult(new PublicMenuResponse([], []));
     }
 }

@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { provideRouter } from '@angular/router';
 import { signal } from '@angular/core';
 import { of } from 'rxjs';
 import { AdminService } from '../../core/admin';
@@ -14,6 +15,7 @@ describe('Admin', () => {
     await TestBed.configureTestingModule({
       imports: [Admin],
       providers: [
+        provideRouter([]),
         { provide: AdminService, useValue: { getStaff: () => of([{ id: 'staff-1', email: 'chef@example.com', fullName: 'Chef', role: 'kitchen', createdAt: new Date().toISOString() }]), updateRole } },
         { provide: StaffAuthService, useValue: { identity: signal({ role: 'admin', fullName: 'Admin' }), signOut: vi.fn() } },
       ],

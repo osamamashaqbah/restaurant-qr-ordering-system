@@ -35,7 +35,11 @@
         <select formControlName="categoryId"><option value="">Choose category</option>@for (category of currentMenu.categories; track category.id) { <option [value]="category.id">{{ category.nameEn }}</option> }</select>
         <input placeholder="Name (English)" formControlName="nameEn" />
         <input placeholder="Name (Arabic)" formControlName="nameAr" />
+        <textarea placeholder="Description (English)" formControlName="descriptionEn" maxlength="1000"></textarea>
+        <textarea placeholder="Description (Arabic)" formControlName="descriptionAr" maxlength="1000"></textarea>
         <input type="number" min="0" step="0.01" placeholder="Price" formControlName="price" />
+        <input placeholder="Image URL" formControlName="imageUrl" maxlength="500" />
+        <input placeholder="Allergens (comma separated)" formControlName="allergens" />
         <label class="check"><input type="checkbox" formControlName="isAvailable" /> Available</label>
         <button type="submit" [disabled]="itemForm.invalid || busyId()">{{ editingItemId() ? 'Save' : 'Add' }}</button>
         @if (editingItemId()) { <button type="button" class="muted" (click)="cancelItemEdit()">Cancel</button> }

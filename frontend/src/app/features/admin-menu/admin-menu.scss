@@ -50,6 +50,7 @@ form {
 }
 
 input,
+textarea,
 select,
 button {
   padding: 0.55rem 0.65rem;
@@ -57,6 +58,11 @@ button {
   border-radius: 0.55rem;
   background: #fffdf8;
   font: inherit;
+}
+
+textarea {
+  min-height: 4rem;
+  resize: vertical;
 }
 
 button {

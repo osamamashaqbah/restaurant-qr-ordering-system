@@ -34,7 +34,11 @@ export class AdminMenu {
     categoryId: ['', Validators.required],
     nameEn: ['', Validators.required],
     nameAr: ['', Validators.required],
+    descriptionEn: ['', Validators.maxLength(1000)],
+    descriptionAr: ['', Validators.maxLength(1000)],
     price: [0, [Validators.required, Validators.min(0)]],
+    imageUrl: ['', Validators.maxLength(500)],
+    allergens: [''],
     isAvailable: [true],
   });
 
@@ -93,7 +97,13 @@ export class AdminMenu {
   saveItem(): void {
     if (this.itemForm.invalid || this.busyId()) return;
     const value = this.itemForm.getRawValue();
-    const input: MenuItemInput = { ...value, descriptionEn: '', descriptionAr: '', imageUrl: null, allergens: [] };
+    const input: MenuItemInput = {
+      ...value,
+      descriptionEn: value.descriptionEn.trim(),
+      descriptionAr: value.descriptionAr.trim(),
+      imageUrl: value.imageUrl.trim() || null,
+      allergens: value.allergens.split(',').map((allergen) => allergen.trim()).filter(Boolean),
+    };
     const id = this.editingItemId();
     this.busyId.set(id ?? 'new-item');
     const request: Observable<unknown> = id ? this.service.updateItem(id, input) : this.service.createItem(input);
@@ -112,12 +122,32 @@ export class AdminMenu {
 
   editItem(item: PublicMenuItem): void {
     this.editingItemId.set(item.id);
-    this.itemForm.setValue({ categoryId: item.categoryId, nameEn: item.nameEn, nameAr: item.nameAr, price: item.price, isAvailable: item.isAvailable });
+    this.itemForm.setValue({
+      categoryId: item.categoryId,
+      nameEn: item.nameEn,
+      nameAr: item.nameAr,
+      descriptionEn: item.descriptionEn,
+      descriptionAr: item.descriptionAr,
+      price: item.price,
+      imageUrl: item.imageUrl ?? '',
+      allergens: item.allergens.join(', '),
+      isAvailable: item.isAvailable,
+    });
   }
 
   cancelItemEdit(): void {
     this.editingItemId.set(null);
-    this.itemForm.reset({ categoryId: '', nameEn: '', nameAr: '', price: 0, isAvailable: true });
+    this.itemForm.reset({
+      categoryId: '',
+      nameEn: '',
+      nameAr: '',
+      descriptionEn: '',
+      descriptionAr: '',
+      price: 0,
+      imageUrl: '',
+      allergens: '',
+      isAvailable: true,
+    });
   }
 
   deleteItem(id: string): void {

@@ -19,6 +19,9 @@
 
 # production
 /build
+**/bin/
+**/obj/
+frontend/dist/
 
 # misc
 .DS_Store

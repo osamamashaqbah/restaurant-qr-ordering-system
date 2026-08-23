@@ -1,0 +1,60 @@
+<section class="staff-page" aria-labelledby="kitchen-title">
+  <header class="staff-header">
+    <div>
+      <p class="eyebrow">Kitchen</p>
+      <h1 id="kitchen-title">Order board</h1>
+    </div>
+    <button type="button" class="sign-out" (click)="auth.signOut()">Sign out</button>
+  </header>
+
+  @if (error()) {
+    <p class="error" role="alert">{{ error() }}</p>
+  }
+
+  @if (state() === 'loading') {
+    <p class="message">Loading board…</p>
+  } @else if (state() === 'error') {
+    <p class="message">We could not load the kitchen board.</p>
+  } @else {
+    <div class="board">
+      @for (column of boardColumns; track column.key) {
+        <section class="column" [attr.aria-labelledby]="column.key + '-title'">
+          <div class="column-title">
+            <h2 [id]="column.key + '-title'">{{ column.title }}</h2>
+            <span>{{ columns()[column.key].length }}</span>
+          </div>
+
+          @for (order of columns()[column.key]; track order.id) {
+            <article class="order-card">
+              <div class="order-heading">
+                <strong>Table {{ order.tableNumber }}</strong>
+                <span>{{ ageMinutes(order.createdAt) }}m</span>
+              </div>
+              <ul>
+                @for (item of order.items; track item.id) {
+                  <li>
+                    <span>{{ item.quantity }}× {{ item.nameEn }}</span>
+                    @if (item.notes) { <small>{{ item.notes }}</small> }
+                  </li>
+                }
+              </ul>
+
+              <div class="actions">
+                @if (order.status === 'new') {
+                  <button type="button" (click)="transition(order.id, 'startPreparing')" [disabled]="busyId() === order.id">Start preparing</button>
+                } @else if (order.status === 'preparing') {
+                  <button type="button" (click)="transition(order.id, 'markReady')" [disabled]="busyId() === order.id">Mark ready</button>
+                }
+                @if (order.status !== 'ready') {
+                  <button type="button" class="cancel" (click)="transition(order.id, 'cancel')" [disabled]="busyId() === order.id">Cancel</button>
+                }
+              </div>
+            </article>
+          } @empty {
+            <p class="empty">No orders</p>
+          }
+        </section>
+      }
+    </div>
+  }
+</section>

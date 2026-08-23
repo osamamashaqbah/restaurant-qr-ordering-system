@@ -2,6 +2,15 @@
 
 This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 22.1.5.
 
+## Runtime configuration
+
+Copy the Supabase project URL and anon key into `public/runtime-config.js` for
+local or deployed staff authentication. The anon key is a public client key;
+never put the Supabase database password or service-role key in this file.
+
+The ASP.NET API separately requires `ConnectionStrings__SupabaseDatabase`,
+`Supabase__JwtIssuer`, and `Supabase__JwtSecret` as server-side settings.
+
 ## Development server
 
 To start a local development server, run:

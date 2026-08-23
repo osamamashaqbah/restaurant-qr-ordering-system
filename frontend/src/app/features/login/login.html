@@ -1,0 +1,28 @@
+<section class="login-card" aria-labelledby="login-title">
+  <p class="eyebrow">Restaurant QR Ordering</p>
+  <h1 id="login-title">Staff sign in</h1>
+  <p class="copy">Sign in to open your role-specific workspace.</p>
+
+  <form [formGroup]="form" (ngSubmit)="submit()" novalidate>
+    <label>
+      Email
+      <input type="email" autocomplete="email" formControlName="email" />
+    </label>
+    @if (form.controls.email.touched && form.controls.email.invalid) {
+      <small>Enter a valid email.</small>
+    }
+
+    <label>
+      Password
+      <input type="password" autocomplete="current-password" formControlName="password" />
+    </label>
+
+    @if (error()) {
+      <p class="error" role="alert">{{ error() }}</p>
+    }
+
+    <button type="submit" [disabled]="form.invalid || submitting()">
+      {{ submitting() ? 'Signing in…' : 'Sign in' }}
+    </button>
+  </form>
+</section>

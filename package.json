@@ -9,7 +9,7 @@
     "lint": "eslint",
     "test": "vitest run",
     "test:watch": "vitest",
-    "test:e2e": "playwright test"
+    "test:e2e": "playwright test --config playwright.angular.config.ts"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.4.0",

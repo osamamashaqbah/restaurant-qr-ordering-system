@@ -15,10 +15,10 @@ describe('App', () => {
     expect(app).toBeTruthy();
   });
 
-  it('should render title', async () => {
+  it('should render the neutral application shell', async () => {
     const fixture = TestBed.createComponent(App);
     await fixture.whenStable();
     const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('h1')?.textContent).toContain('Angular frontend ready');
+    expect(compiled.querySelector('.card')?.getAttribute('aria-label')).toBe('Restaurant QR Ordering');
   });
 });

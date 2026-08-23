@@ -20,4 +20,13 @@ describe('Entry', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('shows all required field errors when an empty form is submitted', () => {
+    component.submit();
+    fixture.detectChanges();
+
+    expect(fixture.nativeElement.textContent).toContain('Name is required');
+    expect(fixture.nativeElement.textContent).toContain('WhatsApp number');
+    expect(fixture.nativeElement.textContent).toContain('Table number is required');
+  });
 });

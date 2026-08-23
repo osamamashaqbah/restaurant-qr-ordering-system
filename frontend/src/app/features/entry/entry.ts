@@ -23,15 +23,16 @@ export class Entry {
 
   submit() {
     const value = this.form.getRawValue();
+
+    if (this.form.invalid) {
+      this.form.markAllAsTouched();
+      return;
+    }
+
     const whatsapp = `${value.countryCode}${value.whatsappLocal.replace(/^0+/, '')}`;
     if (!/^[0-9]{7,15}$/.test(whatsapp)) {
       this.form.controls.whatsappLocal.setErrors({ whatsappInvalid: true });
       this.form.controls.whatsappLocal.markAsTouched();
-      return;
-    }
-
-    if (this.form.invalid) {
-      this.form.markAllAsTouched();
       return;
     }
 

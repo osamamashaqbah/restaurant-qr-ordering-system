@@ -54,6 +54,11 @@ Run the API with:
 dotnet run --project backend/RestaurantQrOrdering.Api
 ```
 
+The repository-level `npm run test:e2e` runs the Angular rewrite smoke suite
+against Angular plus the local ASP.NET API. The older Next.js journey specs
+remain under `e2e/` as legacy parity references and require the live Supabase
+project before they can be promoted back into the active suite.
+
 ## Database & security model
 
 Schema, RLS policies, and RPC functions live in Supabase under `supabase/`.

@@ -1,4 +1,7 @@
 .form {
+  width: min(100%, 30rem);
+  margin-right: auto;
+  margin-left: auto;
   display: grid;
   gap: 1rem;
   margin-top: 2rem;

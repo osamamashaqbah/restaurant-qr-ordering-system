@@ -1,0 +1,45 @@
+.message {
+  margin: 2rem 0 0;
+  color: #6f675e;
+}
+
+.category {
+  margin-top: 2rem;
+}
+
+h2,
+h3,
+p {
+  margin: 0;
+}
+
+.category-ar {
+  margin-top: 0.25rem;
+  color: #6f675e;
+}
+
+.items {
+  display: grid;
+  gap: 0.75rem;
+  margin-top: 1rem;
+}
+
+.item {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1rem;
+  border: 1px solid #e1d8c9;
+  border-radius: 1rem;
+}
+
+.item p,
+.item small {
+  display: block;
+  margin-top: 0.25rem;
+  color: #6f675e;
+}
+
+.item.unavailable {
+  opacity: 0.5;
+}

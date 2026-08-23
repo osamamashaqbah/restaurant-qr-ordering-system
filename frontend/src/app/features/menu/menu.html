@@ -1,0 +1,32 @@
+@switch (state()) {
+  @case ('loading') {
+    <p class="message">Loading menu…</p>
+  }
+  @case ('error') {
+    <p class="message">We could not load the menu. Please try again.</p>
+  }
+  @case ('ready') {
+    @if (menu(); as currentMenu) {
+      @for (category of currentMenu.categories; track category.id) {
+        <section class="category">
+          <h2>{{ category.nameEn }}</h2>
+          <p class="category-ar" dir="rtl">{{ category.nameAr }}</p>
+          <div class="items">
+            @for (item of itemsByCategory().get(category.id); track item.id) {
+              <article class="item" [class.unavailable]="!item.isAvailable">
+                <div>
+                  <h3>{{ item.nameEn }}</h3>
+                  <p dir="rtl">{{ item.nameAr }}</p>
+                  @if (item.descriptionEn) {
+                    <small>{{ item.descriptionEn }}</small>
+                  }
+                </div>
+                <strong>{{ item.price | number: '1.2-2' }}</strong>
+              </article>
+            }
+          </div>
+        </section>
+      }
+    }
+  }
+}

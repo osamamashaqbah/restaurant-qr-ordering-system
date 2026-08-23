@@ -1,4 +1,5 @@
 using Npgsql;
+using RestaurantQrOrdering.Api.Features.PublicMenu;
 using RestaurantQrOrdering.Api.Features.PublicOrders;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -11,11 +12,13 @@ var databaseConnectionString = builder.Configuration.GetConnectionString("Supaba
 if (string.IsNullOrWhiteSpace(databaseConnectionString))
 {
     builder.Services.AddSingleton<IPublicOrderStore, UnavailablePublicOrderStore>();
+    builder.Services.AddSingleton<IPublicMenuStore, UnavailablePublicMenuStore>();
 }
 else
 {
     builder.Services.AddSingleton(NpgsqlDataSource.Create(databaseConnectionString));
     builder.Services.AddSingleton<IPublicOrderStore, NpgsqlPublicOrderStore>();
+    builder.Services.AddSingleton<IPublicMenuStore, NpgsqlPublicMenuStore>();
 }
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();

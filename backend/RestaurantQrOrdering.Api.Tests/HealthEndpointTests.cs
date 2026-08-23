@@ -28,4 +28,14 @@ public sealed class HealthEndpointTests : IClassFixture<WebApplicationFactory<Pr
 
         Assert.Equal(HttpStatusCode.NotFound, response.StatusCode);
     }
+
+    [Fact]
+    public async Task Menu_endpoint_fails_closed_when_the_database_is_not_configured()
+    {
+        using var response = await _client.GetAsync("/api/public/menu");
+        var body = await response.Content.ReadAsStringAsync();
+
+        Assert.Equal(HttpStatusCode.ServiceUnavailable, response.StatusCode);
+        Assert.DoesNotContain("Supabase", body, StringComparison.OrdinalIgnoreCase);
+    }
 }

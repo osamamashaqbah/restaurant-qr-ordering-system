@@ -48,6 +48,9 @@ API values with `ConnectionStrings__SupabaseDatabase`,
 `Supabase__JwtIssuer`, `Supabase__JwtSecret`, and one or more
 `Cors__AllowedOrigins__0` values for the deployed Angular origin.
 
+The beginner-friendly project and interview guide is available at
+`http://localhost:4200/guide`.
+
 Run the API with:
 
 ```bash

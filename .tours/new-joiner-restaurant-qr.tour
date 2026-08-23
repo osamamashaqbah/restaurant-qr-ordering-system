@@ -1,0 +1,69 @@
+{
+  "$schema": "https://aka.ms/codetour-schema",
+  "title": "Restaurant QR Ordering: New Joiner Tour",
+  "description": "A beginner-friendly path through the active Angular + ASP.NET Core rewrite, from browser entry to database rules.",
+  "steps": [
+    {
+      "directory": "frontend",
+      "title": "1. Active frontend",
+      "description": "Situation: this is the Angular application users open in the browser. Mechanism: routes, feature components, core services, tests, and runtime configuration live here. Implication: start here when tracing a customer or staff journey. Gotcha: the legacy Next.js app is under src/ and is not the active rewrite."
+    },
+    {
+      "file": "frontend/src/app/app.config.ts",
+      "pattern": "provideHttpClient",
+      "title": "2. Angular composition root",
+      "description": "Situation: Angular providers are wired at application startup. Mechanism: the router, HttpClient, staff auth interceptor, and Supabase runtime config are registered here. Implication: shared behavior is configured once. Gotcha: the browser receives only the public Supabase URL/anon key; database secrets stay server-side."
+    },
+    {
+      "file": "frontend/src/app/app.routes.ts",
+      "pattern": "export const routes",
+      "title": "3. User journeys and route guards",
+      "description": "Situation: every browser URL enters through this route table. Mechanism: public routes serve entry, menu, cart, tracking, and rating; staff routes use role guards. Implication: this is the fastest map of the product. Gotcha: a guard improves navigation but is not the security boundary."
+    },
+    {
+      "file": "frontend/src/app/features/entry/entry.ts",
+      "pattern": "export class Entry",
+      "title": "4. Customer entry contract",
+      "description": "Situation: the customer supplies name, WhatsApp, and table number. Mechanism: a reactive form validates the fields before saving session state and navigating to the menu. Implication: validation is a UX feature. Gotcha: the API must validate again because browser checks can be bypassed."
+    },
+    {
+      "file": "backend/RestaurantQrOrdering.Api/Program.cs",
+      "pattern": "var builder = WebApplication.CreateBuilder",
+      "title": "5. ASP.NET API composition root",
+      "description": "Situation: the backend starts and assembles the HTTP pipeline here. Mechanism: controllers, CORS, rate limiting, JWT authentication, role policies, and Npgsql stores are registered before middleware runs. Implication: this file explains the server trust boundary. Gotcha: without a database connection, stores deliberately fail closed instead of pretending writes succeeded."
+    },
+    {
+      "file": "backend/RestaurantQrOrdering.Api/Features/PublicOrders/PublicOrdersController.cs",
+      "pattern": "public sealed class PublicOrdersController",
+      "title": "6. Order creation and tracking",
+      "description": "Situation: public order requests arrive without staff authentication. Mechanism: the controller validates input, creates or reuses an opaque token, applies the idempotency fingerprint, and maps known failures to HTTP responses. Implication: public endpoints still need strict trust-boundary logic. Gotcha: the client never supplies a trusted total or database order id."
+    },
+    {
+      "file": "supabase/migrations/20260823100000_idempotent_public_orders.sql",
+      "pattern": "create or replace function public.create_order_with_tracking_token",
+      "title": "7. Database-owned idempotency",
+      "description": "Situation: a mobile connection can fail after the server commits an order. Mechanism: the migration stores a request hash and replays the same result for the same key, while conflicting payloads fail. Implication: retry safety belongs close to the transaction. Gotcha: the migration must be applied to the target Supabase project before live verification."
+    },
+    {
+      "file": "frontend/src/app/core/supabase-auth.ts",
+      "pattern": "export class StaffAuthService",
+      "title": "8. Staff identity",
+      "description": "Situation: staff login is handled by Supabase Auth. Mechanism: the Angular service lazy-loads the Supabase client, keeps the session, and asks the API for the current profile role. Implication: auth provider and application role are separate concepts. Gotcha: a valid session without an assigned database role is not enough to enter a staff dashboard."
+    },
+    {
+      "file": "backend/RestaurantQrOrdering.Api/Features/Staff/StaffAuthorization.cs",
+      "pattern": "public sealed class StaffRoleAuthorizationHandler",
+      "title": "9. Server-side role authorization",
+      "description": "Situation: a staff request carries a JWT but the role may have changed since login. Mechanism: the handler extracts the subject and reads the current profile role from the database before succeeding the policy. Implication: removing a role takes effect without trusting stale frontend state. Gotcha: frontend guards are convenience; this handler and Postgres policies are enforcement."
+    },
+    {
+      "directory": "supabase/migrations",
+      "title": "10. Schema, RLS, and business rules",
+      "description": "Situation: the database is part of the application, not just passive storage. Mechanism: ordered migrations define enums, tables, RLS policies, triggers, and security-definer functions for pricing, status transitions, ratings, and audit events. Implication: read the migrations when a behavior looks surprising in a controller. Gotcha: local tests cannot prove the remote project has applied every migration."
+    },
+    {
+      "title": "11. Close the loop",
+      "description": "You can now trace the system end to end: Angular route → feature/service → ASP.NET controller → store/function → Postgres policy/transaction → JSON response. Next, run the local unit, API, and Playwright suites, then apply migrations and perform live role-based verification against the target Supabase project."
+    }
+  ]
+}

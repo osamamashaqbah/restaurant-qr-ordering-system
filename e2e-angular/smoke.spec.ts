@@ -30,4 +30,12 @@ test.describe("Angular rewrite smoke checks", () => {
 
     await expect(page.getByText("We could not load the menu")).toBeVisible();
   });
+
+  test("opens the beginner project guide", async ({ page }) => {
+    await page.goto("/guide");
+
+    await expect(page.getByRole("heading", { name: "دليل المشروع من الصفر إلى المقابلة" })).toBeVisible();
+    await expect(page.getByText("Angular 22 + TypeScript")).toBeVisible();
+    await expect(page.getByText("أسئلة ASP.NET Core")).toBeVisible();
+  });
 });

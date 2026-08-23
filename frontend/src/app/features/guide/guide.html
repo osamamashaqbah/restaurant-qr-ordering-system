@@ -1,0 +1,222 @@
+<article class="guide" dir="rtl">
+  <header class="hero" id="top">
+    <div>
+      <p class="eyebrow">Restaurant QR Ordering System · Interview Guide</p>
+      <h1>دليل المشروع من الصفر إلى المقابلة</h1>
+      <p class="lead">
+        صفحة تعليمية مبنية على الكود الحالي: ما هو الستاك، كيف يمشي الطلب، أين توجد
+        الحماية، وما الأسئلة التي يمكن أن تواجهها كمطور Full Stack.
+      </p>
+    </div>
+    <div class="hero-actions">
+      <a routerLink="/" class="button secondary">العودة للبداية</a>
+      <a href="#interview" class="button">اذهب لأسئلة المقابلة</a>
+    </div>
+  </header>
+
+  <nav class="toc" aria-label="محتويات الدليل">
+    <a href="#stack">الستاك</a>
+    <a href="#architecture">كيف يعمل</a>
+    <a href="#terms">المصطلحات</a>
+    <a href="#code">قراءة الكود</a>
+    <a href="#security">الأمان</a>
+    <a href="#interview">المقابلة</a>
+  </nav>
+
+  <section class="section" id="stack">
+    <div class="section-heading">
+      <p class="eyebrow">أول سؤال في المقابلة</p>
+      <h2>ما هو الستاك المستخدم؟</h2>
+      <p>
+        الستاك هو مجموعة التقنيات التي تعمل معاً لبناء النظام. هذه هي نسخة
+        <strong>إعادة الكتابة النشطة</strong> في مجلدي <code>frontend/</code> و<code>backend/</code>.
+        يوجد تطبيق Next.js قديم في <code>src/</code> كمرجع parity، لكنه ليس المسار المستهدف.
+      </p>
+    </div>
+
+    <div class="stack-grid">
+      @for (item of stack; track item.name) {
+        <article class="info-card">
+          <span class="card-label">{{ item.layer }}</span>
+          <h3>{{ item.name }}</h3>
+          <p>{{ item.description }}</p>
+          <p class="why"><strong>لماذا؟</strong> {{ item.why }}</p>
+        </article>
+      }
+    </div>
+
+    <div class="stack-summary">
+      <div>
+        <span>الواجهة</span>
+        <strong>Angular 22</strong>
+      </div>
+      <div class="arrow">←</div>
+      <div>
+        <span>الخادم</span>
+        <strong>ASP.NET Core 8 API</strong>
+      </div>
+      <div class="arrow">←</div>
+      <div>
+        <span>البيانات والهوية</span>
+        <strong>Supabase / Postgres</strong>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="architecture">
+    <div class="section-heading">
+      <p class="eyebrow">الصورة الكبيرة</p>
+      <h2>كيف يعمل النظام؟</h2>
+      <p>
+        تخيل النظام كسلسلة: المتصفح يعرض ويجمع، الـ API يتحقق ويقرر، وقاعدة
+        البيانات تحفظ وتفرض القواعد. لا نضع قراراً أمنياً مهماً في المتصفح فقط.
+      </p>
+    </div>
+
+    <div class="flow">
+      @for (step of flow; track step.number) {
+        <article class="flow-step">
+          <span class="step-number">{{ step.number }}</span>
+          <div>
+            <h3>{{ step.title }}</h3>
+            <p>{{ step.body }}</p>
+          </div>
+        </article>
+      }
+    </div>
+
+    <div class="callout">
+      <strong>حالات الطلب:</strong>
+      <code>new → preparing → ready → closed</code>
+      <span>، ويمكن أن ينتهي أيضاً بـ</span>
+      <code>cancelled</code>.
+      <span>تغيير الحالة مسموح للدور المناسب فقط.</span>
+    </div>
+
+    <div class="route-map">
+      <div>
+        <h3>مسارات Angular الأساسية</h3>
+        <ul>
+          <li><code>/</code> إدخال بيانات الزبون</li>
+          <li><code>/menu</code> القائمة والسلة</li>
+          <li><code>/order/:trackingToken</code> تتبع الطلب</li>
+          <li><code>/kitchen</code> و<code>/cashier</code> و<code>/admin</code> لوحات الموظفين</li>
+        </ul>
+      </div>
+      <div>
+        <h3>مجموعات API</h3>
+        <ul>
+          <li><code>/api/public/*</code> عمليات الزبون العامة</li>
+          <li><code>/api/staff/kitchen/*</code> أوامر المطبخ</li>
+          <li><code>/api/staff/cashier/*</code> الكاشير والتوفر</li>
+          <li><code>/api/staff/admin/*</code> المستخدمون والتقارير والقائمة</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="terms">
+    <div class="section-heading">
+      <p class="eyebrow">قاموس المبتدئ</p>
+      <h2>مصطلحات ستسمعها في المقابلة</h2>
+      <p>احفظ الفكرة أولاً، ثم اربطها بمثال حقيقي من المشروع.</p>
+    </div>
+
+    <div class="glossary-grid">
+      @for (item of glossary; track item.term) {
+        <article class="glossary-card">
+          <h3>{{ item.term }}</h3>
+          <p>{{ item.meaning }}</p>
+          <div class="project-example"><strong>في مشروعنا:</strong> {{ item.project }}</div>
+        </article>
+      }
+    </div>
+  </section>
+
+  <section class="section" id="code">
+    <div class="section-heading">
+      <p class="eyebrow">اقرأ الكود بهذه الطريقة</p>
+      <h2>أربع لقطات مهمة من المشروع</h2>
+      <p>
+        لا تحفظ السطور حرفياً. اشرح المسؤولية: من يستقبل؟ من يتحقق؟ أين تحفظ
+        الحالة؟ ومن يملك القرار النهائي؟
+      </p>
+    </div>
+
+    <div class="code-grid">
+      @for (example of codeExamples; track example.title) {
+        <article class="code-card">
+          <div class="code-heading">
+            <h3>{{ example.title }}</h3>
+            <code>{{ example.file }}</code>
+          </div>
+          <pre><code>{{ example.code }}</code></pre>
+          <p>{{ example.explanation }}</p>
+        </article>
+      }
+    </div>
+  </section>
+
+  <section class="section security" id="security">
+    <div class="section-heading">
+      <p class="eyebrow">نقاط قوة تذكرها بثقة</p>
+      <h2>كيف فكرنا بالأمان وصحة البيانات؟</h2>
+    </div>
+    <div class="principles">
+      <article><strong>لا تثق بالعميل</strong><p>السعر والإجمالي يعاد حسابهما في Postgres، وليس من قيم Angular.</p></article>
+      <article><strong>أقل صلاحية</strong><p>الكاشير يغير توفر الصنف فقط، ولا يستطيع تعديل السعر أو الصورة أو الاسم.</p></article>
+      <article><strong>الدفاع على طبقات</strong><p>Guard في Angular للتجربة، Policy في ASP.NET، وRLS/Functions في Postgres للحماية الحقيقية.</p></article>
+      <article><strong>لا تكشف بيانات شخصية</strong><p>التتبع يستخدم token عشوائياً وhash، ويعيد حالة الطلب وline items الآمنة فقط.</p></article>
+      <article><strong>لا تكرر الطلب</strong><p>Idempotency-Key وrequest hash يعالجان retry بعد انقطاع الشبكة.</p></article>
+      <article><strong>احمِ الخدمة</strong><p>CORS يحدد origins المسموحة وrate limiting يحد إنشاء الطلبات العامة.</p></article>
+    </div>
+  </section>
+
+  <section class="section interview" id="interview">
+    <div class="section-heading">
+      <p class="eyebrow">التحضير للمقابلة</p>
+      <h2>أسئلة متوقعة مع إجابة قصيرة</h2>
+      <p>
+        ابدأ بالإجابة الموجودة، ثم أعط مثالاً من المشروع. إذا لم تعرف، اشرح كيف
+        ستبحث وتختبر بدلاً من التخمين.
+      </p>
+    </div>
+
+    @for (group of interviewGroups; track group.title) {
+      <section class="interview-group">
+        <h3>{{ group.title }}</h3>
+        <p class="group-subtitle">{{ group.subtitle }}</p>
+        <div class="questions">
+          @for (item of group.questions; track item.question) {
+            <details>
+              <summary>{{ item.question }}</summary>
+              <p>{{ item.answer }}</p>
+            </details>
+          }
+        </div>
+      </section>
+    }
+  </section>
+
+  <section class="section closing">
+    <p class="eyebrow">إجابة 60 ثانية</p>
+    <h2>كيف أشرح المشروع بسرعة؟</h2>
+    <blockquote>
+      هذا نظام طلبات مطعم باستخدام QR واحد. الواجهة مبنية بـ Angular 22، والـ
+      backend بـ ASP.NET Core 8 Web API، والبيانات والهوية على Supabase Postgres
+      وAuth. الزبون يرى القائمة ويضع الطلب، والـ API يعيد تسعير العناصر من
+      قاعدة البيانات ويصدر tracking token آمناً. الموظفون يدخلون بـ JWT، وكل
+      دور له لوحة وصلاحيات محددة للمطبخ والكاشير والإدارة. طبقت الحماية على
+      أكثر من طبقة باستخدام validation وpolicies وRLS، وأضفت idempotency لمنع
+      تكرار الطلبات عند retry. اختبرت المنطق بـ unit/API tests والرحلات الأساسية
+      بـ Playwright.
+    </blockquote>
+    <p class="next-step">
+      للمراجعة العملية: شغّل <code>npm --prefix frontend start</code> ثم افتح
+      <code>/guide</code>. وللتحقق الكامل شغّل <code>dotnet test RestaurantQrOrdering.sln</code>
+      و<code>npm run test:e2e</code> من جذر المشروع.
+    </p>
+  </section>
+
+  <a class="back-to-top" href="#top" aria-label="العودة إلى أعلى الدليل">↑</a>
+</article>

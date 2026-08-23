@@ -3,8 +3,12 @@
   "configurations": [
     {
       "name": "web",
-      "runtimeExecutable": "npm",
-      "runtimeArgs": ["run", "dev"],
+      "runtimeExecutable": "C:\\Program Files\\nodejs\\node.exe",
+      "runtimeArgs": [
+        "D:\\My_Projects\\My_Projects\\Restaurant QR Ordering System\\node_modules\\next\\dist\\bin\\next",
+        "dev",
+        "D:\\My_Projects\\My_Projects\\Restaurant QR Ordering System"
+      ],
       "port": 3000
     }
   ]

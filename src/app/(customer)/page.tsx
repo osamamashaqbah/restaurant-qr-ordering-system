@@ -1,16 +1,30 @@
 "use client";
 
+import { useState } from "react";
+import dynamic from "next/dynamic";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useLocale } from "@/lib/i18n/LocaleProvider";
 import { useCustomerSession } from "@/lib/customer/SessionProvider";
-import { entrySchema, type EntryFormValues } from "@/lib/validation/customer";
+import { entrySchema, toInternationalWhatsApp, type EntryFormValues } from "@/lib/validation/customer";
+import { COUNTRY_CODES, OTHER_COUNTRY_VALUE } from "@/lib/i18n/countryCodes";
+
+const DEFAULT_COUNTRY_CODE = process.env.NEXT_PUBLIC_DEFAULT_COUNTRY_CODE ?? "962";
+
+// three.js needs the DOM/WebGL context, so it can only render on the client —
+// SSR'd it would either error or ship dead weight to the server bundle.
+const Hero3D = dynamic(() => import("@/components/customer/Hero3D"), {
+  ssr: false,
+  loading: () => <div className="h-56 w-full sm:h-64" aria-hidden="true" />,
+});
 
 export default function EntryPage() {
   const router = useRouter();
   const { t } = useLocale();
   const { setSession } = useCustomerSession();
+
+  const [customCode, setCustomCode] = useState(false);
 
   const {
     register,
@@ -18,12 +32,13 @@ export default function EntryPage() {
     formState: { errors, isSubmitting },
   } = useForm<EntryFormValues>({
     resolver: zodResolver(entrySchema),
+    defaultValues: { countryCode: DEFAULT_COUNTRY_CODE },
   });
 
   const onSubmit = (values: EntryFormValues) => {
     setSession({
       name: values.name,
-      whatsapp: values.whatsapp,
+      whatsapp: toInternationalWhatsApp(values.countryCode, values.whatsappLocal),
       tableNumber: values.tableNumber,
     });
     router.push("/menu");
@@ -31,7 +46,8 @@ export default function EntryPage() {
 
   return (
     <div className="mx-auto flex max-w-md flex-col px-5 py-10">
-      <h1 className="font-display text-3xl font-semibold leading-tight text-charcoal">
+      <Hero3D />
+      <h1 className="mt-2 font-display text-3xl font-semibold leading-tight text-charcoal">
         {t.entry.title}
       </h1>
       <p className="mt-2 text-charcoal-soft">{t.entry.subtitle}</p>
@@ -54,17 +70,52 @@ export default function EntryPage() {
         <Field
           label={t.entry.whatsapp}
           hint={t.entry.whatsappHint}
-          error={errors.whatsapp && t.entry.errors[errors.whatsapp.message as keyof typeof t.entry.errors]}
+          error={
+            (errors.countryCode &&
+              t.entry.errors[errors.countryCode.message as keyof typeof t.entry.errors]) ||
+            (errors.whatsappLocal &&
+              t.entry.errors[errors.whatsappLocal.message as keyof typeof t.entry.errors])
+          }
         >
-          <input
-            type="tel"
-            inputMode="numeric"
-            autoComplete="tel"
-            placeholder={t.entry.whatsappPlaceholder}
-            maxLength={16}
-            {...register("whatsapp")}
-            className={inputClass(!!errors.whatsapp)}
-          />
+          <div className="flex gap-2">
+            {customCode ? (
+              <input
+                type="text"
+                inputMode="numeric"
+                placeholder="962"
+                maxLength={4}
+                {...register("countryCode")}
+                className={inputClass(!!errors.countryCode) + " w-20 shrink-0"}
+              />
+            ) : (
+              <select
+                {...register("countryCode")}
+                onChange={(e) => {
+                  if (e.target.value === OTHER_COUNTRY_VALUE) {
+                    setCustomCode(true);
+                    e.target.value = "";
+                  }
+                }}
+                className={inputClass(!!errors.countryCode) + " w-28 shrink-0"}
+              >
+                {COUNTRY_CODES.map((c) => (
+                  <option key={c.code} value={c.code}>
+                    +{c.code} {c.nameEn}
+                  </option>
+                ))}
+                <option value={OTHER_COUNTRY_VALUE}>{t.entry.otherCountry}</option>
+              </select>
+            )}
+            <input
+              type="tel"
+              inputMode="numeric"
+              autoComplete="tel"
+              placeholder={t.entry.whatsappPlaceholder}
+              maxLength={16}
+              {...register("whatsappLocal")}
+              className={inputClass(!!errors.whatsappLocal) + " flex-1"}
+            />
+          </div>
         </Field>
 
         <Field

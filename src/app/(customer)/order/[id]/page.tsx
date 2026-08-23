@@ -30,9 +30,11 @@ type OrderItemRow = {
 };
 
 const STEPS: OrderStatus[] = ["new", "preparing", "ready", "closed"];
+const UUID_PATTERN = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
 
 export default function OrderTrackerPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = use(params);
+  const invalidOrderId = !UUID_PATTERN.test(id);
   const { locale, t } = useLocale();
   const { clearSession } = useCustomerSession();
 
@@ -42,47 +44,41 @@ export default function OrderTrackerPage({ params }: { params: Promise<{ id: str
   const [notFound, setNotFound] = useState(false);
 
   useEffect(() => {
+    if (invalidOrderId) return;
+
     const supabase = createClient();
     let active = true;
 
     async function load() {
-      const [{ data: orderData, error: orderError }, { data: itemsData }] = await Promise.all([
-        supabase
-          .from("orders")
-          .select("id, table_number, status, total, created_at, updated_at, closed_at")
-          .eq("id", id)
-          .single(),
-        supabase
-          .from("order_items")
-          .select("id, name_en, name_ar, unit_price, quantity, notes")
-          .eq("order_id", id),
-      ]);
+      const { data, error } = await supabase.rpc("get_public_order", { p_order_id: id });
       if (!active) return;
-      if (orderError || !orderData) {
+      if (error || !data) {
         setNotFound(true);
       } else {
-        setOrder(orderData);
-        setItems(itemsData ?? []);
+        const result = data as unknown as { order: PublicOrder; items: OrderItemRow[] };
+        setOrder(result.order);
+        setItems(result.items);
+        setNotFound(false);
       }
       setLoading(false);
     }
     load();
 
-    const channel = supabase
-      .channel(`order-${id}`)
-      .on(
-        "postgres_changes",
-        { event: "UPDATE", schema: "public", table: "orders", filter: `id=eq.${id}` },
-        (payload) => setOrder(payload.new as PublicOrder)
-      )
-      .subscribe();
+    const interval = window.setInterval(load, 10_000);
 
     return () => {
       active = false;
-      supabase.removeChannel(channel);
+      window.clearInterval(interval);
     };
-  }, [id]);
+  }, [id, invalidOrderId]);
 
+  if (invalidOrderId) {
+    return (
+      <div className="mx-auto max-w-md px-5 py-16 text-center">
+        <p className="text-charcoal-soft">404</p>
+      </div>
+    );
+  }
   if (loading) return null;
   if (notFound || !order) {
     return (

@@ -91,6 +91,7 @@ function CategoryForm({
   onDone: () => void;
   onCancel: () => void;
 }) {
+  const [submitError, setSubmitError] = useState<string | null>(null);
   const {
     register,
     handleSubmit,
@@ -103,11 +104,14 @@ function CategoryForm({
   });
 
   const onSubmit = async (values: CategoryFormValues) => {
+    setSubmitError(null);
     const supabase = createClient();
-    if (initial) {
-      await supabase.from("categories").update(values).eq("id", initial.id);
-    } else {
-      await supabase.from("categories").insert(values);
+    const result = initial
+      ? await supabase.from("categories").update(values).eq("id", initial.id)
+      : await supabase.from("categories").insert(values);
+    if (result.error) {
+      setSubmitError("Couldn't save this category. Please try again.");
+      return;
     }
     onDone();
   };
@@ -117,6 +121,7 @@ function CategoryForm({
       onSubmit={handleSubmit(onSubmit)}
       className="mt-3 grid grid-cols-1 gap-3 rounded-xl border border-line bg-cream-raised p-4 sm:grid-cols-4"
     >
+      {submitError && <p className="text-sm font-medium text-danger sm:col-span-4">{submitError}</p>}
       <div className="flex flex-col gap-1">
         <label className="text-xs font-medium text-charcoal-soft">Name (EN)</label>
         <input {...register("name_en")} className="rounded-lg border border-line px-3 py-2 text-sm" />

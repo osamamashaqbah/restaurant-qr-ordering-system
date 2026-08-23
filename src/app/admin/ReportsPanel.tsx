@@ -37,7 +37,7 @@ export function ReportsPanel() {
     supabase
       .rpc("get_sales_summary", {
         p_start: `${start}T00:00:00Z`,
-        p_end: `${end}T23:59:59Z`,
+        p_end: `${end}T23:59:59.999999Z`,
       })
       .then(({ data, error }) => {
         if (!active) return;

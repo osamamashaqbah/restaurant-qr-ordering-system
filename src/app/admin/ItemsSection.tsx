@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { useForm } from "react-hook-form";
+import { useForm, useWatch } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Image from "next/image";
 import { createClient } from "@/lib/supabase/client";
@@ -22,6 +22,7 @@ export function ItemsSection({ categories }: { categories: Category[] }) {
   const [items, setItems] = useState<MenuItem[]>([]);
   const [loading, setLoading] = useState(true);
   const [editing, setEditing] = useState<MenuItem | "new" | null>(null);
+  const [error, setError] = useState<string | null>(null);
 
   const load = async () => {
     const supabase = createClient();
@@ -47,7 +48,12 @@ export function ItemsSection({ categories }: { categories: Category[] }) {
   const remove = async (id: string) => {
     if (!window.confirm("Delete this menu item?")) return;
     const supabase = createClient();
-    await supabase.from("menu_items").delete().eq("id", id);
+    const { error } = await supabase.from("menu_items").delete().eq("id", id);
+    if (error) {
+      setError("Couldn't delete this item. It may still be used by an order.");
+      return;
+    }
+    setError(null);
   };
 
   return (
@@ -66,6 +72,7 @@ export function ItemsSection({ categories }: { categories: Category[] }) {
       {categories.length === 0 && !loading && (
         <p className="mt-2 text-sm text-charcoal-soft">Add a category first.</p>
       )}
+      {error && <p className="mt-2 text-sm font-medium text-danger">{error}</p>}
 
       {editing && (
         <ItemForm
@@ -143,7 +150,7 @@ function ItemForm({
   const {
     register,
     handleSubmit,
-    watch,
+    control,
     setValue,
     formState: { errors, isSubmitting },
   } = useForm<MenuItemFormValues>({
@@ -173,7 +180,7 @@ function ItemForm({
         },
   });
 
-  const selectedAllergens = watch("allergens");
+  const selectedAllergens = useWatch({ control, name: "allergens" });
 
   const toggleAllergen = (code: (typeof ALLERGEN_CODES)[number]) => {
     const next = selectedAllergens.includes(code)

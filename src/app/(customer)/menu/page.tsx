@@ -135,16 +135,16 @@ export default function MenuPage() {
                 {locale === "ar" ? cat.name_ar : cat.name_en}
               </h2>
               <div className="mt-3 flex flex-col gap-3">
-                {itemsByCategory.get(cat.id)!.map((item) => (
-                  <ItemCard key={item.id} item={item} locale={locale} dir={dir} t={t} cart={cart} />
+                {itemsByCategory.get(cat.id)!.map((item, i) => (
+                  <ItemCard key={item.id} item={item} locale={locale} dir={dir} t={t} cart={cart} index={i} />
                 ))}
               </div>
             </section>
           ))
       ) : (
         <div className="mt-5 flex flex-col gap-3">
-          {filteredItems.map((item) => (
-            <ItemCard key={item.id} item={item} locale={locale} dir={dir} t={t} cart={cart} />
+          {filteredItems.map((item, i) => (
+            <ItemCard key={item.id} item={item} locale={locale} dir={dir} t={t} cart={cart} index={i} />
           ))}
         </div>
       )}
@@ -197,12 +197,14 @@ function ItemCard({
   locale,
   t,
   cart,
+  index,
 }: {
   item: MenuItem;
   locale: "en" | "ar";
   dir: "ltr" | "rtl";
   t: ReturnType<typeof useLocale>["t"];
   cart: ReturnType<typeof useCart>;
+  index: number;
 }) {
   const name = locale === "ar" ? item.name_ar : item.name_en;
   const description = locale === "ar" ? item.description_ar : item.description_en;
@@ -211,15 +213,22 @@ function ItemCard({
   return (
     <div
       className={[
-        "flex gap-3 rounded-2xl border border-line bg-cream-raised p-3 transition-standard",
+        "card-enter menu-card-shadow group flex gap-3 rounded-2xl border border-line/60 bg-cream-raised p-3 transition-standard hover:-translate-y-0.5",
         !item.is_available && "opacity-50",
       ]
         .filter(Boolean)
         .join(" ")}
+      style={{ "--enter-delay": `${Math.min(index, 8) * 45}ms` } as React.CSSProperties}
     >
-      <div className="relative h-20 w-20 shrink-0 overflow-hidden rounded-xl bg-line">
+      <div className="relative h-24 w-24 shrink-0 overflow-hidden rounded-xl bg-line">
         {item.image_url && (
-          <Image src={item.image_url} alt={name} fill sizes="80px" className="object-cover" />
+          <Image
+            src={item.image_url}
+            alt={name}
+            fill
+            sizes="96px"
+            className="object-cover transition-standard duration-300 group-hover:scale-110"
+          />
         )}
       </div>
 
@@ -252,7 +261,9 @@ function ItemCard({
           ) : inCart ? (
             <div className="flex items-center gap-2">
               <StepperButton onClick={() => cart.updateQuantity(item.id, inCart.quantity - 1)} label="−" />
-              <span className="w-5 text-center tabular text-sm font-semibold">{inCart.quantity}</span>
+              <span key={inCart.quantity} className="pop-once w-5 text-center tabular text-sm font-semibold">
+                {inCart.quantity}
+              </span>
               <StepperButton onClick={() => cart.updateQuantity(item.id, inCart.quantity + 1)} label="+" />
             </div>
           ) : (
@@ -267,7 +278,7 @@ function ItemCard({
                   imageUrl: item.image_url,
                 })
               }
-              className="rounded-lg border border-terracotta px-3 py-1 text-sm font-semibold text-terracotta transition-standard hover:bg-terracotta hover:text-white"
+              className="rounded-lg border border-terracotta px-3 py-1 text-sm font-semibold text-terracotta transition-standard hover:bg-terracotta hover:text-white active:scale-95"
             >
               {t.menu.addToCart}
             </button>

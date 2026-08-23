@@ -276,6 +276,10 @@ export type Database = {
         Args: never
         Returns: Database["public"]["Enums"]["role_type"]
       }
+      get_public_order: {
+        Args: { p_order_id: string }
+        Returns: Json
+      }
       get_sales_summary: {
         Args: { p_end: string; p_start: string }
         Returns: Json

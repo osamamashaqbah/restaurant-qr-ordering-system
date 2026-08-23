@@ -32,6 +32,7 @@ export default function CashierPage() {
   const [justClosed, setJustClosed] = useState<ClosedOrder[]>([]);
   const knownReadyIds = useRef<Set<string>>(new Set());
   const [flashIds, setFlashIds] = useState<Set<string>>(new Set());
+  const [closeError, setCloseError] = useState<string | null>(null);
 
   const loadOrders = useCallback(async () => {
     const supabase = createClient();
@@ -82,27 +83,39 @@ export default function CashierPage() {
 
   const closeOrder = async (order: StaffOrder) => {
     setBusyId(order.id);
+    setCloseError(null);
     const supabase = createClient();
-    const { error } = await supabase
+    const { data, error } = await supabase
       .from("orders")
       .update({ status: "closed", payment_confirmed: true })
-      .eq("id", order.id);
+      .eq("id", order.id)
+      .select("id")
+      .maybeSingle();
     setBusyId(null);
 
-    if (!error) {
-      const whatsappLink = buildInvoiceWhatsAppLink({
-        customerName: order.customer_name,
-        customerWhatsapp: order.customer_whatsapp,
-        tableNumber: order.table_number,
-        total: order.total,
-        items: order.order_items.map((i) => ({
-          nameEn: i.name_en,
-          quantity: i.quantity,
-          unitPrice: i.unit_price,
-        })),
-      });
-      setJustClosed((prev) => [{ ...order, whatsappLink }, ...prev]);
+    if (error) {
+      setCloseError(`Couldn't close Table ${order.table_number}'s order: ${error.message}`);
+      return;
     }
+    if (!data) {
+      // RLS/trigger silently rejected the write (0 rows matched) rather than
+      // erroring — most likely someone else already closed it.
+      setCloseError(`Table ${order.table_number}'s order couldn't be closed — refresh and try again.`);
+      return;
+    }
+
+    const whatsappLink = buildInvoiceWhatsAppLink({
+      customerName: order.customer_name,
+      customerWhatsapp: order.customer_whatsapp,
+      tableNumber: order.table_number,
+      total: order.total,
+      items: order.order_items.map((i) => ({
+        nameEn: i.name_en,
+        quantity: i.quantity,
+        unitPrice: i.unit_price,
+      })),
+    });
+    setJustClosed((prev) => [{ ...order, whatsappLink }, ...prev]);
   };
 
   const dismissClosed = (orderId: string) => {
@@ -130,6 +143,8 @@ export default function CashierPage() {
           <p className="text-sm text-charcoal-soft">
             {newCount} new · {preparingCount} preparing
           </p>
+
+          {closeError && <p className="mt-2 text-sm font-medium text-danger">{closeError}</p>}
 
           {justClosed.length > 0 && (
             <div className="mt-4 flex flex-col gap-3">
@@ -245,6 +260,7 @@ function AvailabilityPanel() {
   const [items, setItems] = useState<MenuItem[]>([]);
   const [loading, setLoading] = useState(true);
   const [busyId, setBusyId] = useState<string | null>(null);
+  const [actionError, setActionError] = useState<string | null>(null);
 
   useEffect(() => {
     const supabase = createClient();
@@ -284,11 +300,13 @@ function AvailabilityPanel() {
 
   const toggle = async (item: MenuItem) => {
     setBusyId(item.id);
+    setActionError(null);
     const supabase = createClient();
-    await supabase.rpc("set_item_availability", {
+    const { error } = await supabase.rpc("set_item_availability", {
       p_item_id: item.id,
       p_available: !item.is_available,
     });
+    if (error) setActionError("Couldn't update availability. Please try again.");
     setBusyId(null);
   };
 
@@ -296,6 +314,7 @@ function AvailabilityPanel() {
 
   return (
     <div className="mt-5 flex flex-col gap-6">
+      {actionError && <p className="text-sm font-medium text-danger">{actionError}</p>}
       {categories.map((cat) => {
         const catItems = items.filter((i) => i.category_id === cat.id);
         if (catItems.length === 0) return null;

@@ -67,10 +67,10 @@ migration history for the full SQL). Key decisions:
 - **Item availability** is the *only* thing a cashier can touch on
   `menu_items`, and only through `set_item_availability()` — cashiers get no
   direct table grant, so they can't edit prices/photos/names.
-- **Customer PII (name, WhatsApp number)** is excluded from the anon
-  column-grant on `orders`; anonymous customers can only read
-  `id/table_number/status/total/created_at/updated_at/closed_at` for the
-  live order tracker. Full rows are only visible to authenticated staff.
+- **Customer order tracking is scoped.** Anonymous clients cannot read
+  `orders` or `order_items` directly; `get_public_order()` returns only one
+  order's non-PII tracking fields and line items. The customer tracker polls
+  that RPC, while full rows remain visible only to authenticated staff.
 - **Ratings** can only be submitted once, and only after an order is
   `closed`, enforced inside `submit_rating()`.
 - **Security events are logged.** Role changes are captured automatically

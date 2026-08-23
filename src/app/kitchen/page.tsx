@@ -30,6 +30,7 @@ export default function KitchenBoardPage() {
   const [loading, setLoading] = useState(true);
   const [now, setNow] = useState(() => Date.now());
   const [busyId, setBusyId] = useState<string | null>(null);
+  const [actionError, setActionError] = useState<string | null>(null);
 
   const load = useCallback(async () => {
     const supabase = createClient();
@@ -65,21 +66,26 @@ export default function KitchenBoardPage() {
 
   const advance = async (orderId: string, nextStatus: OrderStatus) => {
     setBusyId(orderId);
+    setActionError(null);
     const supabase = createClient();
-    await supabase.from("orders").update({ status: nextStatus }).eq("id", orderId);
+    const { error } = await supabase.from("orders").update({ status: nextStatus }).eq("id", orderId);
+    if (error) setActionError("Couldn't update the order. Please try again.");
     setBusyId(null);
   };
 
   const cancel = async (orderId: string) => {
     if (!window.confirm("Cancel this order?")) return;
     setBusyId(orderId);
+    setActionError(null);
     const supabase = createClient();
-    await supabase.from("orders").update({ status: "cancelled" }).eq("id", orderId);
+    const { error } = await supabase.from("orders").update({ status: "cancelled" }).eq("id", orderId);
+    if (error) setActionError("Couldn't cancel the order. Please try again.");
     setBusyId(null);
   };
 
   return (
     <main className="mx-auto max-w-6xl px-5 py-6">
+      {actionError && <p className="mb-4 text-sm font-medium text-danger">{actionError}</p>}
       {loading ? (
         <p className="text-charcoal-soft">Loading board…</p>
       ) : (

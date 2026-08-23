@@ -8,6 +8,14 @@ const ROLE_PREFIXES: Record<string, "admin" | "cashier" | "kitchen"> = {
   "/kitchen": "kitchen",
 };
 
+// Pulled out as a pure function so the route->role mapping is unit-testable
+// without needing a NextRequest/Supabase client.
+export function getRequiredRoleForPath(path: string) {
+  return Object.entries(ROLE_PREFIXES).find(
+    ([prefix]) => path === prefix || path.startsWith(`${prefix}/`)
+  )?.[1];
+}
+
 export async function updateSession(request: NextRequest) {
   let response = NextResponse.next({ request });
 
@@ -37,9 +45,7 @@ export async function updateSession(request: NextRequest) {
   } = await supabase.auth.getUser();
 
   const path = request.nextUrl.pathname;
-  const requiredRole = Object.entries(ROLE_PREFIXES).find(([prefix]) =>
-    path.startsWith(prefix)
-  )?.[1];
+  const requiredRole = getRequiredRoleForPath(path);
 
   if (requiredRole) {
     if (!user) {

@@ -10,6 +10,7 @@ export interface Dictionary {
     whatsapp: string;
     whatsappPlaceholder: string;
     whatsappHint: string;
+    otherCountry: string;
     table: string;
     tablePlaceholder: string;
     tableHint: string;
@@ -90,6 +91,7 @@ export const dictionaries: Record<Locale, Dictionary> = {
       whatsapp: "WhatsApp number",
       whatsappPlaceholder: "e.g. 0791234567",
       whatsappHint: "We'll send your receipt here when your order closes.",
+      otherCountry: "Other (type code)",
       table: "Table number",
       tablePlaceholder: "e.g. 12",
       tableHint: "Check the number on your table.",
@@ -168,6 +170,7 @@ export const dictionaries: Record<Locale, Dictionary> = {
       whatsapp: "رقم واتساب",
       whatsappPlaceholder: "مثال: 0791234567",
       whatsappHint: "سنرسل الفاتورة عليه عند إغلاق طلبك.",
+      otherCountry: "دولة أخرى (اكتب الرمز)",
       table: "رقم الطاولة",
       tablePlaceholder: "مثال: 12",
       tableHint: "تحقق من الرقم الموجود على طاولتك.",

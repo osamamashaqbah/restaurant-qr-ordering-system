@@ -4,7 +4,7 @@ import { Component, DestroyRef, inject, signal } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ActivatedRoute } from '@angular/router';
 import { RouterLink } from '@angular/router';
-import { EMPTY, catchError, switchMap, timer } from 'rxjs';
+import { EMPTY, catchError, switchMap, takeWhile, timer } from 'rxjs';
 import { OrderTrackingService, PublicOrderTracking } from '../../core/order-tracking';
 
 type ViewState = 'loading' | 'ready' | 'not-found' | 'error';
@@ -33,14 +33,12 @@ export class OrderTracking {
 
     timer(0, 10_000)
       .pipe(
-        switchMap(() =>
-          this.service.get(this.token).pipe(
-            catchError((error: HttpErrorResponse) => {
-              this.state.set(error.status === 404 ? 'not-found' : 'error');
-              return EMPTY;
-            }),
-          ),
-        ),
+        switchMap(() => this.service.get(this.token)),
+        takeWhile((order) => order.status !== 'closed' && order.status !== 'cancelled', true),
+        catchError((error: HttpErrorResponse) => {
+          this.state.set(error.status === 404 ? 'not-found' : 'error');
+          return EMPTY;
+        }),
         takeUntilDestroyed(this.destroyRef),
       )
       .subscribe((order) => {

@@ -25,6 +25,9 @@
           <span>Total</span>
           <strong>{{ currentOrder.total | number: '1.2-2' }}</strong>
         </div>
+        @if (currentOrder.status === 'closed') {
+          <a class="rating-link" [routerLink]="['/rate', token]">Rate your order</a>
+        }
       </div>
     }
   }

@@ -1,5 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ActivatedRoute } from '@angular/router';
+import { provideRouter } from '@angular/router';
 import { provideHttpClient } from '@angular/common/http';
 import { OrderTrackingService } from '../../core/order-tracking';
 import { OrderTracking } from './order-tracking';
@@ -13,6 +14,7 @@ describe('OrderTracking', () => {
       imports: [OrderTracking],
       providers: [
         provideHttpClient(),
+        provideRouter([]),
         { provide: ActivatedRoute, useValue: { snapshot: { paramMap: { get: () => 'invalid' } } } },
         { provide: OrderTrackingService, useValue: {} },
       ],

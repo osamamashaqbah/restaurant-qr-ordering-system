@@ -3,6 +3,7 @@ import { DecimalPipe } from '@angular/common';
 import { Component, DestroyRef, inject, signal } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ActivatedRoute } from '@angular/router';
+import { RouterLink } from '@angular/router';
 import { EMPTY, catchError, switchMap, timer } from 'rxjs';
 import { OrderTrackingService, PublicOrderTracking } from '../../core/order-tracking';
 
@@ -10,7 +11,7 @@ type ViewState = 'loading' | 'ready' | 'not-found' | 'error';
 const TOKEN_PATTERN = /^[A-Za-z0-9_-]{43}$/;
 
 @Component({
-  imports: [DecimalPipe],
+  imports: [DecimalPipe, RouterLink],
   selector: 'app-order-tracking',
   styleUrl: './order-tracking.scss',
   templateUrl: './order-tracking.html',
@@ -19,7 +20,7 @@ export class OrderTracking {
   private readonly route = inject(ActivatedRoute);
   private readonly service = inject(OrderTrackingService);
   private readonly destroyRef = inject(DestroyRef);
-  private readonly token = this.route.snapshot.paramMap.get('trackingToken') ?? '';
+  readonly token = this.route.snapshot.paramMap.get('trackingToken') ?? '';
 
   readonly state = signal<ViewState>('loading');
   readonly order = signal<PublicOrderTracking | null>(null);

@@ -8,6 +8,7 @@ import { Kitchen } from './features/kitchen/kitchen';
 import { Cashier } from './features/cashier/cashier';
 import { Admin } from './features/admin/admin';
 import { AdminMenu } from './features/admin-menu/admin-menu';
+import { Rating } from './features/rating/rating';
 import { staffRoleGuard } from './core/staff-role.guard';
 
 export const routes: Routes = [
@@ -15,6 +16,7 @@ export const routes: Routes = [
   { path: 'menu', component: Menu },
   { path: 'cart', component: Cart },
   { path: 'order/:trackingToken', component: OrderTracking },
+  { path: 'rate/:trackingToken', component: Rating },
   { path: 'login', component: Login },
   { path: 'kitchen', component: Kitchen, canActivate: [staffRoleGuard('kitchen')] },
   { path: 'cashier', component: Cashier, canActivate: [staffRoleGuard('cashier')] },

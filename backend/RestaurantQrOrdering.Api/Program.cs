@@ -62,6 +62,7 @@ if (string.IsNullOrWhiteSpace(databaseConnectionString))
 {
     builder.Services.AddSingleton<IPublicOrderStore, UnavailablePublicOrderStore>();
     builder.Services.AddSingleton<IPublicMenuStore, UnavailablePublicMenuStore>();
+    builder.Services.AddSingleton<IPublicRatingStore, UnavailablePublicRatingStore>();
     builder.Services.AddSingleton<IStaffProfileStore, UnavailableStaffProfileStore>();
     builder.Services.AddSingleton<IKitchenStore, UnavailableKitchenStore>();
     builder.Services.AddSingleton<ICashierStore, UnavailableCashierStore>();
@@ -73,6 +74,7 @@ else
     builder.Services.AddSingleton(NpgsqlDataSource.Create(databaseConnectionString));
     builder.Services.AddSingleton<IPublicOrderStore, NpgsqlPublicOrderStore>();
     builder.Services.AddSingleton<IPublicMenuStore, NpgsqlPublicMenuStore>();
+    builder.Services.AddSingleton<IPublicRatingStore, NpgsqlPublicRatingStore>();
     builder.Services.AddSingleton<IStaffProfileStore, NpgsqlStaffProfileStore>();
     builder.Services.AddSingleton<IKitchenStore, NpgsqlKitchenStore>();
     builder.Services.AddSingleton<ICashierStore, NpgsqlCashierStore>();

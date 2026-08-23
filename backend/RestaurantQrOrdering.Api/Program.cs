@@ -63,6 +63,7 @@ if (string.IsNullOrWhiteSpace(databaseConnectionString))
     builder.Services.AddSingleton<IPublicOrderStore, UnavailablePublicOrderStore>();
     builder.Services.AddSingleton<IPublicMenuStore, UnavailablePublicMenuStore>();
     builder.Services.AddSingleton<IStaffProfileStore, UnavailableStaffProfileStore>();
+    builder.Services.AddSingleton<IKitchenStore, UnavailableKitchenStore>();
 }
 else
 {
@@ -70,6 +71,7 @@ else
     builder.Services.AddSingleton<IPublicOrderStore, NpgsqlPublicOrderStore>();
     builder.Services.AddSingleton<IPublicMenuStore, NpgsqlPublicMenuStore>();
     builder.Services.AddSingleton<IStaffProfileStore, NpgsqlStaffProfileStore>();
+    builder.Services.AddSingleton<IKitchenStore, NpgsqlKitchenStore>();
 }
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();

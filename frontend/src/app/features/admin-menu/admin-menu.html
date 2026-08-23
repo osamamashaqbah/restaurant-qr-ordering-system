@@ -1,0 +1,50 @@
+<main class="admin-menu">
+  <header class="header">
+    <div>
+      <a routerLink="/admin">← Admin</a>
+      <p class="eyebrow">Menu</p>
+      <h1>Menu editor</h1>
+    </div>
+  </header>
+
+  @if (error()) { <p class="error" role="alert">{{ error() }}</p> }
+  @if (state() === 'loading') {
+    <p class="message">Loading menu…</p>
+  } @else if (state() === 'error') {
+    <p class="message">We could not load the menu.</p>
+  } @else if (menu(); as currentMenu) {
+    <section class="editor-section">
+      <h2>Categories</h2>
+      <form [formGroup]="categoryForm" (ngSubmit)="saveCategory()">
+        <input placeholder="Name (English)" formControlName="nameEn" />
+        <input placeholder="Name (Arabic)" formControlName="nameAr" />
+        <input type="number" placeholder="Sort" formControlName="sortOrder" />
+        <button type="submit" [disabled]="categoryForm.invalid || busyId()">{{ editingCategoryId() ? 'Save' : 'Add' }}</button>
+        @if (editingCategoryId()) { <button type="button" class="muted" (click)="cancelCategoryEdit()">Cancel</button> }
+      </form>
+      <div class="rows">
+        @for (category of currentMenu.categories; track category.id) {
+          <div class="row"><span>{{ category.nameEn }} · {{ category.nameAr }}</span><span><button type="button" class="muted" (click)="editCategory(category)">Edit</button><button type="button" class="danger" (click)="deleteCategory(category.id)" [disabled]="busyId() === category.id">Delete</button></span></div>
+        } @empty { <p class="message">No categories.</p> }
+      </div>
+    </section>
+
+    <section class="editor-section">
+      <h2>Items</h2>
+      <form [formGroup]="itemForm" (ngSubmit)="saveItem()">
+        <select formControlName="categoryId"><option value="">Choose category</option>@for (category of currentMenu.categories; track category.id) { <option [value]="category.id">{{ category.nameEn }}</option> }</select>
+        <input placeholder="Name (English)" formControlName="nameEn" />
+        <input placeholder="Name (Arabic)" formControlName="nameAr" />
+        <input type="number" min="0" step="0.01" placeholder="Price" formControlName="price" />
+        <label class="check"><input type="checkbox" formControlName="isAvailable" /> Available</label>
+        <button type="submit" [disabled]="itemForm.invalid || busyId()">{{ editingItemId() ? 'Save' : 'Add' }}</button>
+        @if (editingItemId()) { <button type="button" class="muted" (click)="cancelItemEdit()">Cancel</button> }
+      </form>
+      <div class="rows">
+        @for (item of currentMenu.items; track item.id) {
+          <div class="row"><span>{{ item.nameEn }} · {{ item.price | number: '1.2-2' }}</span><span><button type="button" class="muted" (click)="editItem(item)">Edit</button><button type="button" class="danger" (click)="deleteItem(item.id)" [disabled]="busyId() === item.id">Delete</button></span></div>
+        } @empty { <p class="message">No menu items.</p> }
+      </div>
+    </section>
+  }
+</main>

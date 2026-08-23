@@ -2,12 +2,13 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { DecimalPipe } from '@angular/common';
 import { Component, DestroyRef, inject, signal } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { RouterLink } from '@angular/router';
 import { EMPTY, catchError } from 'rxjs';
 import { AdminService, AdminStaffMember, SalesSummary, StaffRole } from '../../core/admin';
 import { StaffAuthService } from '../../core/supabase-auth';
 
 @Component({
-  imports: [DecimalPipe],
+  imports: [DecimalPipe, RouterLink],
   selector: 'app-admin',
   styleUrl: './admin.scss',
   templateUrl: './admin.html',

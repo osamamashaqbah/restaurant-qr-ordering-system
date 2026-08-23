@@ -3,6 +3,7 @@
     <div>
       <p class="eyebrow">Admin</p>
       <h1 id="admin-title">{{ tab() === 'staff' ? 'Staff roles' : 'Sales reports' }}</h1>
+      <a class="menu-link" routerLink="/admin/menu">Edit menu</a>
     </div>
     <button type="button" class="sign-out" (click)="auth.signOut()">Sign out</button>
   </header>

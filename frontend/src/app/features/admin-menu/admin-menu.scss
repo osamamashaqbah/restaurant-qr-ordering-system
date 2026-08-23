@@ -1,0 +1,107 @@
+.admin-menu {
+  width: min(100%, 60rem);
+  margin: 0 auto;
+}
+
+.header,
+.row,
+form,
+.row > span:last-child {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.header {
+  justify-content: space-between;
+}
+
+a {
+  color: #a65d3e;
+  font-weight: 700;
+}
+
+.eyebrow {
+  margin: 1rem 0 0;
+  color: #a65d3e;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+h1,
+h2,
+p {
+  margin: 0;
+}
+
+.editor-section {
+  margin-top: 1.75rem;
+}
+
+h2 {
+  font-size: 1.15rem;
+}
+
+form {
+  flex-wrap: wrap;
+  margin-top: 0.75rem;
+}
+
+input,
+select,
+button {
+  padding: 0.55rem 0.65rem;
+  border: 1px solid #d8cdbc;
+  border-radius: 0.55rem;
+  background: #fffdf8;
+  font: inherit;
+}
+
+button {
+  cursor: pointer;
+  font-weight: 700;
+}
+
+button:disabled {
+  cursor: wait;
+  opacity: 0.55;
+}
+
+.muted {
+  color: #6f675e;
+}
+
+.danger,
+.error {
+  color: #a33e35;
+}
+
+.rows {
+  display: grid;
+  gap: 0.5rem;
+  margin-top: 0.75rem;
+}
+
+.row {
+  justify-content: space-between;
+  padding: 0.65rem 0.75rem;
+  border: 1px solid #e1d8c9;
+  border-radius: 0.65rem;
+}
+
+.check {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.message {
+  margin-top: 1.5rem;
+  color: #6f675e;
+}
+
+.error {
+  margin-top: 1rem;
+}

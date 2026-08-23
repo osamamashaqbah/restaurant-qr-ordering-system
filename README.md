@@ -7,53 +7,58 @@ role-scoped dashboard with realtime updates.
 
 ## Stack
 
-- **Frontend:** Next.js (App Router) + TypeScript + Tailwind CSS
-- **Backend:** Supabase — Postgres, Auth, Realtime, Storage
-- **Deploy:** Vercel (frontend) + Supabase (backend)
+- **Frontend:** Angular 22 + TypeScript
+- **Backend:** ASP.NET Core 8 Web API
+- **Platform:** Supabase — Postgres, Auth, Realtime, Storage
+- **Deploy:** Angular static host + ASP.NET host + Supabase
+
+## Rewrite status
+
+The active rewrite is the `frontend/` Angular app and `backend/` ASP.NET API.
+The original Next.js implementation remains under `src/` as a legacy parity
+reference until the rewrite is deployed and the final migration checks pass.
 
 ## Project structure
 
 ```
-src/
-  app/
-    (customer)/   # entry form, menu, cart, order tracker, rating (AR/EN, RTL/LTR)
-    kitchen/      # kitchen kanban board (role-gated)
-    cashier/      # ready orders, availability toggle, invoice (role-gated)
-    admin/        # menu CRUD, sales reports, staff roles (role-gated)
-    login/        # shared staff login (role decides redirect)
-  lib/
-    supabase/     # browser/server/proxy Supabase clients
-    auth/         # getStaffUser() — server-side role re-check per layout
-    validation/   # zod schemas for all user input
-    i18n/         # AR/EN copy + RTL helpers (customer-facing only)
-    customer/     # cart + entry-form session state (sessionStorage)
-  types/          # generated Supabase DB types
+backend/
+  RestaurantQrOrdering.Api/        # ASP.NET Core API
+  RestaurantQrOrdering.Api.Tests/  # API tests
+frontend/                           # Angular application
+src/                                # legacy Next.js implementation
 supabase/
-  migrations/     # every schema/RLS/RPC change, in application order
+  migrations/                       # schema/RLS/RPC changes, in order
 ```
 
-Staff dashboards (kitchen/cashier/admin) are intentionally English-only —
-they're internal tools, not customer-facing, so they don't carry the i18n
-provider. Route protection is layered: `src/proxy.ts` (Next.js proxy, the
-renamed `middleware.ts`) gates `/admin`, `/cashier`, `/kitchen` at the edge,
-and every staff layout independently re-checks auth + role server-side via
-`getStaffUser()` before rendering anything — neither check trusts the other.
+Staff dashboards (kitchen/cashier/admin) are intentionally English-only. The
+Angular guards protect navigation and the ASP.NET API re-checks the JWT
+subject and current database role on every staff request.
 
 ## Getting started
 
 ```bash
-npm install
-cp .env.example .env.local   # fill in your Supabase project URL + anon key
-npm run dev
+dotnet test RestaurantQrOrdering.sln
+npm --prefix frontend install
+npm --prefix frontend start
 ```
 
-Open [http://localhost:3000](http://localhost:3000).
+The Angular app runs at [http://localhost:4200](http://localhost:4200). Set
+the browser Supabase values in `frontend/public/runtime-config.js` and the
+API values with `ConnectionStrings__SupabaseDatabase`,
+`Supabase__JwtIssuer`, and `Supabase__JwtSecret`.
+
+Run the API with:
+
+```bash
+dotnet run --project backend/RestaurantQrOrdering.Api
+```
 
 ## Database & security model
 
-Schema, RLS policies, and RPC functions live in Supabase (see migrations
-applied via the Supabase MCP tooling — check the Supabase dashboard's
-migration history for the full SQL). Key decisions:
+Schema, RLS policies, and RPC functions live in Supabase under `supabase/`.
+The ASP.NET API uses parameterized queries and narrowly scoped database
+functions for staff commands; apply migrations in filename order before using
+the rewrite against a real project. Key decisions:
 
 - **Roles** (`admin` / `cashier` / `kitchen`) live in `public.profiles`,
   linked 1:1 to `auth.users`. Only an admin can assign roles; no user can
@@ -112,24 +117,21 @@ migration history for the full SQL). Key decisions:
 
 ## Environment variables
 
-See `.env.example`. Never commit `.env.local` or any real key — `.gitignore`
-already excludes all `.env*` files except the placeholder `.env.example`.
+The rewrite uses `frontend/public/runtime-config.js` for the public Supabase
+URL/anon key and server-side settings for the database/JWT values listed above.
+The legacy Next.js app still uses `.env.example`. Never commit real keys —
+`.gitignore` excludes environment files.
 
 ## Implementation phases
 
-0. ✅ Project setup — Next.js, Supabase schema/RLS/RPCs, auth roles
-1. ✅ Customer flow — QR entry form, bilingual menu, cart, order submission
-2. ✅ Kitchen board — New → Preparing → Ready
-3. ✅ Cashier dashboard — realtime orders, payment close, availability toggle, WhatsApp invoice
-4. ✅ Post-order rating
-5. ✅ Admin dashboard — menu CRUD, sales reports, staff role assignment
-6. ✅ Role-based auth hardening pass — security-event logging, error-message
-   audit, RLS/advisor sweep (see "Known outstanding item" above)
-7. UI polish, testing, deployment
+0. ✅ Legacy Next.js baseline and Supabase security model
+1. ✅ ASP.NET foundation and Angular shell
+2. ✅ Customer menu, checkout, opaque tracking, and rating
+3. ✅ Kitchen, cashier, and admin role-scoped workflows
+4. ✅ Local API/Angular tests and production dependency audit
+5. ⏳ Apply rewrite migrations to the target Supabase project
+6. ⏳ Run live role-based/E2E verification, then retire the legacy Next.js app
 
-Every phase after 0 was verified against the live deployed Supabase
-project (not just locally) — placing real orders, logging in as each
-role, and confirming Realtime propagation end-to-end — with two real bugs
-found and fixed along the way (an RLS-breaking function grant, and a
-trigger that silently zeroed out order totals). See migration file
-comments in `supabase/migrations/` for the details of each.
+The rewrite checks completed in this repository are local. Live verification
+still requires the target Supabase connection, JWT configuration, and deployed
+hosts; no production secrets are committed here.

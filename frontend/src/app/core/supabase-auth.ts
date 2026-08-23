@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { EnvironmentProviders, Injectable, InjectionToken, inject, makeEnvironmentProviders, signal } from '@angular/core';
-import { createClient, Session, SupabaseClient } from '@supabase/supabase-js';
+import type { Session, SupabaseClient } from '@supabase/supabase-js';
 import { firstValueFrom } from 'rxjs';
 
 export interface SupabaseRuntimeConfig {
@@ -14,7 +14,7 @@ export interface StaffIdentity {
 }
 
 export const SUPABASE_RUNTIME_CONFIG = new InjectionToken<SupabaseRuntimeConfig>('SUPABASE_RUNTIME_CONFIG');
-export const SUPABASE_CLIENT = new InjectionToken<SupabaseClient | null>('SUPABASE_CLIENT');
+export const SUPABASE_CLIENT = new InjectionToken<SupabaseClient | null | Promise<SupabaseClient | null>>('SUPABASE_CLIENT');
 
 export function provideSupabaseAuth(config: SupabaseRuntimeConfig): EnvironmentProviders {
   return makeEnvironmentProviders([
@@ -25,13 +25,13 @@ export function provideSupabaseAuth(config: SupabaseRuntimeConfig): EnvironmentP
         const runtime = inject(SUPABASE_RUNTIME_CONFIG);
         if (!runtime.url || !runtime.anonKey) return null;
 
-        return createClient(runtime.url, runtime.anonKey, {
+        return import('@supabase/supabase-js').then(({ createClient }) => createClient(runtime.url, runtime.anonKey, {
           auth: {
             persistSession: true,
             autoRefreshToken: true,
             detectSessionInUrl: false,
           },
-        });
+        }));
       },
     },
   ]);
@@ -39,10 +39,11 @@ export function provideSupabaseAuth(config: SupabaseRuntimeConfig): EnvironmentP
 
 @Injectable({ providedIn: 'root' })
 export class StaffAuthService {
-  private readonly client = inject(SUPABASE_CLIENT);
+  private readonly clientProvider = inject(SUPABASE_CLIENT);
   private readonly http = inject(HttpClient);
   private readonly sessionState = signal<Session | null>(null);
   private readonly identityState = signal<StaffIdentity | null>(null);
+  private client: SupabaseClient | null = null;
   private readonly readyPromise: Promise<void>;
 
   readonly session = this.sessionState.asReadonly();
@@ -50,15 +51,6 @@ export class StaffAuthService {
 
   constructor() {
     this.readyPromise = this.initialize();
-    this.client?.auth.onAuthStateChange((_event, session) => {
-      this.sessionState.set(session);
-      if (!session) {
-        this.identityState.set(null);
-        return;
-      }
-
-      queueMicrotask(() => void this.loadIdentity(true));
-    });
   }
 
   ready(): Promise<void> {
@@ -66,9 +58,10 @@ export class StaffAuthService {
   }
 
   async signIn(email: string, password: string): Promise<string | null> {
-    if (!this.client) return 'Staff sign-in is not configured.';
+    const client = await this.resolveClient();
+    if (!client) return 'Staff sign-in is not configured.';
 
-    const { data, error } = await this.client.auth.signInWithPassword({
+    const { data, error } = await client.auth.signInWithPassword({
       email: email.trim(),
       password,
     });
@@ -84,7 +77,8 @@ export class StaffAuthService {
   async signOut(): Promise<void> {
     this.identityState.set(null);
     this.sessionState.set(null);
-    await this.client?.auth.signOut();
+    const client = await this.resolveClient();
+    await client?.auth.signOut();
   }
 
   async refreshIdentity(): Promise<StaffIdentity | null> {
@@ -92,11 +86,29 @@ export class StaffAuthService {
   }
 
   private async initialize(): Promise<void> {
-    if (!this.client) return;
+    const client = await this.resolveClient();
+    if (!client) return;
 
-    const { data } = await this.client.auth.getSession();
+    client.auth.onAuthStateChange((_event, session) => {
+      this.sessionState.set(session);
+      if (!session) {
+        this.identityState.set(null);
+        return;
+      }
+
+      queueMicrotask(() => void this.loadIdentity(true));
+    });
+
+    const { data } = await client.auth.getSession();
     this.sessionState.set(data.session);
     if (data.session) await this.loadIdentity(true);
+  }
+
+  private async resolveClient(): Promise<SupabaseClient | null> {
+    if (this.client) return this.client;
+
+    this.client = await this.clientProvider;
+    return this.client;
   }
 
   private async loadIdentity(signOutOnFailure: boolean): Promise<StaffIdentity | null> {
@@ -108,7 +120,7 @@ export class StaffAuthService {
       return identity;
     } catch {
       this.identityState.set(null);
-      if (signOutOnFailure) await this.client?.auth.signOut();
+      if (signOutOnFailure) await this.signOut();
       return null;
     }
   }

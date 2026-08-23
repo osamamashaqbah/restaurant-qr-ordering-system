@@ -54,4 +54,22 @@ public sealed class HealthEndpointTests : IClassFixture<WebApplicationFactory<Pr
         Assert.True(response.IsSuccessStatusCode);
         Assert.Equal("http://localhost:4200", response.Headers.GetValues("Access-Control-Allow-Origin").Single());
     }
+
+    [Fact]
+    public async Task Public_order_creation_is_rate_limited()
+    {
+        using var factory = new WebApplicationFactory<Program>();
+        using var client = factory.CreateClient();
+        using var content = new StringContent("{}", System.Text.Encoding.UTF8, "application/json");
+
+        for (var attempt = 0; attempt < 30; attempt++)
+        {
+            using var response = await client.PostAsync("/api/public/orders", content);
+            Assert.NotEqual(HttpStatusCode.TooManyRequests, response.StatusCode);
+        }
+
+        using var limitedResponse = await client.PostAsync("/api/public/orders", new StringContent("{}", System.Text.Encoding.UTF8, "application/json"));
+
+        Assert.Equal(HttpStatusCode.TooManyRequests, limitedResponse.StatusCode);
+    }
 }

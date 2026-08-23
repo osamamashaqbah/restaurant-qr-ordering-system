@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.RateLimiting;
 
 namespace RestaurantQrOrdering.Api.Features.PublicOrders;
 
@@ -9,6 +10,7 @@ public sealed class PublicOrdersController(
     ILogger<PublicOrdersController> logger) : ControllerBase
 {
     [HttpPost]
+    [EnableRateLimiting("public-order-create")]
     [ProducesResponseType(typeof(CreateOrderResponse), StatusCodes.Status201Created)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status503ServiceUnavailable)]

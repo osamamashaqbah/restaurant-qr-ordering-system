@@ -7,6 +7,7 @@ using RestaurantQrOrdering.Api.Features.PublicOrders;
 using RestaurantQrOrdering.Api.Features.Staff;
 using System.Security.Cryptography;
 using System.Text;
+using System.Threading.RateLimiting;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -14,6 +15,20 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
 builder.Services.AddProblemDetails();
+var publicOrderRateLimit = builder.Configuration.GetValue<int?>("RateLimiting:PublicOrdersPerMinute") ?? 30;
+builder.Services.AddRateLimiter(options =>
+{
+    options.RejectionStatusCode = StatusCodes.Status429TooManyRequests;
+    options.AddPolicy("public-order-create", context => RateLimitPartition.GetFixedWindowLimiter(
+        context.Connection.RemoteIpAddress?.ToString() ?? "unknown",
+        _ => new FixedWindowRateLimiterOptions
+        {
+            PermitLimit = publicOrderRateLimit,
+            Window = TimeSpan.FromMinutes(1),
+            QueueLimit = 0,
+            AutoReplenishment = true,
+        }));
+});
 var allowedCorsOrigins = builder.Configuration.GetSection("Cors:AllowedOrigins").Get<string[]>() ?? [];
 builder.Services.AddCors(options => options.AddPolicy("Frontend", policy =>
 {
@@ -106,6 +121,7 @@ if (app.Environment.IsDevelopment())
 
 app.UseExceptionHandler();
 app.UseCors("Frontend");
+app.UseRateLimiter();
 app.UseAuthentication();
 app.UseAuthorization();
 

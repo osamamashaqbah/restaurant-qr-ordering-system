@@ -1,0 +1,45 @@
+<section class="staff-page" aria-labelledby="cashier-title">
+  <header class="staff-header">
+    <div>
+      <p class="eyebrow">Cashier</p>
+      <h1 id="cashier-title">Ready orders</h1>
+    </div>
+    <button type="button" class="sign-out" (click)="auth.signOut()">Sign out</button>
+  </header>
+
+  @if (error()) {
+    <p class="error" role="alert">{{ error() }}</p>
+  }
+
+  @if (state() === 'loading') {
+    <p class="message">Loading orders…</p>
+  } @else if (state() === 'error') {
+    <p class="message">We could not load cashier orders.</p>
+  } @else {
+    <p class="summary">{{ newCount() }} new · {{ preparingCount() }} preparing · {{ readyOrders().length }} ready</p>
+
+    <div class="orders">
+      @for (order of readyOrders(); track order.id) {
+        <article class="order-card">
+          <div class="order-heading">
+            <div>
+              <strong>Table {{ order.tableNumber }}</strong>
+              <p>{{ order.customerName }}</p>
+            </div>
+            <strong>{{ order.total | number: '1.2-2' }}</strong>
+          </div>
+          <ul>
+            @for (item of order.items; track item.id) {
+              <li>{{ item.quantity }}× {{ item.nameEn }}</li>
+            }
+          </ul>
+          <button type="button" (click)="close(order.id)" [disabled]="busyId() === order.id">
+            Confirm payment & close
+          </button>
+        </article>
+      } @empty {
+        <p class="empty">No orders ready yet.</p>
+      }
+    </div>
+  }
+</section>

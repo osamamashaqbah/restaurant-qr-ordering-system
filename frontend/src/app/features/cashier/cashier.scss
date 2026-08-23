@@ -1,0 +1,94 @@
+.staff-page {
+  width: min(100%, 48rem);
+  margin: 0 auto;
+}
+
+.staff-header,
+.order-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.eyebrow {
+  margin: 0;
+  color: #a65d3e;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+h1,
+p {
+  margin: 0;
+}
+
+.sign-out {
+  border: 0;
+  background: transparent;
+  color: #6f675e;
+  cursor: pointer;
+  font: inherit;
+  text-decoration: underline;
+}
+
+.summary,
+.message,
+.empty,
+.order-heading p {
+  color: #6f675e;
+}
+
+.summary,
+.orders {
+  margin-top: 1.5rem;
+}
+
+.orders {
+  display: grid;
+  gap: 0.9rem;
+}
+
+.order-card {
+  padding: 1rem;
+  border: 1px solid #e1d8c9;
+  border-radius: 1rem;
+  background: #fffdf8;
+}
+
+ul {
+  display: grid;
+  gap: 0.35rem;
+  margin: 1rem 0;
+  padding: 0;
+  list-style: none;
+  color: #6f675e;
+}
+
+.order-card button {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border: 0;
+  border-radius: 0.65rem;
+  background: #a65d3e;
+  color: #fff;
+  cursor: pointer;
+  font: inherit;
+  font-weight: 700;
+}
+
+button:disabled {
+  cursor: wait;
+  opacity: 0.6;
+}
+
+.error {
+  margin-top: 1rem;
+  color: #a33e35;
+}
+
+.message {
+  margin-top: 1.5rem;
+}

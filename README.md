@@ -48,6 +48,11 @@ API values with `ConnectionStrings__SupabaseDatabase`,
 `Supabase__JwtIssuer`, `Supabase__JwtAudience=authenticated`, and one or more
 `Cors__AllowedOrigins__0` values for the deployed Angular origin.
 
+If the API is behind a reverse proxy, set each proxy IP in
+`ForwardedHeaders__TrustedProxies__0` (and subsequent indexes). The API only
+honors forwarded client-IP headers from this allowlist; do not enable it with
+arbitrary client addresses.
+
 The beginner-friendly project and interview guide is available at
 `http://localhost:4200/guide`.
 

@@ -53,6 +53,7 @@ public sealed class PublicOrdersController(
     }
 
     [HttpGet("{trackingToken}/tracking")]
+    [EnableRateLimiting("public-order-track")]
     [ProducesResponseType(typeof(PublicOrderTracking), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(StatusCodes.Status503ServiceUnavailable)]

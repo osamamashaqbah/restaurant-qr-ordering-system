@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.RateLimiting;
 
 namespace RestaurantQrOrdering.Api.Features.PublicOrders;
 
@@ -9,6 +10,7 @@ public sealed class PublicRatingController(
     ILogger<PublicRatingController> logger) : ControllerBase
 {
     [HttpPost]
+    [EnableRateLimiting("public-order-rating")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]

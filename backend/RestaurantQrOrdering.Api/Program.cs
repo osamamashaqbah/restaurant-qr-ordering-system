@@ -2,10 +2,12 @@ using Npgsql;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization.Policy;
+using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.IdentityModel.Tokens;
 using RestaurantQrOrdering.Api.Features.PublicMenu;
 using RestaurantQrOrdering.Api.Features.PublicOrders;
 using RestaurantQrOrdering.Api.Features.Staff;
+using System.Net;
 using System.Threading.RateLimiting;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -14,20 +16,38 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
 builder.Services.AddProblemDetails();
-var publicOrderRateLimit = builder.Configuration.GetValue<int?>("RateLimiting:PublicOrdersPerMinute") ?? 30;
+var publicOrderCreateRateLimit = RequiredPositiveRateLimit(builder.Configuration, "RateLimiting:PublicOrdersPerMinute", 30);
+var publicOrderTrackingRateLimit = RequiredPositiveRateLimit(builder.Configuration, "RateLimiting:PublicOrderTrackingPerMinute", 120);
+var publicOrderRatingRateLimit = RequiredPositiveRateLimit(builder.Configuration, "RateLimiting:PublicOrderRatingsPerMinute", 10);
 builder.Services.AddRateLimiter(options =>
 {
     options.RejectionStatusCode = StatusCodes.Status429TooManyRequests;
-    options.AddPolicy("public-order-create", context => RateLimitPartition.GetFixedWindowLimiter(
-        context.Connection.RemoteIpAddress?.ToString() ?? "unknown",
-        _ => new FixedWindowRateLimiterOptions
-        {
-            PermitLimit = publicOrderRateLimit,
-            Window = TimeSpan.FromMinutes(1),
-            QueueLimit = 0,
-            AutoReplenishment = true,
-        }));
+    options.AddPolicy("public-order-create", context => PublicRateLimit("create", context, publicOrderCreateRateLimit));
+    options.AddPolicy("public-order-track", context => PublicRateLimit("track", context, publicOrderTrackingRateLimit));
+    options.AddPolicy("public-order-rating", context => PublicRateLimit("rating", context, publicOrderRatingRateLimit));
+    options.OnRejected = (context, _) =>
+    {
+        context.HttpContext.Response.Headers.RetryAfter = "60";
+        return ValueTask.CompletedTask;
+    };
 });
+var trustedProxyAddresses = builder.Configuration.GetSection("ForwardedHeaders:TrustedProxies").Get<string[]>() ?? [];
+if (trustedProxyAddresses.Length > 0)
+{
+    var trustedProxies = trustedProxyAddresses.Select(address =>
+        IPAddress.TryParse(address, out var parsed)
+            ? parsed
+            : throw new InvalidOperationException($"ForwardedHeaders:TrustedProxies contains an invalid IP address: {address}"))
+        .ToArray();
+    builder.Services.Configure<ForwardedHeadersOptions>(options =>
+    {
+        options.ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto;
+        options.ForwardLimit = 1;
+        options.KnownNetworks.Clear();
+        options.KnownProxies.Clear();
+        foreach (var proxy in trustedProxies) options.KnownProxies.Add(proxy);
+    });
+}
 var allowedCorsOrigins = builder.Configuration.GetSection("Cors:AllowedOrigins").Get<string[]>() ?? [];
 builder.Services.AddCors(options => options.AddPolicy("Frontend", policy =>
 {
@@ -121,6 +141,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseExceptionHandler();
+if (trustedProxyAddresses.Length > 0)
+    app.UseForwardedHeaders();
 app.UseCors("Frontend");
 app.UseRateLimiter();
 app.UseAuthentication();
@@ -132,5 +154,24 @@ app.MapGet("/api/health", () => TypedResults.Ok(new { status = "ok" }))
     .WithTags("Operations");
 
 app.Run();
+
+static int RequiredPositiveRateLimit(IConfiguration configuration, string key, int defaultValue)
+{
+    var value = configuration.GetValue<int?>(key) ?? defaultValue;
+    return value > 0
+        ? value
+        : throw new InvalidOperationException($"{key} must be a positive integer.");
+}
+
+static RateLimitPartition<string> PublicRateLimit(string operation, HttpContext context, int permitLimit) =>
+    RateLimitPartition.GetFixedWindowLimiter(
+        $"{operation}:{context.Connection.RemoteIpAddress?.ToString() ?? "unknown"}",
+        _ => new FixedWindowRateLimiterOptions
+        {
+            PermitLimit = permitLimit,
+            Window = TimeSpan.FromMinutes(1),
+            QueueLimit = 0,
+            AutoReplenishment = true,
+        });
 
 public partial class Program;

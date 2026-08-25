@@ -40,7 +40,7 @@ public sealed class PublicOrderTests
     }
 
     [Fact]
-    public void Canonicalizer_merges_equivalent_item_lines_and_keeps_note_variants_separate()
+    public void Canonicalizer_merges_equivalent_item_lines()
     {
         var itemId = Guid.NewGuid();
         var request = new CreateOrderRequest
@@ -52,7 +52,6 @@ public sealed class PublicOrderTests
             [
                 new CreateOrderItemRequest { MenuItemId = itemId, Quantity = 2, Notes = " no onion " },
                 new CreateOrderItemRequest { MenuItemId = itemId, Quantity = 3, Notes = "no onion" },
-                new CreateOrderItemRequest { MenuItemId = itemId, Quantity = 1, Notes = "extra sauce" },
             ],
         };
 
@@ -61,9 +60,28 @@ public sealed class PublicOrderTests
         Assert.Equal("Sara", canonical.CustomerName);
         Assert.Equal("962791234567", canonical.CustomerWhatsapp);
         Assert.Equal("7", canonical.TableNumber);
-        Assert.Collection(canonical.Items,
-            item => { Assert.Equal("extra sauce", item.Notes); Assert.Equal(1, item.Quantity); },
-            item => { Assert.Equal("no onion", item.Notes); Assert.Equal(5, item.Quantity); });
+        var item = Assert.Single(canonical.Items);
+        Assert.Equal("no onion", item.Notes);
+        Assert.Equal(5, item.Quantity);
+    }
+
+    [Fact]
+    public void Duplicate_item_lines_with_conflicting_notes_are_rejected()
+    {
+        var itemId = Guid.NewGuid();
+        var errors = PublicOrderValidation.Validate(new CreateOrderRequest
+        {
+            CustomerName = "Sara",
+            CustomerWhatsapp = "962791234567",
+            TableNumber = "7",
+            Items =
+            [
+                new CreateOrderItemRequest { MenuItemId = itemId, Quantity = 1, Notes = "no onion" },
+                new CreateOrderItemRequest { MenuItemId = itemId, Quantity = 1, Notes = "extra sauce" },
+            ],
+        });
+
+        Assert.Contains(nameof(CreateOrderRequest.Items), errors.Keys);
     }
 
     [Fact]

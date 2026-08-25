@@ -9,14 +9,13 @@ public static class PublicOrderCanonicalizer
         TableNumber = request.TableNumber.Trim(),
         Items = request.Items
             .Select(item => new { item.MenuItemId, item.Quantity, Notes = item.Notes?.Trim() ?? string.Empty })
-            .GroupBy(item => new { item.MenuItemId, item.Notes })
-            .OrderBy(group => group.Key.MenuItemId)
-            .ThenBy(group => group.Key.Notes, StringComparer.Ordinal)
+            .GroupBy(item => item.MenuItemId)
+            .OrderBy(group => group.Key)
             .Select(group => new CreateOrderItemRequest
             {
-                MenuItemId = group.Key.MenuItemId,
+                MenuItemId = group.Key,
                 Quantity = group.Sum(item => item.Quantity),
-                Notes = group.Key.Notes,
+                Notes = group.First().Notes,
             })
             .ToArray(),
     };

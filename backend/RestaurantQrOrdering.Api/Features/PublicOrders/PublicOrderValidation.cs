@@ -33,6 +33,13 @@ public static partial class PublicOrderValidation
                 if ((item.Notes?.Length ?? 0) > 300)
                     errors[$"Items[{index}].Notes"] = ["Item notes cannot exceed 300 characters."];
             }
+
+            if (request.Items
+                .GroupBy(item => item.MenuItemId)
+                .Any(group => group.Select(item => item.Notes?.Trim() ?? string.Empty).Distinct(StringComparer.Ordinal).Skip(1).Any()))
+            {
+                errors[nameof(request.Items)] = ["Duplicate menu items must use identical notes."];
+            }
         }
 
         return errors;

@@ -90,7 +90,7 @@ public sealed class CashierTests
     [Fact]
     public async Task Cashier_routes_require_authentication()
     {
-        using var factory = new WebApplicationFactory<Program>();
+        using var factory = new TestAppFactory();
         using var client = factory.CreateClient();
 
         using var response = await client.GetAsync("/api/staff/cashier/orders");

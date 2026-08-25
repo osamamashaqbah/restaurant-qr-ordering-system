@@ -4,11 +4,11 @@ using Microsoft.AspNetCore.Mvc.Testing;
 
 namespace RestaurantQrOrdering.Api.Tests;
 
-public sealed class HealthEndpointTests : IClassFixture<WebApplicationFactory<Program>>
+public sealed class HealthEndpointTests : IClassFixture<TestAppFactory>
 {
     private readonly HttpClient _client;
 
-    public HealthEndpointTests(WebApplicationFactory<Program> factory)
+    public HealthEndpointTests(TestAppFactory factory)
     {
         _client = factory.CreateClient();
     }
@@ -43,7 +43,7 @@ public sealed class HealthEndpointTests : IClassFixture<WebApplicationFactory<Pr
     [Fact]
     public async Task Development_frontend_origin_is_allowed_for_preflight_requests()
     {
-        using var factory = new WebApplicationFactory<Program>()
+        using var factory = new TestAppFactory()
             .WithWebHostBuilder(builder => builder.UseEnvironment("Development"));
         using var request = new HttpRequestMessage(HttpMethod.Options, "/api/health");
         request.Headers.Add("Origin", "http://localhost:4200");
@@ -58,7 +58,7 @@ public sealed class HealthEndpointTests : IClassFixture<WebApplicationFactory<Pr
     [Fact]
     public async Task Public_order_creation_is_rate_limited()
     {
-        using var factory = new WebApplicationFactory<Program>();
+        using var factory = new TestAppFactory();
         using var client = factory.CreateClient();
         using var content = new StringContent("{}", System.Text.Encoding.UTF8, "application/json");
 

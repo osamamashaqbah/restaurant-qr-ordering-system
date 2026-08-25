@@ -81,7 +81,7 @@ public sealed class KitchenTests
     [Fact]
     public async Task Kitchen_routes_require_authentication()
     {
-        using var factory = new WebApplicationFactory<Program>();
+        using var factory = new TestAppFactory();
         using var client = factory.CreateClient();
 
         using var response = await client.GetAsync("/api/staff/kitchen/orders");

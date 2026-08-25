@@ -50,7 +50,7 @@ public sealed class AdminMenuTests
     [Fact]
     public async Task Admin_menu_routes_require_authentication()
     {
-        using var factory = new WebApplicationFactory<Program>();
+        using var factory = new TestAppFactory();
         using var client = factory.CreateClient();
 
         using var response = await client.GetAsync("/api/staff/admin/menu");

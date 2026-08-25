@@ -45,7 +45,7 @@ npm --prefix frontend start
 The Angular app runs at [http://localhost:4200](http://localhost:4200). Set
 the browser Supabase values in `frontend/public/runtime-config.js` and the
 API values with `ConnectionStrings__SupabaseDatabase`,
-`Supabase__JwtIssuer`, `Supabase__JwtSecret`, and one or more
+`Supabase__JwtIssuer`, `Supabase__JwtAudience=authenticated`, and one or more
 `Cors__AllowedOrigins__0` values for the deployed Angular origin.
 
 The beginner-friendly project and interview guide is available at
@@ -72,6 +72,10 @@ the rewrite against a real project. Key decisions:
 - **Roles** (`admin` / `cashier` / `kitchen`) live in `public.profiles`,
   linked 1:1 to `auth.users`. Only an admin can assign roles; no user can
   ever write their own `role` column (no self-escalation path).
+- **Staff JWTs are verified from Supabase's JWKS.** The API requires the
+  HTTPS issuer, validates `aud=authenticated`, expiry, and signature, and
+  never accepts a generated fallback key. Configure an asymmetric JWT signing
+  key in Supabase so `/auth/v1/.well-known/jwks.json` returns public keys.
 - **Orders are never trusted from the client.** `create_order()` is the only
   write path for placing an order — it re-prices every line item from
   `menu_items` server-side, so a tampered client payload can't change totals.

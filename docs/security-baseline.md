@@ -33,3 +33,8 @@ applying the migration to a non-production Supabase project.
 Applying the migration, creating a restricted API database role, and proving
 RLS/function privileges require an approved staging connection. No production
 database operation was attempted from this workspace.
+
+The API also requires `Supabase:JwtIssuer` (HTTPS) and
+`Supabase:JwtAudience=authenticated` at startup. It uses the issuer's OpenID
+metadata and JWKS for asymmetric Supabase session-token validation; switch the
+Supabase project to an asymmetric signing key before deployment.

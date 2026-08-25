@@ -1,7 +1,8 @@
 using System.IdentityModel.Tokens.Jwt;
 using System.Net;
 using System.Security.Claims;
-using System.Text;
+using System.Security.Cryptography;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Testing;
@@ -9,6 +10,7 @@ using Microsoft.AspNetCore.TestHost;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
+using Microsoft.IdentityModel.Protocols.OpenIdConnect;
 using Microsoft.IdentityModel.Tokens;
 using RestaurantQrOrdering.Api.Features.Staff;
 
@@ -16,8 +18,9 @@ namespace RestaurantQrOrdering.Api.Tests;
 
 public sealed class StaffAuthTests
 {
-    private const string JwtSecret = "test-secret-that-is-long-enough-for-hs256";
-    private const string JwtIssuer = "https://test.supabase.co/auth/v1";
+    private const string JwtIssuer = TestAppFactory.JwtIssuer;
+    private const string JwtAudience = TestAppFactory.JwtAudience;
+    private static readonly ECDsa SigningAlgorithm = ECDsa.Create(ECCurve.NamedCurves.nistP256);
 
     [Fact]
     public async Task Staff_identity_requires_a_bearer_token()
@@ -36,7 +39,7 @@ public sealed class StaffAuthTests
         var userId = Guid.NewGuid();
         using var app = CreateApp(new FakeStaffProfileStore(new StaffProfile(userId, StaffRoles.Admin, "Ada")));
         using var client = app.CreateClient();
-        client.DefaultRequestHeaders.Authorization = new("Bearer", CreateToken(userId, JwtSecret));
+        client.DefaultRequestHeaders.Authorization = new("Bearer", CreateToken(userId));
 
         using var response = await client.GetAsync("/api/staff/me");
         var body = await response.Content.ReadAsStringAsync();
@@ -54,7 +57,7 @@ public sealed class StaffAuthTests
         var userId = Guid.NewGuid();
         using var app = CreateApp(new FakeStaffProfileStore(new StaffProfile(userId, null, "Pending")));
         using var client = app.CreateClient();
-        client.DefaultRequestHeaders.Authorization = new("Bearer", CreateToken(userId, JwtSecret));
+        client.DefaultRequestHeaders.Authorization = new("Bearer", CreateToken(userId));
 
         using var response = await client.GetAsync("/api/staff/me");
 
@@ -66,7 +69,7 @@ public sealed class StaffAuthTests
     {
         using var app = CreateApp(new UnavailableStaffProfileStore());
         using var client = app.CreateClient();
-        client.DefaultRequestHeaders.Authorization = new("Bearer", CreateToken(Guid.NewGuid(), JwtSecret));
+        client.DefaultRequestHeaders.Authorization = new("Bearer", CreateToken(Guid.NewGuid()));
 
         using var response = await client.GetAsync("/api/staff/me");
 
@@ -79,11 +82,35 @@ public sealed class StaffAuthTests
     {
         using var app = CreateApp(new FakeStaffProfileStore(new StaffProfile(Guid.NewGuid(), StaffRoles.Admin, "Ada")));
         using var client = app.CreateClient();
-        client.DefaultRequestHeaders.Authorization = new("Bearer", CreateToken(Guid.NewGuid(), "different-test-secret-that-is-long-enough"));
+        using var untrustedSigningAlgorithm = ECDsa.Create(ECCurve.NamedCurves.nistP256);
+        client.DefaultRequestHeaders.Authorization = new("Bearer", CreateToken(Guid.NewGuid(), untrustedSigningAlgorithm));
 
         using var response = await client.GetAsync("/api/staff/me");
 
         Assert.Equal(HttpStatusCode.Unauthorized, response.StatusCode);
+    }
+
+    [Fact]
+    public async Task Staff_identity_rejects_a_token_for_a_different_audience()
+    {
+        using var app = CreateApp(new FakeStaffProfileStore(new StaffProfile(Guid.NewGuid(), StaffRoles.Admin, "Ada")));
+        using var client = app.CreateClient();
+        client.DefaultRequestHeaders.Authorization = new("Bearer", CreateToken(Guid.NewGuid(), audience: "service_role"));
+
+        using var response = await client.GetAsync("/api/staff/me");
+
+        Assert.Equal(HttpStatusCode.Unauthorized, response.StatusCode);
+    }
+
+    [Fact]
+    public void Application_requires_the_Supabase_JWT_configuration()
+    {
+        using var factory = new WebApplicationFactory<Program>().WithWebHostBuilder(builder =>
+            builder.ConfigureAppConfiguration((_, configuration) => configuration.Sources.Clear()));
+
+        var exception = Assert.Throws<InvalidOperationException>(() => factory.CreateClient());
+
+        Assert.Contains("Supabase:JwtIssuer", exception.Message, StringComparison.Ordinal);
     }
 
     [Fact]
@@ -106,35 +133,42 @@ public sealed class StaffAuthTests
     }
 
     private static WebApplicationFactory<Program> CreateApp(IStaffProfileStore profileStore) =>
-        new WebApplicationFactory<Program>().WithWebHostBuilder(builder =>
+        new TestAppFactory().WithWebHostBuilder(builder =>
         {
-            builder.UseSetting("Supabase:JwtSecret", JwtSecret);
             builder.UseSetting("Supabase:JwtIssuer", JwtIssuer);
+            builder.UseSetting("Supabase:JwtAudience", JwtAudience);
             builder.ConfigureAppConfiguration((_, configuration) =>
             {
                 configuration.Sources.Clear();
                 configuration.AddInMemoryCollection(
                     new Dictionary<string, string?>
                     {
-                        ["Supabase:JwtSecret"] = JwtSecret,
                         ["Supabase:JwtIssuer"] = JwtIssuer,
+                        ["Supabase:JwtAudience"] = JwtAudience,
                     });
             });
             builder.ConfigureTestServices(services =>
             {
                 services.RemoveAll<IStaffProfileStore>();
                 services.AddSingleton(profileStore);
+                services.PostConfigure<JwtBearerOptions>(JwtBearerDefaults.AuthenticationScheme, options =>
+                {
+                    var configuration = new OpenIdConnectConfiguration { Issuer = JwtIssuer };
+                    configuration.SigningKeys.Add(new ECDsaSecurityKey(
+                        ECDsa.Create(SigningAlgorithm.ExportParameters(false))) { KeyId = "test-key" });
+                    options.Configuration = configuration;
+                });
             });
         });
 
-    private static string CreateToken(Guid userId, string secret)
+    private static string CreateToken(Guid userId, ECDsa? signingAlgorithm = null, string audience = JwtAudience)
     {
-        var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secret));
         var credentials = new SigningCredentials(
-            key,
-            SecurityAlgorithms.HmacSha256);
+            new ECDsaSecurityKey(signingAlgorithm ?? SigningAlgorithm) { KeyId = "test-key" },
+            SecurityAlgorithms.EcdsaSha256);
         var token = new JwtSecurityToken(
             issuer: JwtIssuer,
+            audience: audience,
             claims: [new Claim(JwtRegisteredClaimNames.Sub, userId.ToString())],
             expires: DateTime.UtcNow.AddMinutes(5),
             signingCredentials: credentials);

@@ -5,8 +5,6 @@ using Microsoft.IdentityModel.Tokens;
 using RestaurantQrOrdering.Api.Features.PublicMenu;
 using RestaurantQrOrdering.Api.Features.PublicOrders;
 using RestaurantQrOrdering.Api.Features.Staff;
-using System.Security.Cryptography;
-using System.Text;
 using System.Threading.RateLimiting;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -39,29 +37,30 @@ builder.Services.AddCors(options => options.AddPolicy("Frontend", policy =>
             .AllowAnyMethod();
     }
 }));
-var jwtSecret = builder.Configuration["Supabase:JwtSecret"];
-var signingKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(
-    string.IsNullOrWhiteSpace(jwtSecret)
-        ? Convert.ToBase64String(RandomNumberGenerator.GetBytes(32))
-        : jwtSecret))
-{
-    KeyId = "supabase",
-};
 var jwtIssuer = builder.Configuration["Supabase:JwtIssuer"];
+var jwtAudience = builder.Configuration["Supabase:JwtAudience"];
+if (!Uri.TryCreate(jwtIssuer, UriKind.Absolute, out var jwtIssuerUri)
+    || jwtIssuerUri.Scheme != Uri.UriSchemeHttps
+    || string.IsNullOrWhiteSpace(jwtAudience))
+{
+    throw new InvalidOperationException(
+        "Supabase:JwtIssuer (HTTPS) and Supabase:JwtAudience are required for JWT validation.");
+}
+
 builder.Services
     .AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options =>
     {
         options.MapInboundClaims = false;
+        options.MetadataAddress = $"{jwtIssuerUri.AbsoluteUri.TrimEnd('/')}/.well-known/openid-configuration";
+        options.RequireHttpsMetadata = true;
         options.TokenValidationParameters = new TokenValidationParameters
         {
             ValidateIssuerSigningKey = true,
-            IssuerSigningKey = signingKey,
-            IssuerSigningKeyResolver = (_, _, _, _) => [signingKey],
-            TryAllIssuerSigningKeys = true,
             ValidateIssuer = true,
-            ValidIssuer = jwtIssuer,
-            ValidateAudience = false,
+            ValidIssuer = jwtIssuerUri.AbsoluteUri.TrimEnd('/'),
+            ValidateAudience = true,
+            ValidAudience = jwtAudience,
             ValidateLifetime = true,
             ClockSkew = TimeSpan.FromMinutes(1),
         };

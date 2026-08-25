@@ -1,7 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, provideRouter } from '@angular/router';
 import { of } from 'rxjs';
 import { PublicRatingService } from '../../core/rating';
+import { TrackingTokenSessionService } from '../../core/tracking-token-session';
 import { Rating } from './rating';
 
 describe('Rating', () => {
@@ -13,10 +14,12 @@ describe('Rating', () => {
     await TestBed.configureTestingModule({
       imports: [Rating],
       providers: [
-        { provide: ActivatedRoute, useValue: { snapshot: { paramMap: { get: () => 'a'.repeat(43) } } } },
+        { provide: ActivatedRoute, useValue: { snapshot: { paramMap: { get: () => null } } } },
         { provide: PublicRatingService, useValue: { submit } },
+        provideRouter([]),
       ],
     }).compileComponents();
+    TestBed.inject(TrackingTokenSessionService).set('a'.repeat(43));
     fixture = TestBed.createComponent(Rating);
     await fixture.whenStable();
   });

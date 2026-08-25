@@ -16,8 +16,10 @@ export const routes: Routes = [
   { path: '', component: Entry },
   { path: 'menu', component: Menu },
   { path: 'cart', component: Cart },
-  { path: 'order/:trackingToken', component: OrderTracking },
-  { path: 'rate/:trackingToken', component: Rating },
+  { path: 'order', component: OrderTracking },
+  { path: 'order/:trackingToken', component: OrderTracking }, // legacy capability URL: stripped into sessionStorage
+  { path: 'rate', component: Rating },
+  { path: 'rate/:trackingToken', component: Rating }, // legacy capability URL: stripped into sessionStorage
   { path: 'guide', component: Guide },
   { path: 'login', component: Login },
   { path: 'kitchen', component: Kitchen, canActivate: [staffRoleGuard('kitchen')] },

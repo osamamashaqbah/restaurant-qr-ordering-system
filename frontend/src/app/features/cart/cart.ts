@@ -4,6 +4,7 @@ import { Router, RouterLink } from '@angular/router';
 import { CartService } from '../../core/cart';
 import { CustomerSessionService } from '../../core/customer-session';
 import { PublicOrdersService } from '../../core/public-orders';
+import { TrackingTokenSessionService } from '../../core/tracking-token-session';
 
 @Component({
   imports: [DecimalPipe, RouterLink],
@@ -15,6 +16,7 @@ export class Cart {
   readonly cart = inject(CartService);
   private readonly session = inject(CustomerSessionService);
   private readonly orders = inject(PublicOrdersService);
+  private readonly trackingToken = inject(TrackingTokenSessionService);
   private readonly router = inject(Router);
 
   readonly customer = this.session.session;
@@ -45,7 +47,8 @@ export class Cart {
       .subscribe({
         next: (response) => {
           this.cart.clear();
-          void this.router.navigate(['/order', response.trackingToken]);
+          this.trackingToken.set(response.trackingToken);
+          void this.router.navigate(['/order']);
         },
         error: () => {
           this.error.set('We could not send the order. Please try again.');

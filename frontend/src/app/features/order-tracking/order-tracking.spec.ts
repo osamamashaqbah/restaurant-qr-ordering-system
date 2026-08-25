@@ -4,6 +4,7 @@ import { provideRouter } from '@angular/router';
 import { provideHttpClient } from '@angular/common/http';
 import { of } from 'rxjs';
 import { OrderTrackingService } from '../../core/order-tracking';
+import { TrackingTokenSessionService } from '../../core/tracking-token-session';
 import { OrderTracking } from './order-tracking';
 
 describe('OrderTracking', () => {
@@ -36,6 +37,7 @@ describe('OrderTracking', () => {
 
   it('stops polling after the order reaches a final state', async () => {
     vi.useFakeTimers();
+    sessionStorage.clear();
     const get = vi.fn(() => of({
       status: 'closed',
       total: 12.5,
@@ -51,11 +53,12 @@ describe('OrderTracking', () => {
       providers: [
         provideHttpClient(),
         provideRouter([]),
-        { provide: ActivatedRoute, useValue: { snapshot: { paramMap: { get: () => 'A'.repeat(43) } } } },
+        { provide: ActivatedRoute, useValue: { snapshot: { paramMap: { get: () => null } } } },
         { provide: OrderTrackingService, useValue: { get } },
       ],
     }).compileComponents();
 
+    TestBed.inject(TrackingTokenSessionService).set('A'.repeat(43));
     const trackedFixture = TestBed.createComponent(OrderTracking);
     await vi.advanceTimersByTimeAsync(0);
     await vi.advanceTimersByTimeAsync(30_000);

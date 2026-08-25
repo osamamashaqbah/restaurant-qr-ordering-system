@@ -2,10 +2,10 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { DecimalPipe } from '@angular/common';
 import { Component, DestroyRef, inject, signal } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { ActivatedRoute } from '@angular/router';
-import { RouterLink } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { EMPTY, catchError, switchMap, takeWhile, timer } from 'rxjs';
 import { OrderTrackingService, PublicOrderTracking } from '../../core/order-tracking';
+import { TrackingTokenSessionService } from '../../core/tracking-token-session';
 
 type ViewState = 'loading' | 'ready' | 'not-found' | 'error';
 const TOKEN_PATTERN = /^[A-Za-z0-9_-]{43}$/;
@@ -18,14 +18,25 @@ const TOKEN_PATTERN = /^[A-Za-z0-9_-]{43}$/;
 })
 export class OrderTracking {
   private readonly route = inject(ActivatedRoute);
+  private readonly router = inject(Router);
   private readonly service = inject(OrderTrackingService);
+  private readonly tokenSession = inject(TrackingTokenSessionService);
   private readonly destroyRef = inject(DestroyRef);
-  readonly token = this.route.snapshot.paramMap.get('trackingToken') ?? '';
+  readonly token: string;
 
   readonly state = signal<ViewState>('loading');
   readonly order = signal<PublicOrderTracking | null>(null);
 
   constructor() {
+    const urlToken = this.route.snapshot.paramMap.get('trackingToken') ?? '';
+    if (TOKEN_PATTERN.test(urlToken)) {
+      this.tokenSession.set(urlToken);
+      this.token = urlToken;
+      void this.router.navigate(['/order'], { replaceUrl: true });
+      return;
+    }
+
+    this.token = this.tokenSession.get();
     if (!TOKEN_PATTERN.test(this.token)) {
       this.state.set('not-found');
       return;

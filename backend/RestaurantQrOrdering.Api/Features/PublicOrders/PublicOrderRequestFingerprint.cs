@@ -10,16 +10,17 @@ public static class PublicOrderRequestFingerprint
 
     public static byte[] Create(CreateOrderRequest request)
     {
+        request = PublicOrderCanonicalizer.Canonicalize(request);
         var canonical = JsonSerializer.Serialize(new
         {
-            customer_name = request.CustomerName.Trim(),
-            customer_whatsapp = request.CustomerWhatsapp.Trim(),
-            table_number = request.TableNumber.Trim(),
+            customer_name = request.CustomerName,
+            customer_whatsapp = request.CustomerWhatsapp,
+            table_number = request.TableNumber,
             items = request.Items.Select(item => new
             {
                 menu_item_id = item.MenuItemId,
                 quantity = item.Quantity,
-                notes = item.Notes ?? string.Empty,
+                notes = item.Notes,
             }),
         }, JsonOptions);
 

@@ -16,6 +16,7 @@ public sealed class NpgsqlPublicOrderStore(NpgsqlDataSource dataSource) : IPubli
     {
         try
         {
+            request = PublicOrderCanonicalizer.Canonicalize(request);
             await using var command = dataSource.CreateCommand(
                 "select public.create_order_with_tracking_token($1, $2, $3, $4, $5, $6)");
             command.Parameters.Add(new NpgsqlParameter { NpgsqlDbType = NpgsqlDbType.Text, Value = request.CustomerName.Trim() });
@@ -29,7 +30,7 @@ public sealed class NpgsqlPublicOrderStore(NpgsqlDataSource dataSource) : IPubli
                     {
                         menu_item_id = item.MenuItemId,
                         quantity = item.Quantity,
-                        notes = item.Notes ?? string.Empty,
+                        notes = item.Notes,
                     }),
                     JsonOptions),
             });

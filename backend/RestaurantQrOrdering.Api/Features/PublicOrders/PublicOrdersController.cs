@@ -22,6 +22,11 @@ public sealed class PublicOrdersController(
         if (validationErrors.Count > 0)
             return BadRequest(new ValidationProblemDetails(validationErrors));
 
+        request = PublicOrderCanonicalizer.Canonicalize(request);
+        validationErrors = PublicOrderValidation.Validate(request);
+        if (validationErrors.Count > 0)
+            return BadRequest(new ValidationProblemDetails(validationErrors));
+
         var token = TrackingToken.Create();
         if (Request.Headers.TryGetValue("Idempotency-Key", out var idempotencyKey) && !string.IsNullOrWhiteSpace(idempotencyKey))
         {

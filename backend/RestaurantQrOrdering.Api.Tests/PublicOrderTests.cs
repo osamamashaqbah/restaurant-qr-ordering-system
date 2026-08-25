@@ -39,6 +39,57 @@ public sealed class PublicOrderTests
         Assert.Equal(PublicOrderRequestFingerprint.Create(first), PublicOrderRequestFingerprint.Create(retry));
     }
 
+    [Fact]
+    public void Canonicalizer_merges_equivalent_item_lines_and_keeps_note_variants_separate()
+    {
+        var itemId = Guid.NewGuid();
+        var request = new CreateOrderRequest
+        {
+            CustomerName = " Sara ",
+            CustomerWhatsapp = " 962791234567 ",
+            TableNumber = " 7 ",
+            Items =
+            [
+                new CreateOrderItemRequest { MenuItemId = itemId, Quantity = 2, Notes = " no onion " },
+                new CreateOrderItemRequest { MenuItemId = itemId, Quantity = 3, Notes = "no onion" },
+                new CreateOrderItemRequest { MenuItemId = itemId, Quantity = 1, Notes = "extra sauce" },
+            ],
+        };
+
+        var canonical = PublicOrderCanonicalizer.Canonicalize(request);
+
+        Assert.Equal("Sara", canonical.CustomerName);
+        Assert.Equal("962791234567", canonical.CustomerWhatsapp);
+        Assert.Equal("7", canonical.TableNumber);
+        Assert.Collection(canonical.Items,
+            item => { Assert.Equal("extra sauce", item.Notes); Assert.Equal(1, item.Quantity); },
+            item => { Assert.Equal("no onion", item.Notes); Assert.Equal(5, item.Quantity); });
+    }
+
+    [Fact]
+    public async Task Duplicate_item_quantities_are_revalidated_after_canonicalization()
+    {
+        var itemId = Guid.NewGuid();
+        var store = new RecordingStore();
+        var controller = CreateController(store);
+        var request = new CreateOrderRequest
+        {
+            CustomerName = "Sara",
+            CustomerWhatsapp = "962791234567",
+            TableNumber = "7",
+            Items =
+            [
+                new CreateOrderItemRequest { MenuItemId = itemId, Quantity = 30 },
+                new CreateOrderItemRequest { MenuItemId = itemId, Quantity = 21 },
+            ],
+        };
+
+        var result = await controller.Create(request, CancellationToken.None);
+
+        Assert.IsType<BadRequestObjectResult>(result.Result);
+        Assert.False(store.CreateCalled);
+    }
+
     [Theory]
     [InlineData("")]
     [InlineData("not-a-token")]

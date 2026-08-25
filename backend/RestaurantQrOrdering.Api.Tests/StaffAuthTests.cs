@@ -78,6 +78,19 @@ public sealed class StaffAuthTests
     }
 
     [Fact]
+    public async Task Staff_policy_returns_service_unavailable_when_the_profile_store_is_unavailable()
+    {
+        using var app = CreateApp(new UnavailableStaffProfileStore());
+        using var client = app.CreateClient();
+        client.DefaultRequestHeaders.Authorization = new("Bearer", CreateToken(Guid.NewGuid()));
+
+        using var response = await client.GetAsync("/api/staff/admin/staff");
+
+        Assert.Equal(HttpStatusCode.ServiceUnavailable, response.StatusCode);
+        Assert.DoesNotContain("Supabase", await response.Content.ReadAsStringAsync(), StringComparison.OrdinalIgnoreCase);
+    }
+
+    [Fact]
     public async Task Staff_identity_rejects_a_token_signed_with_a_different_key()
     {
         using var app = CreateApp(new FakeStaffProfileStore(new StaffProfile(Guid.NewGuid(), StaffRoles.Admin, "Ada")));

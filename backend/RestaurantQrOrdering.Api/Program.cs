@@ -1,6 +1,7 @@
 using Npgsql;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization.Policy;
 using Microsoft.IdentityModel.Tokens;
 using RestaurantQrOrdering.Api.Features.PublicMenu;
 using RestaurantQrOrdering.Api.Features.PublicOrders;
@@ -81,6 +82,7 @@ builder.Services.AddAuthorization(options =>
         .AddRequirements(new StaffRoleRequirement(StaffRoles.Admin, StaffRoles.Kitchen)));
 });
 builder.Services.AddSingleton<IAuthorizationHandler, StaffRoleAuthorizationHandler>();
+builder.Services.AddSingleton<IAuthorizationMiddlewareResultHandler, StaffAuthorizationMiddlewareResultHandler>();
 var databaseConnectionString = builder.Configuration.GetConnectionString("SupabaseDatabase");
 if (string.IsNullOrWhiteSpace(databaseConnectionString))
 {

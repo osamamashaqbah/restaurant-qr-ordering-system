@@ -164,7 +164,7 @@ public sealed class StaffAuthTests
             {
                 services.RemoveAll<IStaffProfileStore>();
                 services.AddSingleton(profileStore);
-                services.PostConfigure<JwtBearerOptions>(JwtBearerDefaults.AuthenticationScheme, options =>
+                services.Configure<JwtBearerOptions>(JwtBearerDefaults.AuthenticationScheme, options =>
                 {
                     var configuration = new OpenIdConnectConfiguration { Issuer = JwtIssuer };
                     configuration.SigningKeys.Add(new ECDsaSecurityKey(

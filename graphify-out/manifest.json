@@ -355,8 +355,8 @@
     "semantic_hash": ""
   },
   "AGENTS.md": {
-    "mtime": 1788461500.2736063,
-    "ast_hash": "1dce6b8f6d20e9ef41a2a96be5329157",
+    "mtime": 1788461547.1201677,
+    "ast_hash": "2b5df920ec77ef08c0c71ce82da4b187",
     "semantic_hash": ""
   },
   "CLAUDE.md": {
@@ -394,11 +394,6 @@
     "ast_hash": "a2760511c65806022ad20adf74370ff3",
     "semantic_hash": "a2760511c65806022ad20adf74370ff3"
   },
-  ".codex/hooks.json": {
-    "mtime": 1788461500.2806249,
-    "ast_hash": "11728d00b8d74af31ebd594e05dd5965",
-    "semantic_hash": ""
-  },
   "RestaurantQrOrdering.sln": {
     "mtime": 1787673330.5470903,
     "ast_hash": "3aca50cf31b31c64c45903c12f584b4c",
@@ -420,8 +415,8 @@
     "semantic_hash": ""
   },
   "backend/RestaurantQrOrdering.Api.Tests/HealthEndpointTests.cs": {
-    "mtime": 1787674703.9255693,
-    "ast_hash": "5fa47d9dcb1a23b756eba0e24d0b81f5",
+    "mtime": 1788796564.507151,
+    "ast_hash": "3d0e6b4328a642f842d9b89e3043fb7f",
     "semantic_hash": ""
   },
   "backend/RestaurantQrOrdering.Api.Tests/KitchenTests.cs": {
@@ -445,18 +440,18 @@
     "semantic_hash": ""
   },
   "backend/RestaurantQrOrdering.Api.Tests/RestaurantQrOrdering.Api.Tests.csproj": {
-    "mtime": 1787673330.5500903,
-    "ast_hash": "d6479d7435f15b7189c10cfdd27b4ee2",
+    "mtime": 1788796831.6771822,
+    "ast_hash": "16eddc7540f83c3a3be8b90b4965d386",
     "semantic_hash": ""
   },
   "backend/RestaurantQrOrdering.Api.Tests/StaffAuthTests.cs": {
-    "mtime": 1787674510.0344894,
-    "ast_hash": "85a5b3cf8f0b738c6bd75c588ba796a9",
+    "mtime": 1788796519.4026773,
+    "ast_hash": "57fb247db3562239b87b773107014d2b",
     "semantic_hash": ""
   },
   "backend/RestaurantQrOrdering.Api.Tests/TestAppFactory.cs": {
-    "mtime": 1787673958.572397,
-    "ast_hash": "b0ff3528774b6ca8f58601a12a1e8f90",
+    "mtime": 1788796519.4016795,
+    "ast_hash": "06234add98a1b340af063ab81b09085f",
     "semantic_hash": ""
   },
   "backend/RestaurantQrOrdering.Api/Features/PublicMenu/IPublicMenuStore.cs": {

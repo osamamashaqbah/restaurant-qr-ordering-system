@@ -1,7 +1,6 @@
 using System.Net;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Testing;
-using Microsoft.Extensions.Configuration;
 
 namespace RestaurantQrOrdering.Api.Tests;
 
@@ -78,11 +77,7 @@ public sealed class HealthEndpointTests : IClassFixture<TestAppFactory>
     public async Task Public_rating_is_rate_limited()
     {
         using var factory = new TestAppFactory().WithWebHostBuilder(builder =>
-            builder.ConfigureAppConfiguration((_, configuration) =>
-                configuration.AddInMemoryCollection(new Dictionary<string, string?>
-                {
-                    ["RateLimiting:PublicOrderRatingsPerMinute"] = "1",
-                })));
+            builder.UseSetting("RateLimiting:PublicOrderRatingsPerMinute", "1"));
         using var client = factory.CreateClient();
         var token = new string('a', 43);
 

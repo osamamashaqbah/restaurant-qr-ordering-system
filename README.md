@@ -10,13 +10,14 @@ role-scoped dashboard with realtime updates.
 - **Frontend:** Angular 22 + TypeScript
 - **Backend:** ASP.NET Core 8 Web API
 - **Platform:** Supabase — Postgres, Auth, Realtime, Storage
-- **Deploy:** Angular static host + ASP.NET host + Supabase
+- **Deploy:** Cloudflare Pages (Angular) + Render (ASP.NET) + Supabase
 
 ## Rewrite status
 
 The active rewrite is the `frontend/` Angular app and `backend/` ASP.NET API.
-The original Next.js implementation remains under `src/` as a legacy parity
-reference until the rewrite is deployed and the final migration checks pass.
+The original Next.js implementation remains under `src/` only as a legacy
+parity reference. Production deploys the Angular app from `frontend/`; Vercel
+is no longer a deployment target.
 
 ## Project structure
 
@@ -55,6 +56,18 @@ arbitrary client addresses.
 
 The beginner-friendly project and interview guide is available at
 `http://localhost:4200/guide`.
+
+Production Angular URL: https://restaurant-qr-ordering-system.pages.dev
+
+Deploy Angular to the production Cloudflare Pages branch with:
+
+```bash
+npm --prefix frontend run deploy:cloudflare
+```
+
+The ASP.NET Docker service is declared in `render.yaml`. Render must receive
+`ConnectionStrings__SupabaseDatabase` and `SENTRY_DSN` as secret environment
+variables; neither secret belongs in Git.
 
 Run the API with:
 
@@ -147,8 +160,9 @@ The legacy Next.js app still uses `.env.example`. Never commit real keys —
 2. ✅ Customer menu, checkout, opaque tracking, and rating
 3. ✅ Kitchen, cashier, and admin role-scoped workflows
 4. ✅ Local API/Angular tests and production dependency audit
-5. ⏳ Apply rewrite migrations to the target Supabase project
-6. ⏳ Run live role-based/E2E verification, then retire the legacy Next.js app
+5. ✅ Apply rewrite migrations to the target Supabase project
+6. ✅ Deploy and smoke-test Angular on Cloudflare Pages
+7. ⏳ Deploy ASP.NET on Render and run live role-based verification
 
 The rewrite checks completed in this repository are local. Live verification
 still requires the target Supabase connection, JWT configuration, and deployed

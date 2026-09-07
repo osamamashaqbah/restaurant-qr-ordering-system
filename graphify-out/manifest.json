@@ -330,8 +330,8 @@
     "semantic_hash": ""
   },
   "tests/integration/anon.test.ts": {
-    "mtime": 1787673731.1892445,
-    "ast_hash": "193f8570d20ac041615103f513e7c76f",
+    "mtime": 1788800168.2973814,
+    "ast_hash": "2e6f65ec31261253392b109a2d5f7924",
     "semantic_hash": ""
   },
   "tests/integration/helpers.ts": {
@@ -365,8 +365,8 @@
     "semantic_hash": "5c27369b226fcf2be8a6cfe52224e767"
   },
   "README.md": {
-    "mtime": 1787674652.3827722,
-    "ast_hash": "fac2bb469936425ae3f7aed9c34deaa9",
+    "mtime": 1788800022.304082,
+    "ast_hash": "eaf73d73e794769a6577a8f8366619f4",
     "semantic_hash": ""
   },
   "public/file.svg": {
@@ -640,8 +640,8 @@
     "semantic_hash": ""
   },
   "backend/RestaurantQrOrdering.Api/Program.cs": {
-    "mtime": 1787674665.6164916,
-    "ast_hash": "f4dfea497cfee4799c30343c9f54f397",
+    "mtime": 1788798976.7872157,
+    "ast_hash": "ec147b0558f177c753e545f0c0413c9d",
     "semantic_hash": ""
   },
   "backend/RestaurantQrOrdering.Api/Properties/launchSettings.json": {
@@ -650,8 +650,8 @@
     "semantic_hash": ""
   },
   "backend/RestaurantQrOrdering.Api/RestaurantQrOrdering.Api.csproj": {
-    "mtime": 1787673330.56309,
-    "ast_hash": "ebe5bf51c888ad5c0a49baa3b193ebae",
+    "mtime": 1788798807.161797,
+    "ast_hash": "20e98fd6b2fd9fe5890033cb59f84b8a",
     "semantic_hash": ""
   },
   "backend/RestaurantQrOrdering.Api/appsettings.Development.json": {
@@ -685,23 +685,23 @@
     "semantic_hash": ""
   },
   "frontend/angular.json": {
-    "mtime": 1787697409.7957778,
-    "ast_hash": "aa23c934a0f4d480604aa21838c88729",
+    "mtime": 1788799552.4389875,
+    "ast_hash": "a7e7f9d06f197a55a9ce4c9e37adc347",
     "semantic_hash": ""
   },
   "frontend/package.json": {
-    "mtime": 1787673330.5710912,
-    "ast_hash": "0905f7013b52d664c55320e75a599bd3",
+    "mtime": 1788800005.81401,
+    "ast_hash": "a29d88c0687ec4a300f2d0e2c8e3cec2",
     "semantic_hash": ""
   },
   "frontend/public/runtime-config.js": {
-    "mtime": 1787673330.572092,
-    "ast_hash": "5c48075a8d6180092133f2a4121b7829",
+    "mtime": 1788798807.154244,
+    "ast_hash": "b4dbcc96ba119d10f89affb1a700604b",
     "semantic_hash": ""
   },
   "frontend/src/app/app.config.ts": {
-    "mtime": 1787673330.5730896,
-    "ast_hash": "ab9cb51d5413aa0c1f208cf7c29ab728",
+    "mtime": 1788799552.4394937,
+    "ast_hash": "e5bf88ed89a8ebe4ffdc941ae458d8ae",
     "semantic_hash": ""
   },
   "frontend/src/app/app.routes.ts": {
@@ -970,8 +970,8 @@
     "semantic_hash": ""
   },
   "frontend/src/main.ts": {
-    "mtime": 1787673330.622098,
-    "ast_hash": "1289536d6d8f94242a4ffc598d094633",
+    "mtime": 1788798807.155759,
+    "ast_hash": "92022fc721cb343b9dbf215a08ca954b",
     "semantic_hash": ""
   },
   "frontend/src/proxy.conf.json": {
@@ -995,8 +995,8 @@
     "semantic_hash": ""
   },
   "playwright.angular.config.ts": {
-    "mtime": 1787673330.63309,
-    "ast_hash": "fe795c89b2da03193aeb97ee7fb1dfde",
+    "mtime": 1788800005.8160143,
+    "ast_hash": "24153c2a9c7ecaad015b5315507f22bb",
     "semantic_hash": ""
   },
   "supabase/migrations/20260823010000_secure_public_order_tracking.sql": {
@@ -1152,6 +1152,26 @@
   "frontend/src/index.html": {
     "mtime": 1787673330.622098,
     "ast_hash": "eb15c1f16d90b129690607481184480b",
+    "semantic_hash": ""
+  },
+  "frontend/src/app/core/api-base-url-interceptor.spec.ts": {
+    "mtime": 1788798807.1592755,
+    "ast_hash": "56dd6d861f0da5f3ba6cb50756b8c0d6",
+    "semantic_hash": ""
+  },
+  "frontend/src/app/core/api-base-url-interceptor.ts": {
+    "mtime": 1788798807.1567628,
+    "ast_hash": "defae9bfd62fd0cee11c1ea5f5638cd0",
+    "semantic_hash": ""
+  },
+  "supabase/migrations/20260907164057_lock_down_data_api_and_index_foreign_keys.sql": {
+    "mtime": 1788799285.2579896,
+    "ast_hash": "121c9102bd9513aa3ef98cb75aa3ddbd",
+    "semantic_hash": ""
+  },
+  "render.yaml": {
+    "mtime": 1788798807.1653237,
+    "ast_hash": "9801149572699ed13a2edc82610e588a",
     "semantic_hash": ""
   }
 }

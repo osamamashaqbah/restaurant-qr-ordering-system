@@ -1,0 +1,6 @@
+{
+  "$schema": "./node_modules/wrangler/config-schema.json",
+  "name": "restaurant-qr-ordering-system",
+  "pages_build_output_dir": "./dist/restaurant-qr-ordering-web/browser",
+  "compatibility_date": "2026-09-07"
+}

@@ -11,6 +11,12 @@ using System.Net;
 using System.Threading.RateLimiting;
 
 var builder = WebApplication.CreateBuilder(args);
+builder.WebHost.UseSentry(options =>
+{
+    options.Dsn = builder.Configuration["SENTRY_DSN"] ?? string.Empty;
+    options.SendDefaultPii = false;
+    options.TracesSampleRate = builder.Environment.IsProduction() ? 0.1 : 0;
+});
 
 // Add services to the container.
 

@@ -24,7 +24,7 @@ export default defineConfig({
     ? undefined
     : [
         {
-          command: "dotnet run --project backend/RestaurantQrOrdering.Api --no-launch-profile --urls http://localhost:5239",
+          command: "dotnet run --project backend/RestaurantQrOrdering.Api --no-launch-profile --urls http://localhost:5239 --Supabase:JwtIssuer=https://localhost.invalid/auth/v1 --Supabase:JwtAudience=authenticated",
           url: "http://localhost:5239/api/health",
           reuseExistingServer: true,
           timeout: 60_000,

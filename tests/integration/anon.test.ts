@@ -6,27 +6,21 @@
 import { describe, expect, it } from "vitest";
 import { anonClient } from "./helpers";
 
-describe("customer-facing menu read", () => {
-  it("exposes is_available truthfully for both available and unavailable items", async () => {
-    const { data: items, error } = await anonClient().from("menu_items").select("id, is_available");
-    expect(error).toBeNull();
-    expect(items?.length).toBeGreaterThan(0);
-    for (const item of items ?? []) expect(typeof item.is_available).toBe("boolean");
+describe("anonymous direct reads", () => {
+  it("cannot bypass the ASP.NET API to read menu items", async () => {
+    const { data, error } = await anonClient().from("menu_items").select("id, is_available");
+    expect(error?.code).toBe("42501");
+    expect(data).toBeNull();
   });
 });
 
 describe("anonymous direct writes", () => {
   it("cannot toggle menu item availability", async () => {
-    const client = anonClient();
-    const { data: before } = await client.from("menu_items").select("id, is_available").limit(1).single();
-    if (!before) throw new Error("No menu item found.");
-
-    await client.from("menu_items").update({ is_available: !before.is_available }).eq("id", before.id);
-    const { data: after } = await client
+    const { data, error } = await anonClient()
       .from("menu_items")
-      .select("is_available")
-      .eq("id", before.id)
-      .single();
-    expect(after?.is_available).toBe(before.is_available);
+      .update({ is_available: false })
+      .eq("id", crypto.randomUUID());
+    expect(error?.code).toBe("42501");
+    expect(data).toBeNull();
   });
 });

@@ -1,0 +1,22 @@
+services:
+  - type: web
+    name: restaurant-qr-ordering-api
+    runtime: docker
+    plan: free
+    region: frankfurt
+    dockerfilePath: ./backend/RestaurantQrOrdering.Api/Dockerfile
+    dockerContext: .
+    healthCheckPath: /api/health
+    envVars:
+      - key: ASPNETCORE_ENVIRONMENT
+        value: Production
+      - key: Supabase__JwtIssuer
+        value: https://zoncuwmawsolmnqmzrax.supabase.co/auth/v1
+      - key: Supabase__JwtAudience
+        value: authenticated
+      - key: Cors__AllowedOrigins__0
+        value: https://restaurant-qr-ordering-system.pages.dev
+      - key: ConnectionStrings__SupabaseDatabase
+        sync: false
+      - key: SENTRY_DSN
+        sync: false

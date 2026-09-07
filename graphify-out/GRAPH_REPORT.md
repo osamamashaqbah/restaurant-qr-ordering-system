@@ -10,7 +10,7 @@
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `28dddcd1`
+- Built from commit: `374515ea`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
@@ -107,7 +107,7 @@
 - CartService
 - ReportsPanel.tsx
 - frontend/package.json
-- @supabase/supabase-js
+- @angular/compiler
 - AdminMenu
 - AdminMenuService
 - app.routes.ts
@@ -333,7 +333,7 @@ Nodes (5): Fact, Task, HealthEndpointTests, HttpClient, IClassFixture
 
 ### Community 69 - "dependencies"
 Cohesion: 0.12
-Nodes (17): @angular/common, @angular/compiler, @angular/forms, @angular/platform-browser, @angular/router, dependencies, @angular/common, @angular/compiler (+9 more)
+Nodes (17): @angular/common, @angular/forms, @angular/platform-browser, @angular/router, dependencies, @angular/common, @angular/forms, @angular/platform-browser (+9 more)
 
 ### Community 70 - "serve"
 Cohesion: 0.20

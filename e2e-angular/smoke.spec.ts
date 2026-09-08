@@ -25,10 +25,14 @@ test.describe("Angular rewrite smoke checks", () => {
     await expect(page.getByRole("heading", { name: "Staff sign in" })).toBeVisible();
   });
 
-  test("fails closed when the local API has no database configuration", async ({ page }) => {
+  test("renders the menu or a safe unavailable state", async ({ page }) => {
     await page.goto("/menu");
 
-    await expect(page.getByText("We could not load the menu")).toBeVisible();
+    if (process.env.E2E_BASE_URL) {
+      await expect(page.getByRole("heading", { name: "Starters" })).toBeVisible();
+    } else {
+      await expect(page.getByText("We could not load the menu")).toBeVisible();
+    }
   });
 
   test("opens the beginner project guide", async ({ page }) => {

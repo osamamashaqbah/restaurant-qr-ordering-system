@@ -625,8 +625,8 @@
     "semantic_hash": ""
   },
   "backend/RestaurantQrOrdering.Api/Features/Staff/StaffAuthorization.cs": {
-    "mtime": 1787674510.0324984,
-    "ast_hash": "10752277b6d9b01bdfa067a78e6471db",
+    "mtime": 1788865826.4219182,
+    "ast_hash": "cabcf2a2b3b22c602062f2dcd673d247",
     "semantic_hash": ""
   },
   "backend/RestaurantQrOrdering.Api/Features/Staff/StaffContracts.cs": {
@@ -640,8 +640,8 @@
     "semantic_hash": ""
   },
   "backend/RestaurantQrOrdering.Api/Program.cs": {
-    "mtime": 1788865406.4346237,
-    "ast_hash": "f8decbdedbb89209e1f02ec4b045ea88",
+    "mtime": 1788866300.2654488,
+    "ast_hash": "bc24644c1f87ce93c000297343232517",
     "semantic_hash": ""
   },
   "backend/RestaurantQrOrdering.Api/Properties/launchSettings.json": {
@@ -665,8 +665,8 @@
     "semantic_hash": ""
   },
   "e2e-angular/smoke.spec.ts": {
-    "mtime": 1787673330.56309,
-    "ast_hash": "97ea74910159158bcf756a1d32ffc8b2",
+    "mtime": 1788865903.6442256,
+    "ast_hash": "ff27aef3c814918331eef796470c34b2",
     "semantic_hash": ""
   },
   "frontend/.vscode/extensions.json": {
@@ -1160,8 +1160,8 @@
     "semantic_hash": ""
   },
   "frontend/src/app/core/api-base-url-interceptor.ts": {
-    "mtime": 1788798807.1567628,
-    "ast_hash": "defae9bfd62fd0cee11c1ea5f5638cd0",
+    "mtime": 1788865848.2659936,
+    "ast_hash": "07e37cca75b13b76baebfba1fdb536de",
     "semantic_hash": ""
   },
   "supabase/migrations/20260907164057_lock_down_data_api_and_index_foreign_keys.sql": {

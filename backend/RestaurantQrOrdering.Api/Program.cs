@@ -2,7 +2,10 @@ using Npgsql;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization.Policy;
+using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.HttpOverrides;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Server.Kestrel.Core;
 using Microsoft.IdentityModel.Tokens;
 using RestaurantQrOrdering.Api.Features.PublicMenu;
 using RestaurantQrOrdering.Api.Features.PublicOrders;
@@ -161,7 +164,25 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-app.UseExceptionHandler();
+app.UseExceptionHandler(errorApp => errorApp.Run(async context =>
+{
+    var exception = context.Features.Get<IExceptionHandlerFeature>()?.Error;
+    var statusCode = exception is Microsoft.AspNetCore.Http.BadHttpRequestException badRequest
+        ? badRequest.StatusCode
+        : StatusCodes.Status500InternalServerError;
+    var logger = context.RequestServices.GetRequiredService<ILoggerFactory>().CreateLogger("UnhandledRequest");
+    if (statusCode >= StatusCodes.Status500InternalServerError)
+        logger.LogError(exception, "Unhandled request failure");
+
+    context.Response.StatusCode = statusCode;
+    await context.Response.WriteAsJsonAsync(new ProblemDetails
+    {
+        Status = statusCode,
+        Title = statusCode == StatusCodes.Status413PayloadTooLarge
+            ? "Request body too large"
+            : "An unexpected error occurred",
+    });
+}));
 if (trustedProxyAddresses.Length > 0)
     app.UseForwardedHeaders();
 app.UseCors("Frontend");

@@ -31,7 +31,8 @@ public sealed class StaffRoleAuthorizationHandler(IStaffProfileStore profileStor
         StaffProfile? profile;
         try
         {
-            profile = await profileStore.GetAsync(userId, CancellationToken.None);
+            var cancellationToken = (context.Resource as HttpContext)?.RequestAborted ?? CancellationToken.None;
+            profile = await profileStore.GetAsync(userId, cancellationToken);
         }
         catch (StaffProfileStoreUnavailableException)
         {

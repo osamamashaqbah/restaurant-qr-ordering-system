@@ -134,17 +134,18 @@ the rewrite against a real project. Key decisions:
    after it, that admin can assign every subsequent role through
    Admin → Staff.
 
-### Known outstanding item
+### Known platform item
 
 - **Leaked-password protection** (checks new passwords against
   HaveIBeenPwned) is a Supabase Auth *project setting*, not something
   reachable via SQL/migrations. Enable it in the dashboard: Authentication
-  → Policies → Password Security. Everything else in the mandatory
-  security checklist (bcrypt hashing, JWT/session expiry, rate limiting on
-  auth endpoints) is Supabase Auth's default behavior and needs no extra
-  configuration — verified via Supabase's own security advisor
-  (`get_advisors`) throughout development, re-run after every schema
-  change.
+  → Policies → Password Security when the current plan exposes that control.
+  The current Free project reports this setting as unavailable; upgrading
+  Supabase is required to enable it.
+- **No-delay production SLA:** the API is live on Render's Free plan. Render
+  displays a warning that an idle instance can take 50 seconds or more to
+  wake. Upgrade the API service to an always-on paid instance before treating
+  the system as a zero-cold-start production service.
 
 ## Environment variables
 
@@ -162,8 +163,19 @@ The legacy Next.js app still uses `.env.example`. Never commit real keys —
 4. ✅ Local API/Angular tests and production dependency audit
 5. ✅ Apply rewrite migrations to the target Supabase project
 6. ✅ Deploy and smoke-test Angular on Cloudflare Pages
-7. ⏳ Deploy ASP.NET on Render and run live role-based verification
+7. ✅ Deploy ASP.NET on Render and run live health, CORS, security, and load verification
 
-The rewrite checks completed in this repository are local. Live verification
-still requires the target Supabase connection, JWT configuration, and deployed
-hosts; no production secrets are committed here.
+## Current production verification
+
+- Angular: `https://restaurant-qr-ordering-system.pages.dev`
+- API: `https://restaurant-qr-ordering-api.onrender.com`
+- `main` contains the deployed rewrite; the latest verified commit is
+  `eefd2a3`.
+- Live checks: health/menu `200`, anonymous staff access `401`, malformed
+  tracking `404`, invalid order `400`, oversized request `413`, and allowed
+  frontend CORS preflight `204`.
+- A warmed 200-request concurrent menu test returned `200` for all requests
+  with P95 around 329ms. This measures the read path only; do not create
+  artificial production orders for a write-load test.
+- The Render Free cold-start warning is the remaining infrastructure limit;
+  it cannot be removed by application code alone.

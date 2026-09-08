@@ -10,7 +10,9 @@ local or deployed staff authentication. The anon key is a public client key;
 never put the Supabase database password or service-role key in this file.
 
 The ASP.NET API separately requires `ConnectionStrings__SupabaseDatabase`,
-`Supabase__JwtIssuer`, and `Supabase__JwtSecret` as server-side settings.
+`Supabase__JwtIssuer`, and `Supabase__JwtAudience` as server-side settings.
+JWT signing keys are read from Supabase's HTTPS OpenID/JWKS metadata; no JWT
+secret belongs in the frontend or the API environment.
 
 ## Development server
 

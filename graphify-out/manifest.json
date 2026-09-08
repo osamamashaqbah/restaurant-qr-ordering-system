@@ -365,8 +365,8 @@
     "semantic_hash": "5c27369b226fcf2be8a6cfe52224e767"
   },
   "README.md": {
-    "mtime": 1788800022.304082,
-    "ast_hash": "eaf73d73e794769a6577a8f8366619f4",
+    "mtime": 1788866964.1556652,
+    "ast_hash": "c48be65a1b599818262e9705c30c0ff5",
     "semantic_hash": ""
   },
   "public/file.svg": {
@@ -1080,13 +1080,13 @@
     "semantic_hash": ""
   },
   "docs/security-baseline.md": {
-    "mtime": 1787674079.258264,
-    "ast_hash": "ca3b9f231ad8cb7e24099e5c71ac95c9",
+    "mtime": 1788866979.4822729,
+    "ast_hash": "b5b6f25e9fa674b10c83e7d496d1816d",
     "semantic_hash": ""
   },
   "frontend/README.md": {
-    "mtime": 1787673330.567096,
-    "ast_hash": "0c5073f84cc8fe3570ca96edab458f07",
+    "mtime": 1788866964.1576686,
+    "ast_hash": "bd2bc7f6585b85dacbe98df75d82c7d4",
     "semantic_hash": ""
   },
   "frontend/src/app/app.html": {

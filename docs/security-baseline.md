@@ -1,6 +1,6 @@
 # Security remediation baseline
 
-Date: 2026-08-25
+Date: 2026-09-08
 
 The active product is `frontend/` (Angular) plus `backend/` (ASP.NET Core).
 The legacy Next.js/Supabase-browser code remains only as a migration reference
@@ -8,11 +8,16 @@ until it can be removed after live rewrite acceptance.
 
 ## Baseline evidence
 
-- `dotnet test RestaurantQrOrdering.sln --nologo`: 49 passing tests.
-- `npm --prefix frontend test -- --watch=false`: 53 passing tests.
+- `dotnet test RestaurantQrOrdering.sln --nologo`: 58 passing tests.
+- `npm test -- --run`: 55 passing, 1 intentionally skipped.
+- `npm --prefix frontend test -- --watch=false`: 56 passing tests.
 - `npm --prefix frontend run build`: passed.
-- Root legacy integration tests cannot reach the configured Supabase host from
-  this environment (`ENOTFOUND`), so no migration or live-RLS claim is made.
+- `npm run test:e2e`: 5/5 local Angular smoke tests.
+- Production Angular smoke tests: 5/5.
+- Live API checks passed for health, menu, CORS, authentication rejection,
+  malformed tracking, invalid input, and oversized request handling.
+- A warmed 200-request concurrent menu test returned 200 for all requests
+  with P95 around 329ms.
 
 ## P0 inventory and decision
 
@@ -28,13 +33,21 @@ losing a revoke. `tests/integration/legacy-rpc-lockdown.test.ts` is the live
 staging check; run it only with `RUN_SUPABASE_SECURITY_TESTS=true` after
 applying the migration to a non-production Supabase project.
 
-## External gate
+## Historical external gate
 
 Applying the migration, creating a restricted API database role, and proving
-RLS/function privileges require an approved staging connection. No production
-database operation was attempted from this workspace.
+RLS/function privileges were the original external gate. The target Supabase
+project now has the rewrite migration applied and the API is using its direct
+database connection; the browser data API remains denied by the lockdown
+migration.
 
-The API also requires `Supabase:JwtIssuer` (HTTPS) and
+The API requires `Supabase:JwtIssuer` (HTTPS) and
 `Supabase:JwtAudience=authenticated` at startup. It uses the issuer's OpenID
-metadata and JWKS for asymmetric Supabase session-token validation; switch the
-Supabase project to an asymmetric signing key before deployment.
+metadata and JWKS for asymmetric Supabase session-token validation.
+
+## Remaining infrastructure limitation
+
+The Render API is currently on the Free plan. Render reports that an idle
+instance may take 50 seconds or more to wake. The application now bounds
+browser API waits at 15 seconds, but an always-on paid Render instance is
+required for a strict no-cold-start requirement.

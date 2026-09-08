@@ -3186,8 +3186,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "backend_restaurantqrordering_api_features_publicmenu_publicmenucontroller",
-      "community": 121,
-      "community_name": ".Get",
+      "community": 67,
+      "community_name": ".GetOrders",
       "norm_label": "publicmenucontroller.cs"
     },
     {
@@ -3203,8 +3203,8 @@
       },
       "_origin": "ast",
       "id": "backend_restaurantqrordering_api_features_publicmenu_publicmenucontroller_restaurantqrordering_api_features_publicmenu_publicmenucontroller",
-      "community": 121,
-      "community_name": ".Get",
+      "community": 67,
+      "community_name": ".GetOrders",
       "norm_label": "publicmenucontroller"
     },
     {
@@ -3214,8 +3214,8 @@
       "source_location": "",
       "_origin": "ast",
       "id": "controllerbase",
-      "community": 121,
-      "community_name": ".Get",
+      "community": 67,
+      "community_name": ".GetOrders",
       "norm_label": "controllerbase"
     },
     {
@@ -3231,7 +3231,7 @@
       },
       "_origin": "ast",
       "id": "backend_restaurantqrordering_api_features_publicmenu_publicmenucontroller_restaurantqrordering_api_features_publicmenu_publicmenucontroller_get",
-      "community": 121,
+      "community": 123,
       "community_name": ".Get",
       "norm_label": ".get()"
     },
@@ -3242,7 +3242,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "backend_restaurantqrordering_api_features_publicmenu_publicmenucontroller_cs_cancellationtoken",
-      "community": 121,
+      "community": 123,
       "community_name": ".Get",
       "norm_label": "cancellationtoken"
     },
@@ -3253,7 +3253,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "backend_restaurantqrordering_api_features_publicmenu_publicmenucontroller_cs_task",
-      "community": 121,
+      "community": 123,
       "community_name": ".Get",
       "norm_label": "task"
     },
@@ -3264,7 +3264,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "backend_restaurantqrordering_api_features_publicmenu_publicmenucontroller_cs_actionresult",
-      "community": 121,
+      "community": 123,
       "community_name": ".Get",
       "norm_label": "actionresult"
     },
@@ -3275,7 +3275,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "backend_restaurantqrordering_api_features_publicmenu_publicmenucontroller_cs_httpget",
-      "community": 121,
+      "community": 123,
       "community_name": ".Get",
       "norm_label": "httpget"
     },
@@ -3286,7 +3286,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "backend_restaurantqrordering_api_features_publicmenu_publicmenucontroller_cs_producesresponsetype",
-      "community": 121,
+      "community": 123,
       "community_name": ".Get",
       "norm_label": "producesresponsetype"
     },
@@ -5368,8 +5368,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "backend_restaurantqrordering_api_features_staff_cashiercontroller",
-      "community": 75,
-      "community_name": ".GetOrders",
+      "community": 65,
+      "community_name": "RestaurantQrOrdering.Api.Features.Staff",
       "norm_label": "cashiercontroller.cs"
     },
     {
@@ -5385,7 +5385,7 @@
       },
       "_origin": "ast",
       "id": "backend_restaurantqrordering_api_features_staff_cashiercontroller_restaurantqrordering_api_features_staff_cashiercontroller",
-      "community": 75,
+      "community": 67,
       "community_name": ".GetOrders",
       "norm_label": "cashiercontroller"
     },
@@ -5402,7 +5402,7 @@
       },
       "_origin": "ast",
       "id": "backend_restaurantqrordering_api_features_staff_cashiercontroller_restaurantqrordering_api_features_staff_cashiercontroller_getorders",
-      "community": 75,
+      "community": 67,
       "community_name": ".GetOrders",
       "norm_label": ".getorders()"
     },
@@ -5413,7 +5413,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "backend_restaurantqrordering_api_features_staff_cashiercontroller_cs_cancellationtoken",
-      "community": 75,
+      "community": 67,
       "community_name": ".GetOrders",
       "norm_label": "cancellationtoken"
     },
@@ -5424,7 +5424,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "backend_restaurantqrordering_api_features_staff_cashiercontroller_cs_task",
-      "community": 75,
+      "community": 67,
       "community_name": ".GetOrders",
       "norm_label": "task"
     },
@@ -5435,7 +5435,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "backend_restaurantqrordering_api_features_staff_cashiercontroller_cs_actionresult",
-      "community": 75,
+      "community": 67,
       "community_name": ".GetOrders",
       "norm_label": "actionresult"
     },
@@ -5446,7 +5446,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "backend_restaurantqrordering_api_features_staff_cashiercontroller_cs_ireadonlylist",
-      "community": 75,
+      "community": 67,
       "community_name": ".GetOrders",
       "norm_label": "ireadonlylist"
     },
@@ -5457,7 +5457,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "backend_restaurantqrordering_api_features_staff_cashiercontroller_cs_httpget",
-      "community": 75,
+      "community": 67,
       "community_name": ".GetOrders",
       "norm_label": "httpget"
     },
@@ -5468,7 +5468,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "backend_restaurantqrordering_api_features_staff_cashiercontroller_cs_producesresponsetype",
-      "community": 75,
+      "community": 67,
       "community_name": ".GetOrders",
       "norm_label": "producesresponsetype"
     },
@@ -5485,7 +5485,7 @@
       },
       "_origin": "ast",
       "id": "backend_restaurantqrordering_api_features_staff_cashiercontroller_restaurantqrordering_api_features_staff_cashiercontroller_close",
-      "community": 75,
+      "community": 67,
       "community_name": ".GetOrders",
       "norm_label": ".close()"
     },
@@ -5496,7 +5496,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "backend_restaurantqrordering_api_features_staff_cashiercontroller_cs_guid",
-      "community": 75,
+      "community": 67,
       "community_name": ".GetOrders",
       "norm_label": "guid"
     },
@@ -5507,7 +5507,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "backend_restaurantqrordering_api_features_staff_cashiercontroller_cs_httppost",
-      "community": 75,
+      "community": 67,
       "community_name": ".GetOrders",
       "norm_label": "httppost"
     },
@@ -5524,7 +5524,7 @@
       },
       "_origin": "ast",
       "id": "backend_restaurantqrordering_api_features_staff_cashiercontroller_restaurantqrordering_api_features_staff_cashiercontroller_getmenu",
-      "community": 75,
+      "community": 67,
       "community_name": ".GetOrders",
       "norm_label": ".getmenu()"
     },
@@ -5541,7 +5541,7 @@
       },
       "_origin": "ast",
       "id": "backend_restaurantqrordering_api_features_staff_cashiercontroller_restaurantqrordering_api_features_staff_cashiercontroller_setavailability",
-      "community": 75,
+      "community": 67,
       "community_name": ".GetOrders",
       "norm_label": ".setavailability()"
     },
@@ -7773,7 +7773,7 @@
       "_origin": "ast",
       "id": "backend_restaurantqrordering_api_features_staff_staffcontracts",
       "community": 67,
-      "community_name": ".Get",
+      "community_name": ".GetOrders",
       "norm_label": "staffcontracts.cs"
     },
     {
@@ -7790,7 +7790,7 @@
       "_origin": "ast",
       "id": "backend_restaurantqrordering_api_features_staff_staffcontracts_restaurantqrordering_api_features_staff_staffroles",
       "community": 67,
-      "community_name": ".Get",
+      "community_name": ".GetOrders",
       "norm_label": "staffroles"
     },
     {
@@ -7801,7 +7801,7 @@
       "_origin": "ast",
       "id": "backend_restaurantqrordering_api_features_staff_staffcontracts_cs_string",
       "community": 67,
-      "community_name": ".Get",
+      "community_name": ".GetOrders",
       "norm_label": "string"
     },
     {
@@ -7818,7 +7818,7 @@
       "_origin": "ast",
       "id": "backend_restaurantqrordering_api_features_staff_staffcontracts_restaurantqrordering_api_features_staff_staffroles_isknown",
       "community": 67,
-      "community_name": ".Get",
+      "community_name": ".GetOrders",
       "norm_label": ".isknown()"
     },
     {
@@ -7835,7 +7835,7 @@
       "_origin": "ast",
       "id": "backend_restaurantqrordering_api_features_staff_staffcontracts_restaurantqrordering_api_features_staff_staffpolicies",
       "community": 67,
-      "community_name": ".Get",
+      "community_name": ".GetOrders",
       "norm_label": "staffpolicies"
     },
     {
@@ -7869,7 +7869,7 @@
       "_origin": "ast",
       "id": "backend_restaurantqrordering_api_features_staff_staffcontracts_restaurantqrordering_api_features_staff_staffidentityresponse",
       "community": 67,
-      "community_name": ".Get",
+      "community_name": ".GetOrders",
       "norm_label": "staffidentityresponse"
     },
     {
@@ -7879,8 +7879,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "backend_restaurantqrordering_api_features_staff_staffmecontroller",
-      "community": 121,
-      "community_name": ".Get",
+      "community": 67,
+      "community_name": ".GetOrders",
       "norm_label": "staffmecontroller.cs"
     },
     {
@@ -7896,8 +7896,8 @@
       },
       "_origin": "ast",
       "id": "backend_restaurantqrordering_api_features_staff_staffmecontroller_restaurantqrordering_api_features_staff_staffmecontroller",
-      "community": 121,
-      "community_name": ".Get",
+      "community": 67,
+      "community_name": ".GetOrders",
       "norm_label": "staffmecontroller"
     },
     {
@@ -7914,7 +7914,7 @@
       "_origin": "ast",
       "id": "backend_restaurantqrordering_api_features_staff_staffmecontroller_restaurantqrordering_api_features_staff_staffmecontroller_get",
       "community": 67,
-      "community_name": ".Get",
+      "community_name": ".GetOrders",
       "norm_label": ".get()"
     },
     {
@@ -7925,7 +7925,7 @@
       "_origin": "ast",
       "id": "backend_restaurantqrordering_api_features_staff_staffmecontroller_cs_cancellationtoken",
       "community": 67,
-      "community_name": ".Get",
+      "community_name": ".GetOrders",
       "norm_label": "cancellationtoken"
     },
     {
@@ -7936,7 +7936,7 @@
       "_origin": "ast",
       "id": "backend_restaurantqrordering_api_features_staff_staffmecontroller_cs_task",
       "community": 67,
-      "community_name": ".Get",
+      "community_name": ".GetOrders",
       "norm_label": "task"
     },
     {
@@ -7947,7 +7947,7 @@
       "_origin": "ast",
       "id": "backend_restaurantqrordering_api_features_staff_staffmecontroller_cs_actionresult",
       "community": 67,
-      "community_name": ".Get",
+      "community_name": ".GetOrders",
       "norm_label": "actionresult"
     },
     {
@@ -7958,7 +7958,7 @@
       "_origin": "ast",
       "id": "backend_restaurantqrordering_api_features_staff_staffmecontroller_cs_httpget",
       "community": 67,
-      "community_name": ".Get",
+      "community_name": ".GetOrders",
       "norm_label": "httpget"
     },
     {
@@ -7969,7 +7969,7 @@
       "_origin": "ast",
       "id": "backend_restaurantqrordering_api_features_staff_staffmecontroller_cs_producesresponsetype",
       "community": 67,
-      "community_name": ".Get",
+      "community_name": ".GetOrders",
       "norm_label": "producesresponsetype"
     },
     {
@@ -9509,7 +9509,7 @@
       "_origin": "ast",
       "id": "frontend_src_app_app_config",
       "community": 85,
-      "community_name": "supabase-auth.ts",
+      "community_name": "app.config.ts",
       "norm_label": "app.config.ts"
     },
     {
@@ -9520,7 +9520,7 @@
       "_origin": "ast",
       "id": "frontend_src_app_app_config_restaurantruntimeconfig",
       "community": 85,
-      "community_name": "supabase-auth.ts",
+      "community_name": "app.config.ts",
       "norm_label": "restaurantruntimeconfig"
     },
     {
@@ -9531,7 +9531,7 @@
       "_origin": "ast",
       "id": "frontend_src_app_app_config_runtimewindow",
       "community": 85,
-      "community_name": "supabase-auth.ts",
+      "community_name": "app.config.ts",
       "norm_label": "runtimewindow"
     },
     {
@@ -9541,8 +9541,8 @@
       "source_location": "L17",
       "_origin": "ast",
       "id": "frontend_src_app_app_config_runtime",
-      "community": 124,
-      "community_name": "main.ts",
+      "community": 85,
+      "community_name": "app.config.ts",
       "norm_label": "runtime"
     },
     {
@@ -9552,8 +9552,8 @@
       "source_location": "L22",
       "_origin": "ast",
       "id": "frontend_src_app_app_config_appconfig",
-      "community": 124,
-      "community_name": "main.ts",
+      "community": 85,
+      "community_name": "app.config.ts",
       "norm_label": "appconfig"
     },
     {
@@ -9575,7 +9575,7 @@
       "_origin": "ast",
       "id": "frontend_src_app_app_routes_routes",
       "community": 85,
-      "community_name": "supabase-auth.ts",
+      "community_name": "app.config.ts",
       "norm_label": "routes"
     },
     {
@@ -9585,8 +9585,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "frontend_src_app_app_spec",
-      "community": 124,
-      "community_name": "main.ts",
+      "community": 85,
+      "community_name": "app.config.ts",
       "norm_label": "app.spec.ts"
     },
     {
@@ -9596,8 +9596,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "frontend_src_app_app",
-      "community": 124,
-      "community_name": "main.ts",
+      "community": 85,
+      "community_name": "app.config.ts",
       "norm_label": "app.ts"
     },
     {
@@ -9607,8 +9607,8 @@
       "source_location": "L10",
       "_origin": "ast",
       "id": "frontend_src_app_app_app",
-      "community": 124,
-      "community_name": "main.ts",
+      "community": 85,
+      "community_name": "app.config.ts",
       "norm_label": "app"
     },
     {
@@ -9618,8 +9618,8 @@
       "source_location": "",
       "_origin": "ast",
       "id": "frontend_src_app_app_ts_component",
-      "community": 124,
-      "community_name": "main.ts",
+      "community": 85,
+      "community_name": "app.config.ts",
       "norm_label": "component"
     },
     {
@@ -9905,7 +9905,7 @@
       "_origin": "ast",
       "id": "frontend_src_app_core_api_base_url_interceptor_spec",
       "community": 85,
-      "community_name": "supabase-auth.ts",
+      "community_name": "app.config.ts",
       "norm_label": "api-base-url-interceptor.spec.ts"
     },
     {
@@ -9916,7 +9916,7 @@
       "_origin": "ast",
       "id": "frontend_src_app_core_api_base_url_interceptor",
       "community": 85,
-      "community_name": "supabase-auth.ts",
+      "community_name": "app.config.ts",
       "norm_label": "api-base-url-interceptor.ts"
     },
     {
@@ -9927,7 +9927,7 @@
       "_origin": "ast",
       "id": "frontend_src_app_core_api_base_url_interceptor_api_base_url",
       "community": 85,
-      "community_name": "supabase-auth.ts",
+      "community_name": "app.config.ts",
       "norm_label": "api_base_url"
     },
     {
@@ -9938,7 +9938,7 @@
       "_origin": "ast",
       "id": "frontend_src_app_core_api_base_url_interceptor_apibaseurlinterceptor",
       "community": 85,
-      "community_name": "supabase-auth.ts",
+      "community_name": "app.config.ts",
       "norm_label": "apibaseurlinterceptor()"
     },
     {
@@ -10696,7 +10696,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "frontend_src_app_core_staff_auth_interceptor_spec",
-      "community": 85,
+      "community": 75,
       "community_name": "supabase-auth.ts",
       "norm_label": "staff-auth-interceptor.spec.ts"
     },
@@ -10707,7 +10707,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "frontend_src_app_core_staff_auth_interceptor",
-      "community": 85,
+      "community": 75,
       "community_name": "supabase-auth.ts",
       "norm_label": "staff-auth-interceptor.ts"
     },
@@ -10718,7 +10718,7 @@
       "source_location": "L6",
       "_origin": "ast",
       "id": "frontend_src_app_core_staff_auth_interceptor_staffauthinterceptor",
-      "community": 85,
+      "community": 75,
       "community_name": "supabase-auth.ts",
       "norm_label": "staffauthinterceptor()"
     },
@@ -10729,8 +10729,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "frontend_src_app_core_staff_role_guard_spec",
-      "community": 62,
-      "community_name": "StaffAuthService",
+      "community": 75,
+      "community_name": "supabase-auth.ts",
       "norm_label": "staff-role.guard.spec.ts"
     },
     {
@@ -10740,8 +10740,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "frontend_src_app_core_staff_role_guard",
-      "community": 62,
-      "community_name": "StaffAuthService",
+      "community": 75,
+      "community_name": "supabase-auth.ts",
       "norm_label": "staff-role.guard.ts"
     },
     {
@@ -10751,8 +10751,8 @@
       "source_location": "L5",
       "_origin": "ast",
       "id": "frontend_src_app_core_staff_role_guard_staffroleguard",
-      "community": 62,
-      "community_name": "StaffAuthService",
+      "community": 75,
+      "community_name": "supabase-auth.ts",
       "norm_label": "staffroleguard()"
     },
     {
@@ -10762,7 +10762,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "frontend_src_app_core_supabase_auth_spec",
-      "community": 85,
+      "community": 75,
       "community_name": "supabase-auth.ts",
       "norm_label": "supabase-auth.spec.ts"
     },
@@ -10773,7 +10773,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "frontend_src_app_core_supabase_auth",
-      "community": 85,
+      "community": 75,
       "community_name": "supabase-auth.ts",
       "norm_label": "supabase-auth.ts"
     },
@@ -10785,7 +10785,7 @@
       "_origin": "ast",
       "id": "frontend_src_app_core_supabase_auth_supabaseruntimeconfig",
       "community": 85,
-      "community_name": "supabase-auth.ts",
+      "community_name": "app.config.ts",
       "norm_label": "supabaseruntimeconfig"
     },
     {
@@ -10795,7 +10795,7 @@
       "source_location": "L11",
       "_origin": "ast",
       "id": "frontend_src_app_core_supabase_auth_staffidentity",
-      "community": 85,
+      "community": 75,
       "community_name": "supabase-auth.ts",
       "norm_label": "staffidentity"
     },
@@ -10806,7 +10806,7 @@
       "source_location": "L16",
       "_origin": "ast",
       "id": "frontend_src_app_core_supabase_auth_supabase_runtime_config",
-      "community": 85,
+      "community": 75,
       "community_name": "supabase-auth.ts",
       "norm_label": "supabase_runtime_config"
     },
@@ -10817,7 +10817,7 @@
       "source_location": "L17",
       "_origin": "ast",
       "id": "frontend_src_app_core_supabase_auth_supabase_client",
-      "community": 85,
+      "community": 75,
       "community_name": "supabase-auth.ts",
       "norm_label": "supabase_client"
     },
@@ -10829,7 +10829,7 @@
       "_origin": "ast",
       "id": "frontend_src_app_core_supabase_auth_providesupabaseauth",
       "community": 85,
-      "community_name": "supabase-auth.ts",
+      "community_name": "app.config.ts",
       "norm_label": "providesupabaseauth()"
     },
     {
@@ -11961,8 +11961,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "frontend_src_main",
-      "community": 124,
-      "community_name": "main.ts",
+      "community": 85,
+      "community_name": "app.config.ts",
       "norm_label": "main.ts"
     },
     {
@@ -11994,7 +11994,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "package",
-      "community": 126,
+      "community": 124,
       "community_name": "package.json",
       "norm_label": "package.json"
     },
@@ -12005,7 +12005,7 @@
       "source_location": "L2",
       "_origin": "ast",
       "id": "package_name",
-      "community": 126,
+      "community": 124,
       "community_name": "package.json",
       "norm_label": "name"
     },
@@ -12016,7 +12016,7 @@
       "source_location": "L3",
       "_origin": "ast",
       "id": "package_version",
-      "community": 126,
+      "community": 124,
       "community_name": "package.json",
       "norm_label": "version"
     },
@@ -12027,7 +12027,7 @@
       "source_location": "L4",
       "_origin": "ast",
       "id": "package_private",
-      "community": 126,
+      "community": 124,
       "community_name": "package.json",
       "norm_label": "private"
     },
@@ -12038,7 +12038,7 @@
       "source_location": "L5",
       "_origin": "ast",
       "id": "package_scripts",
-      "community": 123,
+      "community": 112,
       "community_name": "scripts",
       "norm_label": "scripts"
     },
@@ -12049,7 +12049,7 @@
       "source_location": "L6",
       "_origin": "ast",
       "id": "package_scripts_dev",
-      "community": 123,
+      "community": 112,
       "community_name": "scripts",
       "norm_label": "dev"
     },
@@ -12060,7 +12060,7 @@
       "source_location": "L7",
       "_origin": "ast",
       "id": "package_scripts_build",
-      "community": 123,
+      "community": 112,
       "community_name": "scripts",
       "norm_label": "build"
     },
@@ -12071,7 +12071,7 @@
       "source_location": "L8",
       "_origin": "ast",
       "id": "package_scripts_start",
-      "community": 123,
+      "community": 112,
       "community_name": "scripts",
       "norm_label": "start"
     },
@@ -12082,7 +12082,7 @@
       "source_location": "L9",
       "_origin": "ast",
       "id": "package_scripts_lint",
-      "community": 123,
+      "community": 112,
       "community_name": "scripts",
       "norm_label": "lint"
     },
@@ -12093,7 +12093,7 @@
       "source_location": "L10",
       "_origin": "ast",
       "id": "package_scripts_test",
-      "community": 123,
+      "community": 112,
       "community_name": "scripts",
       "norm_label": "test"
     },
@@ -12104,7 +12104,7 @@
       "source_location": "L11",
       "_origin": "ast",
       "id": "package_scripts_test_watch",
-      "community": 123,
+      "community": 112,
       "community_name": "scripts",
       "norm_label": "test:watch"
     },
@@ -12115,7 +12115,7 @@
       "source_location": "L12",
       "_origin": "ast",
       "id": "package_scripts_test_e2e",
-      "community": 123,
+      "community": 112,
       "community_name": "scripts",
       "norm_label": "test:e2e"
     },
@@ -12390,7 +12390,7 @@
       "source_location": "L28",
       "_origin": "ast",
       "id": "package_devdependencies_playwright_test",
-      "community": 130,
+      "community": 129,
       "community_name": "@playwright/test",
       "norm_label": "@playwright/test"
     },
@@ -12401,7 +12401,7 @@
       "source_location": "L28",
       "_origin": "ast",
       "id": "playwright_test",
-      "community": 130,
+      "community": 129,
       "community_name": "@playwright/test",
       "norm_label": "@playwright/test"
     },
@@ -12412,7 +12412,7 @@
       "source_location": "L29",
       "_origin": "ast",
       "id": "package_devdependencies_tailwindcss_postcss",
-      "community": 131,
+      "community": 130,
       "community_name": "@tailwindcss/postcss",
       "norm_label": "@tailwindcss/postcss"
     },
@@ -12423,7 +12423,7 @@
       "source_location": "L29",
       "_origin": "ast",
       "id": "tailwindcss_postcss",
-      "community": 131,
+      "community": 130,
       "community_name": "@tailwindcss/postcss",
       "norm_label": "@tailwindcss/postcss"
     },
@@ -12434,7 +12434,7 @@
       "source_location": "L30",
       "_origin": "ast",
       "id": "package_devdependencies_testing_library_jest_dom",
-      "community": 132,
+      "community": 131,
       "community_name": "@testing-library/jest-dom",
       "norm_label": "@testing-library/jest-dom"
     },
@@ -12445,7 +12445,7 @@
       "source_location": "L30",
       "_origin": "ast",
       "id": "testing_library_jest_dom",
-      "community": 132,
+      "community": 131,
       "community_name": "@testing-library/jest-dom",
       "norm_label": "@testing-library/jest-dom"
     },
@@ -12456,7 +12456,7 @@
       "source_location": "L31",
       "_origin": "ast",
       "id": "package_devdependencies_testing_library_react",
-      "community": 133,
+      "community": 132,
       "community_name": "@testing-library/react",
       "norm_label": "@testing-library/react"
     },
@@ -12467,7 +12467,7 @@
       "source_location": "L31",
       "_origin": "ast",
       "id": "testing_library_react",
-      "community": 133,
+      "community": 132,
       "community_name": "@testing-library/react",
       "norm_label": "@testing-library/react"
     },
@@ -12522,7 +12522,7 @@
       "source_location": "L34",
       "_origin": "ast",
       "id": "package_devdependencies_types_react_dom",
-      "community": 134,
+      "community": 133,
       "community_name": "@types/react-dom",
       "norm_label": "@types/react-dom"
     },
@@ -12533,7 +12533,7 @@
       "source_location": "L34",
       "_origin": "ast",
       "id": "types_react_dom",
-      "community": 134,
+      "community": 133,
       "community_name": "@types/react-dom",
       "norm_label": "@types/react-dom"
     },
@@ -12742,7 +12742,7 @@
       "source_location": "L45",
       "_origin": "ast",
       "id": "package_overrides",
-      "community": 126,
+      "community": 124,
       "community_name": "package.json",
       "norm_label": "overrides"
     },
@@ -12753,7 +12753,7 @@
       "source_location": "L46",
       "_origin": "ast",
       "id": "package_overrides_sharp",
-      "community": 126,
+      "community": 124,
       "community_name": "package.json",
       "norm_label": "sharp"
     },
@@ -13160,8 +13160,8 @@
       "source_location": "L21",
       "_origin": "ast",
       "id": "src_app_admin_itemssection_itemssection",
-      "community": 0,
-      "community_name": "createClient",
+      "community": 1,
+      "community_name": "menu/page.tsx",
       "norm_label": "itemssection()"
     },
     {
@@ -13226,7 +13226,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_app_admin_reportspanel",
-      "community": 112,
+      "community": 126,
       "community_name": "ReportsPanel.tsx",
       "norm_label": "reportspanel.tsx"
     },
@@ -13237,7 +13237,7 @@
       "source_location": "L7",
       "_origin": "ast",
       "id": "src_app_admin_reportspanel_salessummary",
-      "community": 112,
+      "community": 126,
       "community_name": "ReportsPanel.tsx",
       "norm_label": "salessummary"
     },
@@ -13248,7 +13248,7 @@
       "source_location": "L15",
       "_origin": "ast",
       "id": "src_app_admin_reportspanel_isodate",
-      "community": 112,
+      "community": 126,
       "community_name": "ReportsPanel.tsx",
       "norm_label": "isodate()"
     },
@@ -13259,7 +13259,7 @@
       "source_location": "L19",
       "_origin": "ast",
       "id": "src_app_admin_reportspanel_reportspanel",
-      "community": 112,
+      "community": 126,
       "community_name": "ReportsPanel.tsx",
       "norm_label": "reportspanel()"
     },
@@ -13270,7 +13270,7 @@
       "source_location": "L142",
       "_origin": "ast",
       "id": "src_app_admin_reportspanel_statcard",
-      "community": 112,
+      "community": 126,
       "community_name": "ReportsPanel.tsx",
       "norm_label": "statcard()"
     },
@@ -13281,7 +13281,7 @@
       "source_location": "L151",
       "_origin": "ast",
       "id": "src_app_admin_reportspanel_field",
-      "community": 112,
+      "community": 126,
       "community_name": "ReportsPanel.tsx",
       "norm_label": "field()"
     },
@@ -13545,8 +13545,8 @@
       "source_location": "L258",
       "_origin": "ast",
       "id": "src_app_cashier_page_availabilitypanel",
-      "community": 9,
-      "community_name": "cashier/page.tsx",
+      "community": 1,
+      "community_name": "menu/page.tsx",
       "norm_label": "availabilitypanel()"
     },
     {
@@ -14062,8 +14062,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_lib_format",
-      "community": 1,
-      "community_name": "menu/page.tsx",
+      "community": 121,
+      "community_name": "LocaleProvider.tsx",
       "norm_label": "format.ts"
     },
     {
@@ -14084,8 +14084,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_lib_i18n_localeprovider",
-      "community": 1,
-      "community_name": "menu/page.tsx",
+      "community": 121,
+      "community_name": "LocaleProvider.tsx",
       "norm_label": "localeprovider.tsx"
     },
     {
@@ -14095,8 +14095,8 @@
       "source_location": "L8",
       "_origin": "ast",
       "id": "src_lib_i18n_localeprovider_localecontextvalue",
-      "community": 1,
-      "community_name": "menu/page.tsx",
+      "community": 121,
+      "community_name": "LocaleProvider.tsx",
       "norm_label": "localecontextvalue"
     },
     {
@@ -14106,8 +14106,8 @@
       "source_location": "L15",
       "_origin": "ast",
       "id": "src_lib_i18n_localeprovider_localecontext",
-      "community": 1,
-      "community_name": "menu/page.tsx",
+      "community": 121,
+      "community_name": "LocaleProvider.tsx",
       "norm_label": "localecontext"
     },
     {
@@ -14238,8 +14238,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_lib_i18n_dictionaries",
-      "community": 1,
-      "community_name": "menu/page.tsx",
+      "community": 121,
+      "community_name": "LocaleProvider.tsx",
       "norm_label": "dictionaries.ts"
     },
     {
@@ -14249,8 +14249,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_lib_i18n_dictionaries_locale",
-      "community": 1,
-      "community_name": "menu/page.tsx",
+      "community": 121,
+      "community_name": "LocaleProvider.tsx",
       "norm_label": "locale"
     },
     {
@@ -14260,8 +14260,8 @@
       "source_location": "L3",
       "_origin": "ast",
       "id": "src_lib_i18n_dictionaries_dictionary",
-      "community": 1,
-      "community_name": "menu/page.tsx",
+      "community": 121,
+      "community_name": "LocaleProvider.tsx",
       "norm_label": "dictionary"
     },
     {
@@ -14271,8 +14271,8 @@
       "source_location": "L83",
       "_origin": "ast",
       "id": "src_lib_i18n_dictionaries_dictionaries",
-      "community": 1,
-      "community_name": "menu/page.tsx",
+      "community": 121,
+      "community_name": "LocaleProvider.tsx",
       "norm_label": "dictionaries"
     },
     {
@@ -16094,7 +16094,7 @@
       "label": "P0 inventory and decision",
       "file_type": "document",
       "source_file": "docs/security-baseline.md",
-      "source_location": "L17",
+      "source_location": "L22",
       "_origin": "ast",
       "id": "docs_security_baseline_p0_inventory_and_decision",
       "community": 88,
@@ -16102,15 +16102,26 @@
       "norm_label": "p0 inventory and decision"
     },
     {
-      "label": "External gate",
+      "label": "Historical external gate",
       "file_type": "document",
       "source_file": "docs/security-baseline.md",
-      "source_location": "L31",
+      "source_location": "L36",
       "_origin": "ast",
-      "id": "docs_security_baseline_external_gate",
+      "id": "docs_security_baseline_historical_external_gate",
       "community": 88,
       "community_name": "Security remediation baseline",
-      "norm_label": "external gate"
+      "norm_label": "historical external gate"
+    },
+    {
+      "label": "Remaining infrastructure limitation",
+      "file_type": "document",
+      "source_file": "docs/security-baseline.md",
+      "source_location": "L48",
+      "_origin": "ast",
+      "id": "docs_security_baseline_remaining_infrastructure_limitation",
+      "community": 88,
+      "community_name": "Security remediation baseline",
+      "norm_label": "remaining infrastructure limitation"
     },
     {
       "label": "frontend/README.md",
@@ -16149,7 +16160,7 @@
       "label": "Development server",
       "file_type": "document",
       "source_file": "frontend/README.md",
-      "source_location": "L15",
+      "source_location": "L17",
       "_origin": "ast",
       "id": "frontend_readme_development_server",
       "community": 78,
@@ -16160,7 +16171,7 @@
       "label": "Code scaffolding",
       "file_type": "document",
       "source_file": "frontend/README.md",
-      "source_location": "L25",
+      "source_location": "L27",
       "_origin": "ast",
       "id": "frontend_readme_code_scaffolding",
       "community": 78,
@@ -16171,7 +16182,7 @@
       "label": "Building",
       "file_type": "document",
       "source_file": "frontend/README.md",
-      "source_location": "L39",
+      "source_location": "L41",
       "_origin": "ast",
       "id": "frontend_readme_building",
       "community": 78,
@@ -16182,7 +16193,7 @@
       "label": "Running unit tests",
       "file_type": "document",
       "source_file": "frontend/README.md",
-      "source_location": "L49",
+      "source_location": "L51",
       "_origin": "ast",
       "id": "frontend_readme_running_unit_tests",
       "community": 78,
@@ -16193,7 +16204,7 @@
       "label": "Additional Resources",
       "file_type": "document",
       "source_file": "frontend/README.md",
-      "source_location": "L57",
+      "source_location": "L59",
       "_origin": "ast",
       "id": "frontend_readme_additional_resources",
       "community": 78,
@@ -46092,22 +46103,33 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "docs/security-baseline.md",
-      "source_location": "L31",
+      "source_location": "L36",
       "weight": 1.0,
       "_origin": "ast",
       "source": "docs_security_baseline_security_remediation_baseline",
-      "target": "docs_security_baseline_external_gate",
+      "target": "docs_security_baseline_historical_external_gate",
       "confidence_score": 1.0
     },
     {
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "docs/security-baseline.md",
-      "source_location": "L17",
+      "source_location": "L22",
       "weight": 1.0,
       "_origin": "ast",
       "source": "docs_security_baseline_security_remediation_baseline",
       "target": "docs_security_baseline_p0_inventory_and_decision",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/security-baseline.md",
+      "source_location": "L48",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "docs_security_baseline_security_remediation_baseline",
+      "target": "docs_security_baseline_remaining_infrastructure_limitation",
       "confidence_score": 1.0
     },
     {
@@ -46125,7 +46147,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "frontend/README.md",
-      "source_location": "L57",
+      "source_location": "L59",
       "weight": 1.0,
       "_origin": "ast",
       "source": "frontend_readme_restaurantqrorderingweb",
@@ -46136,7 +46158,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "frontend/README.md",
-      "source_location": "L39",
+      "source_location": "L41",
       "weight": 1.0,
       "_origin": "ast",
       "source": "frontend_readme_restaurantqrorderingweb",
@@ -46147,7 +46169,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "frontend/README.md",
-      "source_location": "L25",
+      "source_location": "L27",
       "weight": 1.0,
       "_origin": "ast",
       "source": "frontend_readme_restaurantqrorderingweb",
@@ -46158,7 +46180,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "frontend/README.md",
-      "source_location": "L15",
+      "source_location": "L17",
       "weight": 1.0,
       "_origin": "ast",
       "source": "frontend_readme_restaurantqrorderingweb",
@@ -46169,7 +46191,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "frontend/README.md",
-      "source_location": "L49",
+      "source_location": "L51",
       "weight": 1.0,
       "_origin": "ast",
       "source": "frontend_readme_restaurantqrorderingweb",
@@ -47280,5 +47302,5 @@
       "source_file": "README.md"
     }
   ],
-  "built_at_commit": "c72ddfcdc039e2c6cd02b39ec07e335817773f65"
+  "built_at_commit": "eefd2a31c7a00658a05480f3d5d1ca875b559f33"
 }

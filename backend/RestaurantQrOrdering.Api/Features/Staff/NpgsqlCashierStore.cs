@@ -1,9 +1,12 @@
 using Npgsql;
 using NpgsqlTypes;
+using RestaurantQrOrdering.Api.Features.PublicMenu;
 
 namespace RestaurantQrOrdering.Api.Features.Staff;
 
-public sealed class NpgsqlCashierStore(NpgsqlDataSource dataSource) : ICashierStore
+public sealed class NpgsqlCashierStore(
+    NpgsqlDataSource dataSource,
+    PublicMenuCache menuCache) : ICashierStore
 {
     public async Task<IReadOnlyList<CashierOrder>> GetOrdersAsync(CancellationToken cancellationToken)
     {
@@ -105,13 +108,16 @@ public sealed class NpgsqlCashierStore(NpgsqlDataSource dataSource) : ICashierSt
             command.Parameters.Add(new NpgsqlParameter { NpgsqlDbType = NpgsqlDbType.Uuid, Value = actorId });
             command.Parameters.Add(new NpgsqlParameter { NpgsqlDbType = NpgsqlDbType.Boolean, Value = isAvailable });
 
-            return (await command.ExecuteScalarAsync(cancellationToken))?.ToString() switch
+            var result = (await command.ExecuteScalarAsync(cancellationToken))?.ToString() switch
             {
                 "ok" => CashierCommandResult.Succeeded,
                 "not_found" => CashierCommandResult.NotFound,
                 "not_authorized" => CashierCommandResult.NotAuthorized,
                 _ => throw new CashierStoreUnavailableException(),
             };
+            if (result == CashierCommandResult.Succeeded)
+                menuCache.Invalidate();
+            return result;
         }
         catch (NpgsqlException exception)
         {

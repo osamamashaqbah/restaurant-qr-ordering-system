@@ -11,6 +11,11 @@ using System.Net;
 using System.Threading.RateLimiting;
 
 var builder = WebApplication.CreateBuilder(args);
+builder.WebHost.ConfigureKestrel(options =>
+{
+    // All current JSON contracts are far smaller; cap oversized bodies before model binding.
+    options.Limits.MaxRequestBodySize = 128 * 1024;
+});
 builder.WebHost.UseSentry(options =>
 {
     options.Dsn = builder.Configuration["SENTRY_DSN"] ?? string.Empty;
@@ -22,6 +27,8 @@ builder.WebHost.UseSentry(options =>
 
 builder.Services.AddControllers();
 builder.Services.AddProblemDetails();
+builder.Services.AddMemoryCache();
+builder.Services.AddSingleton<PublicMenuCache>();
 var publicOrderCreateRateLimit = RequiredPositiveRateLimit(builder.Configuration, "RateLimiting:PublicOrdersPerMinute", 30);
 var publicOrderTrackingRateLimit = RequiredPositiveRateLimit(builder.Configuration, "RateLimiting:PublicOrderTrackingPerMinute", 120);
 var publicOrderRatingRateLimit = RequiredPositiveRateLimit(builder.Configuration, "RateLimiting:PublicOrderRatingsPerMinute", 10);
@@ -123,7 +130,15 @@ if (string.IsNullOrWhiteSpace(databaseConnectionString))
 }
 else
 {
-    builder.Services.AddSingleton(NpgsqlDataSource.Create(databaseConnectionString));
+    var connectionString = new NpgsqlConnectionStringBuilder(databaseConnectionString);
+    var maximumPoolSize = builder.Configuration.GetValue<int?>("Database:MaximumPoolSize") ?? 15;
+    if (maximumPoolSize < 1)
+        throw new InvalidOperationException("Database:MaximumPoolSize must be a positive integer.");
+
+    // Supabase's session pool currently allows 15 upstream clients. Keep the local
+    // pool at or below that ceiling so bursts queue instead of being rejected.
+    connectionString.MaxPoolSize = Math.Min(connectionString.MaxPoolSize, maximumPoolSize);
+    builder.Services.AddSingleton(NpgsqlDataSource.Create(connectionString.ConnectionString));
     builder.Services.AddSingleton<IPublicOrderStore, NpgsqlPublicOrderStore>();
     builder.Services.AddSingleton<IPublicMenuStore, NpgsqlPublicMenuStore>();
     builder.Services.AddSingleton<IPublicRatingStore, NpgsqlPublicRatingStore>();

@@ -168,7 +168,8 @@ public sealed class StaffAuthTests
                 {
                     var configuration = new OpenIdConnectConfiguration { Issuer = JwtIssuer };
                     configuration.SigningKeys.Add(new ECDsaSecurityKey(
-                        ECDsa.Create(SigningAlgorithm.ExportParameters(false))) { KeyId = "test-key" });
+                        ECDsa.Create(SigningAlgorithm.ExportParameters(false)))
+                    { KeyId = "test-key" });
                     options.Configuration = configuration;
                 });
             });

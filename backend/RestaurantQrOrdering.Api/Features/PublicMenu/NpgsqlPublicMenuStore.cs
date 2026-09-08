@@ -2,9 +2,14 @@ using Npgsql;
 
 namespace RestaurantQrOrdering.Api.Features.PublicMenu;
 
-public sealed class NpgsqlPublicMenuStore(NpgsqlDataSource dataSource) : IPublicMenuStore
+public sealed class NpgsqlPublicMenuStore(
+    NpgsqlDataSource dataSource,
+    PublicMenuCache cache) : IPublicMenuStore
 {
-    public async Task<PublicMenuResponse> GetAsync(CancellationToken cancellationToken)
+    public Task<PublicMenuResponse> GetAsync(CancellationToken cancellationToken) =>
+        cache.GetAsync(LoadAsync, cancellationToken);
+
+    private async Task<PublicMenuResponse> LoadAsync(CancellationToken cancellationToken)
     {
         try
         {

@@ -1,9 +1,12 @@
 using Npgsql;
 using NpgsqlTypes;
+using RestaurantQrOrdering.Api.Features.PublicMenu;
 
 namespace RestaurantQrOrdering.Api.Features.Staff;
 
-public sealed class NpgsqlAdminMenuStore(NpgsqlDataSource dataSource) : IAdminMenuStore
+public sealed class NpgsqlAdminMenuStore(
+    NpgsqlDataSource dataSource,
+    PublicMenuCache menuCache) : IAdminMenuStore
 {
     public async Task<Guid> CreateCategoryAsync(CreateCategoryRequest request, CancellationToken cancellationToken)
     {
@@ -17,8 +20,10 @@ public sealed class NpgsqlAdminMenuStore(NpgsqlDataSource dataSource) : IAdminMe
             command.Parameters.Add(new NpgsqlParameter { NpgsqlDbType = NpgsqlDbType.Text, Value = request.NameEn.Trim() });
             command.Parameters.Add(new NpgsqlParameter { NpgsqlDbType = NpgsqlDbType.Text, Value = request.NameAr.Trim() });
             command.Parameters.Add(new NpgsqlParameter { NpgsqlDbType = NpgsqlDbType.Integer, Value = request.SortOrder });
-            return (Guid)(await command.ExecuteScalarAsync(cancellationToken)
+            var id = (Guid)(await command.ExecuteScalarAsync(cancellationToken)
                 ?? throw new AdminMenuStoreUnavailableException());
+            menuCache.Invalidate();
+            return id;
         }
         catch (NpgsqlException exception)
         {
@@ -42,9 +47,12 @@ public sealed class NpgsqlAdminMenuStore(NpgsqlDataSource dataSource) : IAdminMe
             command.Parameters.Add(new NpgsqlParameter { NpgsqlDbType = NpgsqlDbType.Text, Value = request.NameAr.Trim() });
             command.Parameters.Add(new NpgsqlParameter { NpgsqlDbType = NpgsqlDbType.Integer, Value = request.SortOrder });
             command.Parameters.Add(new NpgsqlParameter { NpgsqlDbType = NpgsqlDbType.Uuid, Value = categoryId });
-            return await command.ExecuteNonQueryAsync(cancellationToken) == 0
+            var result = await command.ExecuteNonQueryAsync(cancellationToken) == 0
                 ? AdminMenuCommandResult.NotFound
                 : AdminMenuCommandResult.Succeeded;
+            if (result == AdminMenuCommandResult.Succeeded)
+                menuCache.Invalidate();
+            return result;
         }
         catch (NpgsqlException exception)
         {
@@ -58,9 +66,12 @@ public sealed class NpgsqlAdminMenuStore(NpgsqlDataSource dataSource) : IAdminMe
         {
             await using var command = dataSource.CreateCommand("delete from public.categories where id = $1");
             command.Parameters.Add(new NpgsqlParameter { NpgsqlDbType = NpgsqlDbType.Uuid, Value = categoryId });
-            return await command.ExecuteNonQueryAsync(cancellationToken) == 0
+            var result = await command.ExecuteNonQueryAsync(cancellationToken) == 0
                 ? AdminMenuCommandResult.NotFound
                 : AdminMenuCommandResult.Succeeded;
+            if (result == AdminMenuCommandResult.Succeeded)
+                menuCache.Invalidate();
+            return result;
         }
         catch (PostgresException exception) when (exception.SqlState == "23503")
         {
@@ -83,8 +94,10 @@ public sealed class NpgsqlAdminMenuStore(NpgsqlDataSource dataSource) : IAdminMe
                 returning id
                 """);
             AddItemParameters(command, request);
-            return (Guid)(await command.ExecuteScalarAsync(cancellationToken)
+            var id = (Guid)(await command.ExecuteScalarAsync(cancellationToken)
                 ?? throw new AdminMenuStoreUnavailableException());
+            menuCache.Invalidate();
+            return id;
         }
         catch (NpgsqlException exception)
         {
@@ -104,9 +117,12 @@ public sealed class NpgsqlAdminMenuStore(NpgsqlDataSource dataSource) : IAdminMe
                 """);
             AddItemParameters(command, request);
             command.Parameters.Add(new NpgsqlParameter { NpgsqlDbType = NpgsqlDbType.Uuid, Value = itemId });
-            return await command.ExecuteNonQueryAsync(cancellationToken) == 0
+            var result = await command.ExecuteNonQueryAsync(cancellationToken) == 0
                 ? AdminMenuCommandResult.NotFound
                 : AdminMenuCommandResult.Succeeded;
+            if (result == AdminMenuCommandResult.Succeeded)
+                menuCache.Invalidate();
+            return result;
         }
         catch (NpgsqlException exception)
         {
@@ -120,9 +136,12 @@ public sealed class NpgsqlAdminMenuStore(NpgsqlDataSource dataSource) : IAdminMe
         {
             await using var command = dataSource.CreateCommand("delete from public.menu_items where id = $1");
             command.Parameters.Add(new NpgsqlParameter { NpgsqlDbType = NpgsqlDbType.Uuid, Value = itemId });
-            return await command.ExecuteNonQueryAsync(cancellationToken) == 0
+            var result = await command.ExecuteNonQueryAsync(cancellationToken) == 0
                 ? AdminMenuCommandResult.NotFound
                 : AdminMenuCommandResult.Succeeded;
+            if (result == AdminMenuCommandResult.Succeeded)
+                menuCache.Invalidate();
+            return result;
         }
         catch (NpgsqlException exception)
         {

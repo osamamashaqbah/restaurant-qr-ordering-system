@@ -2767,8 +2767,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "backend_restaurantqrordering_api_features_publicmenu_ipublicmenustore",
-      "community": 54,
-      "community_name": "PublicMenuResponse",
+      "community": 59,
+      "community_name": "Exception",
       "norm_label": "ipublicmenustore.cs"
     },
     {
@@ -2856,8 +2856,8 @@
       },
       "_origin": "ast",
       "id": "backend_restaurantqrordering_api_features_publicmenu_ipublicmenustore_restaurantqrordering_api_features_publicmenu_publicmenustoreunavailableexception",
-      "community": 54,
-      "community_name": "PublicMenuResponse",
+      "community": 59,
+      "community_name": "Exception",
       "norm_label": "publicmenustoreunavailableexception"
     },
     {
@@ -3124,8 +3124,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "backend_restaurantqrordering_api_features_publicmenu_publicmenucontracts",
-      "community": 65,
-      "community_name": "RestaurantQrOrdering.Api.Features.Staff",
+      "community": 54,
+      "community_name": "PublicMenuResponse",
       "norm_label": "publicmenucontracts.cs"
     },
     {
@@ -3158,8 +3158,8 @@
       },
       "_origin": "ast",
       "id": "backend_restaurantqrordering_api_features_publicmenu_publicmenucontracts_restaurantqrordering_api_features_publicmenu_publiccategory",
-      "community": 65,
-      "community_name": "RestaurantQrOrdering.Api.Features.Staff",
+      "community": 54,
+      "community_name": "PublicMenuResponse",
       "norm_label": "publiccategory"
     },
     {
@@ -3175,8 +3175,8 @@
       },
       "_origin": "ast",
       "id": "backend_restaurantqrordering_api_features_publicmenu_publicmenucontracts_restaurantqrordering_api_features_publicmenu_publicmenuitem",
-      "community": 65,
-      "community_name": "RestaurantQrOrdering.Api.Features.Staff",
+      "community": 54,
+      "community_name": "PublicMenuResponse",
       "norm_label": "publicmenuitem"
     },
     {
@@ -3186,8 +3186,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "backend_restaurantqrordering_api_features_publicmenu_publicmenucontroller",
-      "community": 67,
-      "community_name": ".GetOrders",
+      "community": 123,
+      "community_name": ".Get",
       "norm_label": "publicmenucontroller.cs"
     },
     {
@@ -3203,8 +3203,8 @@
       },
       "_origin": "ast",
       "id": "backend_restaurantqrordering_api_features_publicmenu_publicmenucontroller_restaurantqrordering_api_features_publicmenu_publicmenucontroller",
-      "community": 67,
-      "community_name": ".GetOrders",
+      "community": 123,
+      "community_name": ".Get",
       "norm_label": "publicmenucontroller"
     },
     {
@@ -3214,8 +3214,8 @@
       "source_location": "",
       "_origin": "ast",
       "id": "controllerbase",
-      "community": 67,
-      "community_name": ".GetOrders",
+      "community": 123,
+      "community_name": ".Get",
       "norm_label": "controllerbase"
     },
     {
@@ -5368,8 +5368,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "backend_restaurantqrordering_api_features_staff_cashiercontroller",
-      "community": 65,
-      "community_name": "RestaurantQrOrdering.Api.Features.Staff",
+      "community": 67,
+      "community_name": ".GetOrders",
       "norm_label": "cashiercontroller.cs"
     },
     {
@@ -7772,8 +7772,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "backend_restaurantqrordering_api_features_staff_staffcontracts",
-      "community": 67,
-      "community_name": ".GetOrders",
+      "community": 127,
+      "community_name": ".Get",
       "norm_label": "staffcontracts.cs"
     },
     {
@@ -7789,8 +7789,8 @@
       },
       "_origin": "ast",
       "id": "backend_restaurantqrordering_api_features_staff_staffcontracts_restaurantqrordering_api_features_staff_staffroles",
-      "community": 67,
-      "community_name": ".GetOrders",
+      "community": 127,
+      "community_name": ".Get",
       "norm_label": "staffroles"
     },
     {
@@ -7800,8 +7800,8 @@
       "source_location": "",
       "_origin": "ast",
       "id": "backend_restaurantqrordering_api_features_staff_staffcontracts_cs_string",
-      "community": 67,
-      "community_name": ".GetOrders",
+      "community": 127,
+      "community_name": ".Get",
       "norm_label": "string"
     },
     {
@@ -7817,8 +7817,8 @@
       },
       "_origin": "ast",
       "id": "backend_restaurantqrordering_api_features_staff_staffcontracts_restaurantqrordering_api_features_staff_staffroles_isknown",
-      "community": 67,
-      "community_name": ".GetOrders",
+      "community": 127,
+      "community_name": ".Get",
       "norm_label": ".isknown()"
     },
     {
@@ -7834,8 +7834,8 @@
       },
       "_origin": "ast",
       "id": "backend_restaurantqrordering_api_features_staff_staffcontracts_restaurantqrordering_api_features_staff_staffpolicies",
-      "community": 67,
-      "community_name": ".GetOrders",
+      "community": 127,
+      "community_name": ".Get",
       "norm_label": "staffpolicies"
     },
     {
@@ -7868,8 +7868,8 @@
       },
       "_origin": "ast",
       "id": "backend_restaurantqrordering_api_features_staff_staffcontracts_restaurantqrordering_api_features_staff_staffidentityresponse",
-      "community": 67,
-      "community_name": ".GetOrders",
+      "community": 127,
+      "community_name": ".Get",
       "norm_label": "staffidentityresponse"
     },
     {
@@ -7879,8 +7879,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "backend_restaurantqrordering_api_features_staff_staffmecontroller",
-      "community": 67,
-      "community_name": ".GetOrders",
+      "community": 123,
+      "community_name": ".Get",
       "norm_label": "staffmecontroller.cs"
     },
     {
@@ -7896,8 +7896,8 @@
       },
       "_origin": "ast",
       "id": "backend_restaurantqrordering_api_features_staff_staffmecontroller_restaurantqrordering_api_features_staff_staffmecontroller",
-      "community": 67,
-      "community_name": ".GetOrders",
+      "community": 123,
+      "community_name": ".Get",
       "norm_label": "staffmecontroller"
     },
     {
@@ -7913,8 +7913,8 @@
       },
       "_origin": "ast",
       "id": "backend_restaurantqrordering_api_features_staff_staffmecontroller_restaurantqrordering_api_features_staff_staffmecontroller_get",
-      "community": 67,
-      "community_name": ".GetOrders",
+      "community": 127,
+      "community_name": ".Get",
       "norm_label": ".get()"
     },
     {
@@ -7924,8 +7924,8 @@
       "source_location": "",
       "_origin": "ast",
       "id": "backend_restaurantqrordering_api_features_staff_staffmecontroller_cs_cancellationtoken",
-      "community": 67,
-      "community_name": ".GetOrders",
+      "community": 127,
+      "community_name": ".Get",
       "norm_label": "cancellationtoken"
     },
     {
@@ -7935,8 +7935,8 @@
       "source_location": "",
       "_origin": "ast",
       "id": "backend_restaurantqrordering_api_features_staff_staffmecontroller_cs_task",
-      "community": 67,
-      "community_name": ".GetOrders",
+      "community": 127,
+      "community_name": ".Get",
       "norm_label": "task"
     },
     {
@@ -7946,8 +7946,8 @@
       "source_location": "",
       "_origin": "ast",
       "id": "backend_restaurantqrordering_api_features_staff_staffmecontroller_cs_actionresult",
-      "community": 67,
-      "community_name": ".GetOrders",
+      "community": 127,
+      "community_name": ".Get",
       "norm_label": "actionresult"
     },
     {
@@ -7957,8 +7957,8 @@
       "source_location": "",
       "_origin": "ast",
       "id": "backend_restaurantqrordering_api_features_staff_staffmecontroller_cs_httpget",
-      "community": 67,
-      "community_name": ".GetOrders",
+      "community": 127,
+      "community_name": ".Get",
       "norm_label": "httpget"
     },
     {
@@ -7968,8 +7968,8 @@
       "source_location": "",
       "_origin": "ast",
       "id": "backend_restaurantqrordering_api_features_staff_staffmecontroller_cs_producesresponsetype",
-      "community": 67,
-      "community_name": ".GetOrders",
+      "community": 127,
+      "community_name": ".Get",
       "norm_label": "producesresponsetype"
     },
     {
@@ -9112,8 +9112,8 @@
       "source_location": "L16",
       "_origin": "ast",
       "id": "frontend_package_dependencies_angular_compiler",
-      "community": 127,
-      "community_name": "@angular/compiler",
+      "community": 69,
+      "community_name": "dependencies",
       "norm_label": "@angular/compiler"
     },
     {
@@ -9123,8 +9123,8 @@
       "source_location": "L16",
       "_origin": "ast",
       "id": "angular_compiler",
-      "community": 127,
-      "community_name": "@angular/compiler",
+      "community": 69,
+      "community_name": "dependencies",
       "norm_label": "@angular/compiler"
     },
     {
@@ -9244,8 +9244,8 @@
       "source_location": "L22",
       "_origin": "ast",
       "id": "frontend_package_dependencies_supabase_supabase_js",
-      "community": 69,
-      "community_name": "dependencies",
+      "community": 135,
+      "community_name": "@supabase/supabase-js",
       "norm_label": "@supabase/supabase-js"
     },
     {
@@ -9255,8 +9255,8 @@
       "source_location": "L22",
       "_origin": "ast",
       "id": "frontend_package_json_supabase_supabase_js",
-      "community": 69,
-      "community_name": "dependencies",
+      "community": 135,
+      "community_name": "@supabase/supabase-js",
       "norm_label": "@supabase/supabase-js"
     },
     {
@@ -9640,8 +9640,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "frontend_src_app_core_admin_menu",
-      "community": 44,
-      "community_name": "public-menu.ts",
+      "community": 118,
+      "community_name": "AdminMenuService",
       "norm_label": "core/admin-menu.ts"
     },
     {
@@ -9651,8 +9651,8 @@
       "source_location": "L5",
       "_origin": "ast",
       "id": "frontend_src_app_core_admin_menu_categoryinput",
-      "community": 44,
-      "community_name": "public-menu.ts",
+      "community": 118,
+      "community_name": "AdminMenuService",
       "norm_label": "categoryinput"
     },
     {
@@ -9662,8 +9662,8 @@
       "source_location": "L11",
       "_origin": "ast",
       "id": "frontend_src_app_core_admin_menu_menuiteminput",
-      "community": 44,
-      "community_name": "public-menu.ts",
+      "community": 118,
+      "community_name": "AdminMenuService",
       "norm_label": "menuiteminput"
     },
     {
@@ -10399,8 +10399,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "frontend_src_app_core_order_tracking_spec",
-      "community": 12,
-      "community_name": "TrackingTokenSessionService",
+      "community": 121,
+      "community_name": "order-tracking/order-tracking.ts",
       "norm_label": "core/order-tracking.spec.ts"
     },
     {
@@ -10410,8 +10410,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "frontend_src_app_core_order_tracking",
-      "community": 12,
-      "community_name": "TrackingTokenSessionService",
+      "community": 121,
+      "community_name": "order-tracking/order-tracking.ts",
       "norm_label": "core/order-tracking.ts"
     },
     {
@@ -10421,8 +10421,8 @@
       "source_location": "L4",
       "_origin": "ast",
       "id": "frontend_src_app_core_order_tracking_publicordertracking",
-      "community": 12,
-      "community_name": "TrackingTokenSessionService",
+      "community": 121,
+      "community_name": "order-tracking/order-tracking.ts",
       "norm_label": "publicordertracking"
     },
     {
@@ -10432,8 +10432,8 @@
       "source_location": "L13",
       "_origin": "ast",
       "id": "frontend_src_app_core_order_tracking_publicorderitem",
-      "community": 12,
-      "community_name": "TrackingTokenSessionService",
+      "community": 121,
+      "community_name": "order-tracking/order-tracking.ts",
       "norm_label": "publicorderitem"
     },
     {
@@ -10443,8 +10443,8 @@
       "source_location": "L21",
       "_origin": "ast",
       "id": "frontend_src_app_core_order_tracking_ordertrackingservice",
-      "community": 12,
-      "community_name": "TrackingTokenSessionService",
+      "community": 121,
+      "community_name": "order-tracking/order-tracking.ts",
       "norm_label": "ordertrackingservice"
     },
     {
@@ -10454,8 +10454,8 @@
       "source_location": "",
       "_origin": "ast",
       "id": "frontend_src_app_core_order_tracking_ts_injectable",
-      "community": 12,
-      "community_name": "TrackingTokenSessionService",
+      "community": 121,
+      "community_name": "order-tracking/order-tracking.ts",
       "norm_label": "injectable"
     },
     {
@@ -10465,8 +10465,8 @@
       "source_location": "L24",
       "_origin": "ast",
       "id": "frontend_src_app_core_order_tracking_ordertrackingservice_get",
-      "community": 12,
-      "community_name": "TrackingTokenSessionService",
+      "community": 121,
+      "community_name": "order-tracking/order-tracking.ts",
       "norm_label": ".get()"
     },
     {
@@ -10498,8 +10498,8 @@
       "source_location": "L4",
       "_origin": "ast",
       "id": "frontend_src_app_core_public_menu_publicmenuresponse",
-      "community": 44,
-      "community_name": "public-menu.ts",
+      "community": 118,
+      "community_name": "AdminMenuService",
       "norm_label": "publicmenuresponse"
     },
     {
@@ -10520,8 +10520,8 @@
       "source_location": "L16",
       "_origin": "ast",
       "id": "frontend_src_app_core_public_menu_publicmenuitem",
-      "community": 111,
-      "community_name": "CartService",
+      "community": 110,
+      "community_name": "Cashier",
       "norm_label": "publicmenuitem"
     },
     {
@@ -11026,8 +11026,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "frontend_src_app_features_admin_menu_admin_menu_spec",
-      "community": 44,
-      "community_name": "public-menu.ts",
+      "community": 118,
+      "community_name": "AdminMenuService",
       "norm_label": "admin-menu/admin-menu.spec.ts"
     },
     {
@@ -11037,8 +11037,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "frontend_src_app_features_admin_menu_admin_menu",
-      "community": 44,
-      "community_name": "public-menu.ts",
+      "community": 118,
+      "community_name": "AdminMenuService",
       "norm_label": "admin-menu/admin-menu.ts"
     },
     {
@@ -11147,8 +11147,8 @@
       "source_location": "L123",
       "_origin": "ast",
       "id": "frontend_src_app_features_admin_menu_admin_menu_adminmenu_edititem",
-      "community": 111,
-      "community_name": "CartService",
+      "community": 110,
+      "community_name": "Cashier",
       "norm_label": ".edititem()"
     },
     {
@@ -11477,8 +11477,8 @@
       "source_location": "L83",
       "_origin": "ast",
       "id": "frontend_src_app_features_cashier_cashier_cashier_toggleavailability",
-      "community": 111,
-      "community_name": "CartService",
+      "community": 110,
+      "community_name": "Cashier",
       "norm_label": ".toggleavailability()"
     },
     {
@@ -11510,8 +11510,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "frontend_src_app_features_entry_entry_spec",
-      "community": 114,
-      "community_name": "CustomerSessionService",
+      "community": 125,
+      "community_name": "app.routes.ts",
       "norm_label": "entry.spec.ts"
     },
     {
@@ -11521,8 +11521,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "frontend_src_app_features_entry_entry",
-      "community": 114,
-      "community_name": "CustomerSessionService",
+      "community": 125,
+      "community_name": "app.routes.ts",
       "norm_label": "entry.ts"
     },
     {
@@ -11532,8 +11532,8 @@
       "source_location": "L12",
       "_origin": "ast",
       "id": "frontend_src_app_features_entry_entry_entry",
-      "community": 114,
-      "community_name": "CustomerSessionService",
+      "community": 125,
+      "community_name": "app.routes.ts",
       "norm_label": "entry"
     },
     {
@@ -11543,8 +11543,8 @@
       "source_location": "",
       "_origin": "ast",
       "id": "frontend_src_app_features_entry_entry_ts_component",
-      "community": 114,
-      "community_name": "CustomerSessionService",
+      "community": 125,
+      "community_name": "app.routes.ts",
       "norm_label": "component"
     },
     {
@@ -11554,8 +11554,8 @@
       "source_location": "L24",
       "_origin": "ast",
       "id": "frontend_src_app_features_entry_entry_entry_submit",
-      "community": 114,
-      "community_name": "CustomerSessionService",
+      "community": 125,
+      "community_name": "app.routes.ts",
       "norm_label": ".submit()"
     },
     {
@@ -11818,8 +11818,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "frontend_src_app_features_order_tracking_order_tracking_spec",
-      "community": 12,
-      "community_name": "TrackingTokenSessionService",
+      "community": 121,
+      "community_name": "order-tracking/order-tracking.ts",
       "norm_label": "order-tracking/order-tracking.spec.ts"
     },
     {
@@ -11829,8 +11829,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "frontend_src_app_features_order_tracking_order_tracking",
-      "community": 12,
-      "community_name": "TrackingTokenSessionService",
+      "community": 121,
+      "community_name": "order-tracking/order-tracking.ts",
       "norm_label": "order-tracking/order-tracking.ts"
     },
     {
@@ -11840,8 +11840,8 @@
       "source_location": "L10",
       "_origin": "ast",
       "id": "frontend_src_app_features_order_tracking_order_tracking_viewstate",
-      "community": 12,
-      "community_name": "TrackingTokenSessionService",
+      "community": 121,
+      "community_name": "order-tracking/order-tracking.ts",
       "norm_label": "viewstate"
     },
     {
@@ -11851,8 +11851,8 @@
       "source_location": "L19",
       "_origin": "ast",
       "id": "frontend_src_app_features_order_tracking_order_tracking_ordertracking",
-      "community": 12,
-      "community_name": "TrackingTokenSessionService",
+      "community": 121,
+      "community_name": "order-tracking/order-tracking.ts",
       "norm_label": "ordertracking"
     },
     {
@@ -11862,8 +11862,8 @@
       "source_location": "",
       "_origin": "ast",
       "id": "frontend_src_app_features_order_tracking_order_tracking_ts_component",
-      "community": 12,
-      "community_name": "TrackingTokenSessionService",
+      "community": 121,
+      "community_name": "order-tracking/order-tracking.ts",
       "norm_label": "component"
     },
     {
@@ -11873,8 +11873,8 @@
       "source_location": "L30",
       "_origin": "ast",
       "id": "frontend_src_app_features_order_tracking_order_tracking_ordertracking_constructor",
-      "community": 12,
-      "community_name": "TrackingTokenSessionService",
+      "community": 121,
+      "community_name": "order-tracking/order-tracking.ts",
       "norm_label": ".constructor()"
     },
     {
@@ -11906,8 +11906,8 @@
       "source_location": "L17",
       "_origin": "ast",
       "id": "frontend_src_app_features_rating_rating_rating",
-      "community": 12,
-      "community_name": "TrackingTokenSessionService",
+      "community": 134,
+      "community_name": "Rating",
       "norm_label": "rating"
     },
     {
@@ -11917,8 +11917,8 @@
       "source_location": "",
       "_origin": "ast",
       "id": "frontend_src_app_features_rating_rating_ts_component",
-      "community": 12,
-      "community_name": "TrackingTokenSessionService",
+      "community": 134,
+      "community_name": "Rating",
       "norm_label": "component"
     },
     {
@@ -11928,8 +11928,8 @@
       "source_location": "L31",
       "_origin": "ast",
       "id": "frontend_src_app_features_rating_rating_rating_constructor",
-      "community": 12,
-      "community_name": "TrackingTokenSessionService",
+      "community": 134,
+      "community_name": "Rating",
       "norm_label": ".constructor()"
     },
     {
@@ -11939,8 +11939,8 @@
       "source_location": "L44",
       "_origin": "ast",
       "id": "frontend_src_app_features_rating_rating_rating_setstars",
-      "community": 12,
-      "community_name": "TrackingTokenSessionService",
+      "community": 134,
+      "community_name": "Rating",
       "norm_label": ".setstars()"
     },
     {
@@ -11950,8 +11950,8 @@
       "source_location": "L48",
       "_origin": "ast",
       "id": "frontend_src_app_features_rating_rating_rating_submit",
-      "community": 12,
-      "community_name": "TrackingTokenSessionService",
+      "community": 134,
+      "community_name": "Rating",
       "norm_label": ".submit()"
     },
     {
@@ -13160,8 +13160,8 @@
       "source_location": "L21",
       "_origin": "ast",
       "id": "src_app_admin_itemssection_itemssection",
-      "community": 1,
-      "community_name": "menu/page.tsx",
+      "community": 0,
+      "community_name": "createClient",
       "norm_label": "itemssection()"
     },
     {
@@ -13545,8 +13545,8 @@
       "source_location": "L258",
       "_origin": "ast",
       "id": "src_app_cashier_page_availabilitypanel",
-      "community": 1,
-      "community_name": "menu/page.tsx",
+      "community": 9,
+      "community_name": "cashier/page.tsx",
       "norm_label": "availabilitypanel()"
     },
     {
@@ -14062,8 +14062,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_lib_format",
-      "community": 121,
-      "community_name": "LocaleProvider.tsx",
+      "community": 1,
+      "community_name": "menu/page.tsx",
       "norm_label": "format.ts"
     },
     {
@@ -14084,8 +14084,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_lib_i18n_localeprovider",
-      "community": 121,
-      "community_name": "LocaleProvider.tsx",
+      "community": 1,
+      "community_name": "menu/page.tsx",
       "norm_label": "localeprovider.tsx"
     },
     {
@@ -14095,8 +14095,8 @@
       "source_location": "L8",
       "_origin": "ast",
       "id": "src_lib_i18n_localeprovider_localecontextvalue",
-      "community": 121,
-      "community_name": "LocaleProvider.tsx",
+      "community": 1,
+      "community_name": "menu/page.tsx",
       "norm_label": "localecontextvalue"
     },
     {
@@ -14106,8 +14106,8 @@
       "source_location": "L15",
       "_origin": "ast",
       "id": "src_lib_i18n_localeprovider_localecontext",
-      "community": 121,
-      "community_name": "LocaleProvider.tsx",
+      "community": 1,
+      "community_name": "menu/page.tsx",
       "norm_label": "localecontext"
     },
     {
@@ -14238,8 +14238,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_lib_i18n_dictionaries",
-      "community": 121,
-      "community_name": "LocaleProvider.tsx",
+      "community": 1,
+      "community_name": "menu/page.tsx",
       "norm_label": "dictionaries.ts"
     },
     {
@@ -14249,8 +14249,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_lib_i18n_dictionaries_locale",
-      "community": 121,
-      "community_name": "LocaleProvider.tsx",
+      "community": 1,
+      "community_name": "menu/page.tsx",
       "norm_label": "locale"
     },
     {
@@ -14260,8 +14260,8 @@
       "source_location": "L3",
       "_origin": "ast",
       "id": "src_lib_i18n_dictionaries_dictionary",
-      "community": 121,
-      "community_name": "LocaleProvider.tsx",
+      "community": 1,
+      "community_name": "menu/page.tsx",
       "norm_label": "dictionary"
     },
     {
@@ -14271,8 +14271,8 @@
       "source_location": "L83",
       "_origin": "ast",
       "id": "src_lib_i18n_dictionaries_dictionaries",
-      "community": 121,
-      "community_name": "LocaleProvider.tsx",
+      "community": 1,
+      "community_name": "menu/page.tsx",
       "norm_label": "dictionaries"
     },
     {
@@ -38105,7 +38105,7 @@
       "context": "import",
       "confidence": "EXTRACTED",
       "source_file": "frontend/src/app/core/supabase-auth.spec.ts",
-      "source_location": "L7",
+      "source_location": "L6",
       "weight": 1.0,
       "_origin": "ast",
       "source": "frontend_src_app_core_supabase_auth_spec",
@@ -38117,7 +38117,7 @@
       "context": "import",
       "confidence": "EXTRACTED",
       "source_file": "frontend/src/app/core/supabase-auth.spec.ts",
-      "source_location": "L7",
+      "source_location": "L6",
       "weight": 1.0,
       "_origin": "ast",
       "source": "frontend_src_app_core_supabase_auth_spec",
@@ -38212,7 +38212,7 @@
       "context": "import",
       "confidence": "EXTRACTED",
       "source_file": "frontend/src/app/core/supabase-auth.spec.ts",
-      "source_location": "L6",
+      "source_location": "L5",
       "weight": 1.0,
       "_origin": "ast",
       "source": "frontend_src_app_core_supabase_auth_spec",
@@ -38224,7 +38224,7 @@
       "context": "import",
       "confidence": "EXTRACTED",
       "source_file": "frontend/src/app/core/supabase-auth.spec.ts",
-      "source_location": "L6",
+      "source_location": "L5",
       "weight": 1.0,
       "_origin": "ast",
       "source": "frontend_src_app_core_supabase_auth_spec",
@@ -38236,19 +38236,7 @@
       "context": "import",
       "confidence": "EXTRACTED",
       "source_file": "frontend/src/app/core/supabase-auth.spec.ts",
-      "source_location": "L6",
-      "weight": 1.0,
-      "_origin": "ast",
-      "source": "frontend_src_app_core_supabase_auth_spec",
-      "target": "frontend_src_app_core_supabase_auth_staffidentity",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "imports",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "frontend/src/app/core/supabase-auth.spec.ts",
-      "source_location": "L6",
+      "source_location": "L5",
       "weight": 1.0,
       "_origin": "ast",
       "source": "frontend_src_app_core_supabase_auth_spec",
@@ -47302,5 +47290,5 @@
       "source_file": "README.md"
     }
   ],
-  "built_at_commit": "eefd2a31c7a00658a05480f3d5d1ca875b559f33"
+  "built_at_commit": "6645028befeac5f819e8857893b99bccc373cabd"
 }

@@ -12,6 +12,10 @@ const eslintConfig = defineConfig([
     "out/**",
     "build/**",
     "next-env.d.ts",
+    "frontend/.angular/**",
+    "frontend/dist/**",
+    "graphify-out/**",
+    "test-results/**",
   ]),
 ]);
 

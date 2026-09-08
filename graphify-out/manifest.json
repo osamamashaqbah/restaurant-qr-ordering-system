@@ -30,9 +30,9 @@
     "semantic_hash": ""
   },
   "eslint.config.mjs": {
-    "mtime": 1784635067.3877687,
-    "ast_hash": "dfa1f5f6a7037bf39dc510f30b180002",
-    "semantic_hash": "dfa1f5f6a7037bf39dc510f30b180002"
+    "mtime": 1788867249.7002003,
+    "ast_hash": "cc82a51aa1d5f18f5960bd14dcf27409",
+    "semantic_hash": ""
   },
   "next.config.ts": {
     "mtime": 1787673330.6300888,
@@ -840,8 +840,8 @@
     "semantic_hash": ""
   },
   "frontend/src/app/core/supabase-auth.spec.ts": {
-    "mtime": 1787673330.5860903,
-    "ast_hash": "0fadb999ad9a4e10c21bde867fafa270",
+    "mtime": 1788867272.8873842,
+    "ast_hash": "58b21894bf3dd98d8fd73c16413c5e94",
     "semantic_hash": ""
   },
   "frontend/src/app/core/supabase-auth.ts": {

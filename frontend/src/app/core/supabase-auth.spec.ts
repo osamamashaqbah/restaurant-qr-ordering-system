@@ -2,8 +2,7 @@ import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { HttpTestingController, provideHttpClientTesting } from '@angular/common/http/testing';
 import { TestBed } from '@angular/core/testing';
 import type { Session, SupabaseClient } from '@supabase/supabase-js';
-import { signal } from '@angular/core';
-import { SUPABASE_CLIENT, StaffAuthService, StaffIdentity } from './supabase-auth';
+import { SUPABASE_CLIENT, StaffAuthService } from './supabase-auth';
 import { staffAuthInterceptor } from './staff-auth-interceptor';
 
 describe('StaffAuthService', () => {

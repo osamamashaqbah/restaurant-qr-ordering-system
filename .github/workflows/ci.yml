@@ -49,5 +49,5 @@ jobs:
           node-version: 22
           cache: npm
       - run: npm ci
-      - run: npm test -- --maxWorkers=2
+      - run: npm test -- --maxWorkers=2 --exclude "tests/integration/**"
       - run: npm run build

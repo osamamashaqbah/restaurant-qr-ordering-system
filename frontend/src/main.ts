@@ -3,9 +3,10 @@ import * as Sentry from '@sentry/angular';
 import { appConfig, runtime } from './app/app.config';
 import { App } from './app/app';
 
+const isLocalhost = ['localhost', '127.0.0.1', '[::1]'].includes(globalThis.location.hostname);
 Sentry.init({
   dsn: runtime.sentryDsn,
-  enabled: Boolean(runtime.sentryDsn),
+  enabled: Boolean(runtime.sentryDsn) && !isLocalhost,
   environment: runtime.environment ?? 'production',
   integrations: [Sentry.browserTracingIntegration()],
   sendDefaultPii: false,

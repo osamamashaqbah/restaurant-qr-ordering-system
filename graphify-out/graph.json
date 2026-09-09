@@ -1823,8 +1823,8 @@
       },
       "_origin": "ast",
       "id": "backend_restaurantqrordering_api_tests_publicordertests_restaurantqrordering_api_tests_publicordertests_invalid_tracking_tokens_are_rejected_without_database_access",
-      "community": 93,
-      "community_name": ".Invalid_tracking_tokens_are_rejected_without_database_access",
+      "community": 61,
+      "community_name": ".Create",
       "norm_label": ".invalid_tracking_tokens_are_rejected_without_database_access()"
     },
     {
@@ -1834,8 +1834,8 @@
       "source_location": "",
       "_origin": "ast",
       "id": "theory",
-      "community": 93,
-      "community_name": ".Invalid_tracking_tokens_are_rejected_without_database_access",
+      "community": 61,
+      "community_name": ".Create",
       "norm_label": "theory"
     },
     {
@@ -1845,8 +1845,8 @@
       "source_location": "",
       "_origin": "ast",
       "id": "inlinedata",
-      "community": 93,
-      "community_name": ".Invalid_tracking_tokens_are_rejected_without_database_access",
+      "community": 61,
+      "community_name": ".Create",
       "norm_label": "inlinedata"
     },
     {
@@ -2133,8 +2133,8 @@
       },
       "_origin": "ast",
       "id": "backend_restaurantqrordering_api_tests_publicratingtests_restaurantqrordering_api_tests_publicratingtests",
-      "community": 47,
-      "community_name": ".Submit",
+      "community": 71,
+      "community_name": "PublicRatingTests",
       "norm_label": "publicratingtests"
     },
     {
@@ -2150,8 +2150,8 @@
       },
       "_origin": "ast",
       "id": "backend_restaurantqrordering_api_tests_publicratingtests_restaurantqrordering_api_tests_publicratingtests_invalid_rating_token_returns_not_found_without_store_access",
-      "community": 47,
-      "community_name": ".Submit",
+      "community": 71,
+      "community_name": "PublicRatingTests",
       "norm_label": ".invalid_rating_token_returns_not_found_without_store_access()"
     },
     {
@@ -2161,8 +2161,8 @@
       "source_location": "",
       "_origin": "ast",
       "id": "backend_restaurantqrordering_api_tests_publicratingtests_cs_task",
-      "community": 47,
-      "community_name": ".Submit",
+      "community": 71,
+      "community_name": "PublicRatingTests",
       "norm_label": "task"
     },
     {
@@ -2172,8 +2172,8 @@
       "source_location": "",
       "_origin": "ast",
       "id": "backend_restaurantqrordering_api_tests_publicratingtests_cs_fact",
-      "community": 47,
-      "community_name": ".Submit",
+      "community": 71,
+      "community_name": "PublicRatingTests",
       "norm_label": "fact"
     },
     {
@@ -2189,8 +2189,8 @@
       },
       "_origin": "ast",
       "id": "backend_restaurantqrordering_api_tests_publicratingtests_restaurantqrordering_api_tests_publicratingtests_valid_rating_returns_no_content_and_no_store_cache",
-      "community": 47,
-      "community_name": ".Submit",
+      "community": 71,
+      "community_name": "PublicRatingTests",
       "norm_label": ".valid_rating_returns_no_content_and_no_store_cache()"
     },
     {
@@ -2206,8 +2206,8 @@
       },
       "_origin": "ast",
       "id": "backend_restaurantqrordering_api_tests_publicratingtests_restaurantqrordering_api_tests_publicratingtests_duplicate_rating_returns_conflict",
-      "community": 47,
-      "community_name": ".Submit",
+      "community": 71,
+      "community_name": "PublicRatingTests",
       "norm_label": ".duplicate_rating_returns_conflict()"
     },
     {
@@ -2223,8 +2223,8 @@
       },
       "_origin": "ast",
       "id": "backend_restaurantqrordering_api_tests_publicratingtests_restaurantqrordering_api_tests_publicratingtests_createcontroller",
-      "community": 47,
-      "community_name": ".Submit",
+      "community": 71,
+      "community_name": "PublicRatingTests",
       "norm_label": ".createcontroller()"
     },
     {
@@ -2234,8 +2234,8 @@
       "source_location": "",
       "_origin": "ast",
       "id": "recordingratingstore",
-      "community": 47,
-      "community_name": ".Submit",
+      "community": 71,
+      "community_name": "PublicRatingTests",
       "norm_label": "recordingratingstore"
     },
     {
@@ -2253,7 +2253,7 @@
       "_origin": "ast",
       "id": "backend_restaurantqrordering_api_tests_publicratingtests_restaurantqrordering_api_tests_recordingratingstore",
       "community": 47,
-      "community_name": ".Submit",
+      "community_name": "PublicRatingResult",
       "norm_label": "recordingratingstore"
     },
     {
@@ -2270,7 +2270,7 @@
       "_origin": "ast",
       "id": "backend_restaurantqrordering_api_tests_publicratingtests_restaurantqrordering_api_tests_recordingratingstore_submitasync",
       "community": 47,
-      "community_name": ".Submit",
+      "community_name": "PublicRatingResult",
       "norm_label": ".submitasync()"
     },
     {
@@ -2281,7 +2281,7 @@
       "_origin": "ast",
       "id": "backend_restaurantqrordering_api_tests_publicratingtests_cs_readonlymemory",
       "community": 47,
-      "community_name": ".Submit",
+      "community_name": "PublicRatingResult",
       "norm_label": "readonlymemory"
     },
     {
@@ -2292,7 +2292,7 @@
       "_origin": "ast",
       "id": "backend_restaurantqrordering_api_tests_publicratingtests_cs_cancellationtoken",
       "community": 47,
-      "community_name": ".Submit",
+      "community_name": "PublicRatingResult",
       "norm_label": "cancellationtoken"
     },
     {
@@ -2784,8 +2784,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "backend_restaurantqrordering_api_features_publicmenu_ipublicmenustore",
-      "community": 54,
-      "community_name": "PublicMenuResponse",
+      "community": 59,
+      "community_name": "Exception",
       "norm_label": "ipublicmenustore.cs"
     },
     {
@@ -2873,8 +2873,8 @@
       },
       "_origin": "ast",
       "id": "backend_restaurantqrordering_api_features_publicmenu_ipublicmenustore_restaurantqrordering_api_features_publicmenu_publicmenustoreunavailableexception",
-      "community": 54,
-      "community_name": "PublicMenuResponse",
+      "community": 59,
+      "community_name": "Exception",
       "norm_label": "publicmenustoreunavailableexception"
     },
     {
@@ -3347,8 +3347,8 @@
       },
       "_origin": "ast",
       "id": "backend_restaurantqrordering_api_features_publicorders_ipublicorderstore_restaurantqrordering_api_features_publicorders_ipublicorderstore",
-      "community": 80,
-      "community_name": "IPublicOrderStore",
+      "community": 60,
+      "community_name": ".CreateAsync",
       "norm_label": "ipublicorderstore"
     },
     {
@@ -3365,7 +3365,7 @@
       "_origin": "ast",
       "id": "backend_restaurantqrordering_api_features_publicorders_ipublicorderstore_restaurantqrordering_api_features_publicorders_ipublicorderstore_createasync",
       "community": 80,
-      "community_name": "IPublicOrderStore",
+      "community_name": ".CreateAsync",
       "norm_label": ".createasync()"
     },
     {
@@ -3376,7 +3376,7 @@
       "_origin": "ast",
       "id": "backend_restaurantqrordering_api_features_publicorders_ipublicorderstore_cs_readonlymemory",
       "community": 80,
-      "community_name": "IPublicOrderStore",
+      "community_name": ".CreateAsync",
       "norm_label": "readonlymemory"
     },
     {
@@ -3387,7 +3387,7 @@
       "_origin": "ast",
       "id": "backend_restaurantqrordering_api_features_publicorders_ipublicorderstore_cs_cancellationtoken",
       "community": 80,
-      "community_name": "IPublicOrderStore",
+      "community_name": ".CreateAsync",
       "norm_label": "cancellationtoken"
     },
     {
@@ -3398,7 +3398,7 @@
       "_origin": "ast",
       "id": "backend_restaurantqrordering_api_features_publicorders_ipublicorderstore_cs_task",
       "community": 80,
-      "community_name": "IPublicOrderStore",
+      "community_name": ".CreateAsync",
       "norm_label": "task"
     },
     {
@@ -3409,7 +3409,7 @@
       "_origin": "ast",
       "id": "backend_restaurantqrordering_api_features_publicorders_ipublicorderstore_cs_guid",
       "community": 80,
-      "community_name": "IPublicOrderStore",
+      "community_name": ".CreateAsync",
       "norm_label": "guid"
     },
     {
@@ -3426,7 +3426,7 @@
       "_origin": "ast",
       "id": "backend_restaurantqrordering_api_features_publicorders_ipublicorderstore_restaurantqrordering_api_features_publicorders_ipublicorderstore_findbytokenhashasync",
       "community": 80,
-      "community_name": "IPublicOrderStore",
+      "community_name": ".CreateAsync",
       "norm_label": ".findbytokenhashasync()"
     },
     {
@@ -3470,8 +3470,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "backend_restaurantqrordering_api_features_publicorders_ipublicratingstore",
-      "community": 47,
-      "community_name": ".Submit",
+      "community": 79,
+      "community_name": "RestaurantQrOrdering.Api.Features.PublicOrders",
       "norm_label": "ipublicratingstore.cs"
     },
     {
@@ -3488,7 +3488,7 @@
       "_origin": "ast",
       "id": "backend_restaurantqrordering_api_features_publicorders_ipublicratingstore_restaurantqrordering_api_features_publicorders_ipublicratingstore",
       "community": 47,
-      "community_name": ".Submit",
+      "community_name": "PublicRatingResult",
       "norm_label": "ipublicratingstore"
     },
     {
@@ -3505,7 +3505,7 @@
       "_origin": "ast",
       "id": "backend_restaurantqrordering_api_features_publicorders_ipublicratingstore_restaurantqrordering_api_features_publicorders_ipublicratingstore_submitasync",
       "community": 47,
-      "community_name": ".Submit",
+      "community_name": "PublicRatingResult",
       "norm_label": ".submitasync()"
     },
     {
@@ -3516,7 +3516,7 @@
       "_origin": "ast",
       "id": "backend_restaurantqrordering_api_features_publicorders_ipublicratingstore_cs_readonlymemory",
       "community": 47,
-      "community_name": ".Submit",
+      "community_name": "PublicRatingResult",
       "norm_label": "readonlymemory"
     },
     {
@@ -3527,7 +3527,7 @@
       "_origin": "ast",
       "id": "backend_restaurantqrordering_api_features_publicorders_ipublicratingstore_cs_cancellationtoken",
       "community": 47,
-      "community_name": ".Submit",
+      "community_name": "PublicRatingResult",
       "norm_label": "cancellationtoken"
     },
     {
@@ -3538,7 +3538,7 @@
       "_origin": "ast",
       "id": "backend_restaurantqrordering_api_features_publicorders_ipublicratingstore_cs_task",
       "community": 47,
-      "community_name": ".Submit",
+      "community_name": "PublicRatingResult",
       "norm_label": "task"
     },
     {
@@ -3554,8 +3554,8 @@
       },
       "_origin": "ast",
       "id": "backend_restaurantqrordering_api_features_publicorders_ipublicratingstore_restaurantqrordering_api_features_publicorders_publicratingstoreunavailableexception",
-      "community": 47,
-      "community_name": ".Submit",
+      "community": 79,
+      "community_name": "RestaurantQrOrdering.Api.Features.PublicOrders",
       "norm_label": "publicratingstoreunavailableexception"
     },
     {
@@ -3566,7 +3566,7 @@
       "_origin": "ast",
       "id": "backend_restaurantqrordering_api_features_publicorders_npgsqlpublicorderstore",
       "community": 60,
-      "community_name": "CreateOrderRequest",
+      "community_name": ".CreateAsync",
       "norm_label": "npgsqlpublicorderstore.cs"
     },
     {
@@ -3583,7 +3583,7 @@
       "_origin": "ast",
       "id": "backend_restaurantqrordering_api_features_publicorders_npgsqlpublicorderstore_restaurantqrordering_api_features_publicorders_npgsqlpublicorderstore",
       "community": 60,
-      "community_name": "CreateOrderRequest",
+      "community_name": ".CreateAsync",
       "norm_label": "npgsqlpublicorderstore"
     },
     {
@@ -3594,7 +3594,7 @@
       "_origin": "ast",
       "id": "backend_restaurantqrordering_api_features_publicorders_npgsqlpublicorderstore_cs_jsonserializeroptions",
       "community": 60,
-      "community_name": "CreateOrderRequest",
+      "community_name": ".CreateAsync",
       "norm_label": "jsonserializeroptions"
     },
     {
@@ -3611,7 +3611,7 @@
       "_origin": "ast",
       "id": "backend_restaurantqrordering_api_features_publicorders_npgsqlpublicorderstore_restaurantqrordering_api_features_publicorders_npgsqlpublicorderstore_createasync",
       "community": 60,
-      "community_name": "CreateOrderRequest",
+      "community_name": ".CreateAsync",
       "norm_label": ".createasync()"
     },
     {
@@ -3622,7 +3622,7 @@
       "_origin": "ast",
       "id": "backend_restaurantqrordering_api_features_publicorders_npgsqlpublicorderstore_cs_readonlymemory",
       "community": 60,
-      "community_name": "CreateOrderRequest",
+      "community_name": ".CreateAsync",
       "norm_label": "readonlymemory"
     },
     {
@@ -3633,7 +3633,7 @@
       "_origin": "ast",
       "id": "backend_restaurantqrordering_api_features_publicorders_npgsqlpublicorderstore_cs_cancellationtoken",
       "community": 60,
-      "community_name": "CreateOrderRequest",
+      "community_name": ".CreateAsync",
       "norm_label": "cancellationtoken"
     },
     {
@@ -3644,7 +3644,7 @@
       "_origin": "ast",
       "id": "backend_restaurantqrordering_api_features_publicorders_npgsqlpublicorderstore_cs_task",
       "community": 60,
-      "community_name": "CreateOrderRequest",
+      "community_name": ".CreateAsync",
       "norm_label": "task"
     },
     {
@@ -3655,7 +3655,7 @@
       "_origin": "ast",
       "id": "backend_restaurantqrordering_api_features_publicorders_npgsqlpublicorderstore_cs_guid",
       "community": 60,
-      "community_name": "CreateOrderRequest",
+      "community_name": ".CreateAsync",
       "norm_label": "guid"
     },
     {
@@ -3672,7 +3672,7 @@
       "_origin": "ast",
       "id": "backend_restaurantqrordering_api_features_publicorders_npgsqlpublicorderstore_restaurantqrordering_api_features_publicorders_npgsqlpublicorderstore_findbytokenhashasync",
       "community": 60,
-      "community_name": "CreateOrderRequest",
+      "community_name": ".CreateAsync",
       "norm_label": ".findbytokenhashasync()"
     },
     {
@@ -3689,7 +3689,7 @@
       "_origin": "ast",
       "id": "backend_restaurantqrordering_api_features_publicorders_npgsqlpublicorderstore_restaurantqrordering_api_features_publicorders_unavailablepublicorderstore",
       "community": 60,
-      "community_name": "CreateOrderRequest",
+      "community_name": ".CreateAsync",
       "norm_label": "unavailablepublicorderstore"
     },
     {
@@ -3706,7 +3706,7 @@
       "_origin": "ast",
       "id": "backend_restaurantqrordering_api_features_publicorders_npgsqlpublicorderstore_restaurantqrordering_api_features_publicorders_unavailablepublicorderstore_createasync",
       "community": 60,
-      "community_name": "CreateOrderRequest",
+      "community_name": ".CreateAsync",
       "norm_label": ".createasync()"
     },
     {
@@ -3723,7 +3723,7 @@
       "_origin": "ast",
       "id": "backend_restaurantqrordering_api_features_publicorders_npgsqlpublicorderstore_restaurantqrordering_api_features_publicorders_unavailablepublicorderstore_findbytokenhashasync",
       "community": 60,
-      "community_name": "CreateOrderRequest",
+      "community_name": ".CreateAsync",
       "norm_label": ".findbytokenhashasync()"
     },
     {
@@ -3734,7 +3734,7 @@
       "_origin": "ast",
       "id": "backend_restaurantqrordering_api_features_publicorders_npgsqlpublicratingstore",
       "community": 47,
-      "community_name": ".Submit",
+      "community_name": "PublicRatingResult",
       "norm_label": "npgsqlpublicratingstore.cs"
     },
     {
@@ -3751,7 +3751,7 @@
       "_origin": "ast",
       "id": "backend_restaurantqrordering_api_features_publicorders_npgsqlpublicratingstore_restaurantqrordering_api_features_publicorders_npgsqlpublicratingstore",
       "community": 47,
-      "community_name": ".Submit",
+      "community_name": "PublicRatingResult",
       "norm_label": "npgsqlpublicratingstore"
     },
     {
@@ -3768,7 +3768,7 @@
       "_origin": "ast",
       "id": "backend_restaurantqrordering_api_features_publicorders_npgsqlpublicratingstore_restaurantqrordering_api_features_publicorders_npgsqlpublicratingstore_submitasync",
       "community": 47,
-      "community_name": ".Submit",
+      "community_name": "PublicRatingResult",
       "norm_label": ".submitasync()"
     },
     {
@@ -3779,7 +3779,7 @@
       "_origin": "ast",
       "id": "backend_restaurantqrordering_api_features_publicorders_npgsqlpublicratingstore_cs_readonlymemory",
       "community": 47,
-      "community_name": ".Submit",
+      "community_name": "PublicRatingResult",
       "norm_label": "readonlymemory"
     },
     {
@@ -3790,7 +3790,7 @@
       "_origin": "ast",
       "id": "backend_restaurantqrordering_api_features_publicorders_npgsqlpublicratingstore_cs_cancellationtoken",
       "community": 47,
-      "community_name": ".Submit",
+      "community_name": "PublicRatingResult",
       "norm_label": "cancellationtoken"
     },
     {
@@ -3801,7 +3801,7 @@
       "_origin": "ast",
       "id": "backend_restaurantqrordering_api_features_publicorders_npgsqlpublicratingstore_cs_task",
       "community": 47,
-      "community_name": ".Submit",
+      "community_name": "PublicRatingResult",
       "norm_label": "task"
     },
     {
@@ -3818,7 +3818,7 @@
       "_origin": "ast",
       "id": "backend_restaurantqrordering_api_features_publicorders_npgsqlpublicratingstore_restaurantqrordering_api_features_publicorders_unavailablepublicratingstore",
       "community": 47,
-      "community_name": ".Submit",
+      "community_name": "PublicRatingResult",
       "norm_label": "unavailablepublicratingstore"
     },
     {
@@ -3835,7 +3835,7 @@
       "_origin": "ast",
       "id": "backend_restaurantqrordering_api_features_publicorders_npgsqlpublicratingstore_restaurantqrordering_api_features_publicorders_unavailablepublicratingstore_submitasync",
       "community": 47,
-      "community_name": ".Submit",
+      "community_name": "PublicRatingResult",
       "norm_label": ".submitasync()"
     },
     {
@@ -3879,8 +3879,8 @@
       },
       "_origin": "ast",
       "id": "backend_restaurantqrordering_api_features_publicorders_publicordercanonicalizer_restaurantqrordering_api_features_publicorders_publicordercanonicalizer_canonicalize",
-      "community": 60,
-      "community_name": "CreateOrderRequest",
+      "community": 79,
+      "community_name": "RestaurantQrOrdering.Api.Features.PublicOrders",
       "norm_label": ".canonicalize()"
     },
     {
@@ -3890,8 +3890,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "backend_restaurantqrordering_api_features_publicorders_publicordercontracts",
-      "community": 64,
-      "community_name": "PublicOrderTracking",
+      "community": 79,
+      "community_name": "RestaurantQrOrdering.Api.Features.PublicOrders",
       "norm_label": "publicordercontracts.cs"
     },
     {
@@ -3907,8 +3907,8 @@
       },
       "_origin": "ast",
       "id": "backend_restaurantqrordering_api_features_publicorders_publicordercontracts_restaurantqrordering_api_features_publicorders_createorderrequest",
-      "community": 60,
-      "community_name": "CreateOrderRequest",
+      "community": 79,
+      "community_name": "RestaurantQrOrdering.Api.Features.PublicOrders",
       "norm_label": "createorderrequest"
     },
     {
@@ -3918,8 +3918,8 @@
       "source_location": "",
       "_origin": "ast",
       "id": "backend_restaurantqrordering_api_features_publicorders_publicordercontracts_cs_ireadonlylist",
-      "community": 60,
-      "community_name": "CreateOrderRequest",
+      "community": 79,
+      "community_name": "RestaurantQrOrdering.Api.Features.PublicOrders",
       "norm_label": "ireadonlylist"
     },
     {
@@ -3935,8 +3935,8 @@
       },
       "_origin": "ast",
       "id": "backend_restaurantqrordering_api_features_publicorders_publicordercontracts_restaurantqrordering_api_features_publicorders_createorderitemrequest",
-      "community": 64,
-      "community_name": "PublicOrderTracking",
+      "community": 79,
+      "community_name": "RestaurantQrOrdering.Api.Features.PublicOrders",
       "norm_label": "createorderitemrequest"
     },
     {
@@ -3946,8 +3946,8 @@
       "source_location": "",
       "_origin": "ast",
       "id": "backend_restaurantqrordering_api_features_publicorders_publicordercontracts_cs_guid",
-      "community": 64,
-      "community_name": "PublicOrderTracking",
+      "community": 79,
+      "community_name": "RestaurantQrOrdering.Api.Features.PublicOrders",
       "norm_label": "guid"
     },
     {
@@ -3963,8 +3963,8 @@
       },
       "_origin": "ast",
       "id": "backend_restaurantqrordering_api_features_publicorders_publicordercontracts_restaurantqrordering_api_features_publicorders_createorderresponse",
-      "community": 64,
-      "community_name": "PublicOrderTracking",
+      "community": 79,
+      "community_name": "RestaurantQrOrdering.Api.Features.PublicOrders",
       "norm_label": "createorderresponse"
     },
     {
@@ -3997,8 +3997,8 @@
       },
       "_origin": "ast",
       "id": "backend_restaurantqrordering_api_features_publicorders_publicordercontracts_restaurantqrordering_api_features_publicorders_publicorderitem",
-      "community": 64,
-      "community_name": "PublicOrderTracking",
+      "community": 79,
+      "community_name": "RestaurantQrOrdering.Api.Features.PublicOrders",
       "norm_label": "publicorderitem"
     },
     {
@@ -4053,8 +4053,8 @@
       },
       "_origin": "ast",
       "id": "backend_restaurantqrordering_api_features_publicorders_publicorderrequestfingerprint_restaurantqrordering_api_features_publicorders_publicorderrequestfingerprint_create",
-      "community": 60,
-      "community_name": "CreateOrderRequest",
+      "community": 79,
+      "community_name": "RestaurantQrOrdering.Api.Features.PublicOrders",
       "norm_label": ".create()"
     },
     {
@@ -4287,7 +4287,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "backend_restaurantqrordering_api_features_publicorders_publicratingcontracts",
-      "community": 47,
+      "community": 6,
       "community_name": ".Submit",
       "norm_label": "publicratingcontracts.cs"
     },
@@ -4304,7 +4304,7 @@
       },
       "_origin": "ast",
       "id": "backend_restaurantqrordering_api_features_publicorders_publicratingcontracts_restaurantqrordering_api_features_publicorders_publicratingrequest",
-      "community": 47,
+      "community": 6,
       "community_name": ".Submit",
       "norm_label": "publicratingrequest"
     },
@@ -4322,7 +4322,7 @@
       "_origin": "ast",
       "id": "backend_restaurantqrordering_api_features_publicorders_publicratingcontracts_restaurantqrordering_api_features_publicorders_publicratingresult",
       "community": 47,
-      "community_name": ".Submit",
+      "community_name": "PublicRatingResult",
       "norm_label": "publicratingresult"
     },
     {
@@ -4332,7 +4332,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "backend_restaurantqrordering_api_features_publicorders_publicratingcontroller",
-      "community": 47,
+      "community": 6,
       "community_name": ".Submit",
       "norm_label": "publicratingcontroller.cs"
     },
@@ -4349,7 +4349,7 @@
       },
       "_origin": "ast",
       "id": "backend_restaurantqrordering_api_features_publicorders_publicratingcontroller_restaurantqrordering_api_features_publicorders_publicratingcontroller",
-      "community": 47,
+      "community": 6,
       "community_name": ".Submit",
       "norm_label": "publicratingcontroller"
     },
@@ -4366,7 +4366,7 @@
       },
       "_origin": "ast",
       "id": "backend_restaurantqrordering_api_features_publicorders_publicratingcontroller_restaurantqrordering_api_features_publicorders_publicratingcontroller_submit",
-      "community": 47,
+      "community": 6,
       "community_name": ".Submit",
       "norm_label": ".submit()"
     },
@@ -4377,7 +4377,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "backend_restaurantqrordering_api_features_publicorders_publicratingcontroller_cs_cancellationtoken",
-      "community": 47,
+      "community": 6,
       "community_name": ".Submit",
       "norm_label": "cancellationtoken"
     },
@@ -4388,7 +4388,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "backend_restaurantqrordering_api_features_publicorders_publicratingcontroller_cs_task",
-      "community": 47,
+      "community": 6,
       "community_name": ".Submit",
       "norm_label": "task"
     },
@@ -4399,7 +4399,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "backend_restaurantqrordering_api_features_publicorders_publicratingcontroller_cs_actionresult",
-      "community": 47,
+      "community": 6,
       "community_name": ".Submit",
       "norm_label": "actionresult"
     },
@@ -4410,7 +4410,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "backend_restaurantqrordering_api_features_publicorders_publicratingcontroller_cs_httppost",
-      "community": 47,
+      "community": 6,
       "community_name": ".Submit",
       "norm_label": "httppost"
     },
@@ -4421,7 +4421,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "backend_restaurantqrordering_api_features_publicorders_publicratingcontroller_cs_enableratelimiting",
-      "community": 47,
+      "community": 6,
       "community_name": ".Submit",
       "norm_label": "enableratelimiting"
     },
@@ -4432,7 +4432,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "backend_restaurantqrordering_api_features_publicorders_publicratingcontroller_cs_producesresponsetype",
-      "community": 47,
+      "community": 6,
       "community_name": ".Submit",
       "norm_label": "producesresponsetype"
     },
@@ -5385,8 +5385,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "backend_restaurantqrordering_api_features_staff_cashiercontroller",
-      "community": 65,
-      "community_name": "RestaurantQrOrdering.Api.Features.Staff",
+      "community": 112,
+      "community_name": ".GetOrders",
       "norm_label": "cashiercontroller.cs"
     },
     {
@@ -8004,7 +8004,7 @@
       "label": "Program",
       "file_type": "code",
       "source_file": "backend/RestaurantQrOrdering.Api/Program.cs",
-      "source_location": "L230",
+      "source_location": "L231",
       "_origin": "ast",
       "id": "backend_restaurantqrordering_api_program_program",
       "community": 65,
@@ -10856,8 +10856,8 @@
       "source_location": "L6",
       "_origin": "ast",
       "id": "frontend_src_app_core_supabase_auth_supabaseruntimeconfig",
-      "community": 75,
-      "community_name": "supabase-auth.ts",
+      "community": 85,
+      "community_name": "app.config.ts",
       "norm_label": "supabaseruntimeconfig"
     },
     {
@@ -10900,8 +10900,8 @@
       "source_location": "L19",
       "_origin": "ast",
       "id": "frontend_src_app_core_supabase_auth_providesupabaseauth",
-      "community": 75,
-      "community_name": "supabase-auth.ts",
+      "community": 85,
+      "community_name": "app.config.ts",
       "norm_label": "providesupabaseauth()"
     },
     {
@@ -11769,8 +11769,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "frontend_src_app_features_login_login_spec",
-      "community": 120,
-      "community_name": "Login",
+      "community": 75,
+      "community_name": "supabase-auth.ts",
       "norm_label": "login.spec.ts"
     },
     {
@@ -11780,8 +11780,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "frontend_src_app_features_login_login",
-      "community": 120,
-      "community_name": "Login",
+      "community": 75,
+      "community_name": "supabase-auth.ts",
       "norm_label": "login.ts"
     },
     {
@@ -11791,8 +11791,8 @@
       "source_location": "L12",
       "_origin": "ast",
       "id": "frontend_src_app_features_login_login_login",
-      "community": 120,
-      "community_name": "Login",
+      "community": 75,
+      "community_name": "supabase-auth.ts",
       "norm_label": "login"
     },
     {
@@ -11802,8 +11802,8 @@
       "source_location": "",
       "_origin": "ast",
       "id": "frontend_src_app_features_login_login_ts_component",
-      "community": 120,
-      "community_name": "Login",
+      "community": 75,
+      "community_name": "supabase-auth.ts",
       "norm_label": "component"
     },
     {
@@ -11813,8 +11813,8 @@
       "source_location": "L25",
       "_origin": "ast",
       "id": "frontend_src_app_features_login_login_login_constructor",
-      "community": 120,
-      "community_name": "Login",
+      "community": 75,
+      "community_name": "supabase-auth.ts",
       "norm_label": ".constructor()"
     },
     {
@@ -11824,8 +11824,8 @@
       "source_location": "L31",
       "_origin": "ast",
       "id": "frontend_src_app_features_login_login_login_submit",
-      "community": 120,
-      "community_name": "Login",
+      "community": 75,
+      "community_name": "supabase-auth.ts",
       "norm_label": ".submit()"
     },
     {
@@ -12036,6 +12036,17 @@
       "community": 85,
       "community_name": "app.config.ts",
       "norm_label": "main.ts"
+    },
+    {
+      "label": "isLocalhost",
+      "file_type": "code",
+      "source_file": "frontend/src/main.ts",
+      "source_location": "L6",
+      "_origin": "ast",
+      "id": "frontend_src_main_islocalhost",
+      "community": 85,
+      "community_name": "app.config.ts",
+      "norm_label": "islocalhost"
     },
     {
       "label": "next.config.ts",
@@ -13309,8 +13320,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_app_admin_reportspanel",
-      "community": 0,
-      "community_name": "createClient",
+      "community": 93,
+      "community_name": "ReportsPanel.tsx",
       "norm_label": "reportspanel.tsx"
     },
     {
@@ -13320,8 +13331,8 @@
       "source_location": "L7",
       "_origin": "ast",
       "id": "src_app_admin_reportspanel_salessummary",
-      "community": 0,
-      "community_name": "createClient",
+      "community": 93,
+      "community_name": "ReportsPanel.tsx",
       "norm_label": "salessummary"
     },
     {
@@ -13331,8 +13342,8 @@
       "source_location": "L15",
       "_origin": "ast",
       "id": "src_app_admin_reportspanel_isodate",
-      "community": 0,
-      "community_name": "createClient",
+      "community": 93,
+      "community_name": "ReportsPanel.tsx",
       "norm_label": "isodate()"
     },
     {
@@ -13342,8 +13353,8 @@
       "source_location": "L19",
       "_origin": "ast",
       "id": "src_app_admin_reportspanel_reportspanel",
-      "community": 0,
-      "community_name": "createClient",
+      "community": 93,
+      "community_name": "ReportsPanel.tsx",
       "norm_label": "reportspanel()"
     },
     {
@@ -13353,8 +13364,8 @@
       "source_location": "L142",
       "_origin": "ast",
       "id": "src_app_admin_reportspanel_statcard",
-      "community": 0,
-      "community_name": "createClient",
+      "community": 93,
+      "community_name": "ReportsPanel.tsx",
       "norm_label": "statcard()"
     },
     {
@@ -13364,8 +13375,8 @@
       "source_location": "L151",
       "_origin": "ast",
       "id": "src_app_admin_reportspanel_field",
-      "community": 0,
-      "community_name": "createClient",
+      "community": 93,
+      "community_name": "ReportsPanel.tsx",
       "norm_label": "field()"
     },
     {
@@ -13441,8 +13452,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_app_admin_layout",
-      "community": 6,
-      "community_name": "getStaffUser.ts",
+      "community": 122,
+      "community_name": "integration/helpers.ts",
       "norm_label": "admin/layout.tsx"
     },
     {
@@ -13452,8 +13463,8 @@
       "source_location": "L4",
       "_origin": "ast",
       "id": "src_app_admin_layout_adminlayout",
-      "community": 6,
-      "community_name": "getStaffUser.ts",
+      "community": 122,
+      "community_name": "integration/helpers.ts",
       "norm_label": "adminlayout()"
     },
     {
@@ -13507,8 +13518,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_app_cashier_layout",
-      "community": 6,
-      "community_name": "getStaffUser.ts",
+      "community": 122,
+      "community_name": "integration/helpers.ts",
       "norm_label": "cashier/layout.tsx"
     },
     {
@@ -13518,8 +13529,8 @@
       "source_location": "L4",
       "_origin": "ast",
       "id": "src_app_cashier_layout_cashierlayout",
-      "community": 6,
-      "community_name": "getStaffUser.ts",
+      "community": 122,
+      "community_name": "integration/helpers.ts",
       "norm_label": "cashierlayout()"
     },
     {
@@ -13639,8 +13650,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_app_kitchen_layout",
-      "community": 6,
-      "community_name": "getStaffUser.ts",
+      "community": 122,
+      "community_name": "integration/helpers.ts",
       "norm_label": "kitchen/layout.tsx"
     },
     {
@@ -13650,8 +13661,8 @@
       "source_location": "L4",
       "_origin": "ast",
       "id": "src_app_kitchen_layout_kitchenlayout",
-      "community": 6,
-      "community_name": "getStaffUser.ts",
+      "community": 122,
+      "community_name": "integration/helpers.ts",
       "norm_label": "kitchenlayout()"
     },
     {
@@ -13661,8 +13672,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_app_kitchen_page",
-      "community": 71,
-      "community_name": "database.ts",
+      "community": 0,
+      "community_name": "createClient",
       "norm_label": "kitchen/page.tsx"
     },
     {
@@ -13672,8 +13683,8 @@
       "source_location": "L7",
       "_origin": "ast",
       "id": "src_app_kitchen_page_orderstatus",
-      "community": 71,
-      "community_name": "database.ts",
+      "community": 0,
+      "community_name": "createClient",
       "norm_label": "orderstatus"
     },
     {
@@ -13683,8 +13694,8 @@
       "source_location": "L9",
       "_origin": "ast",
       "id": "src_app_kitchen_page_boardorder",
-      "community": 71,
-      "community_name": "database.ts",
+      "community": 0,
+      "community_name": "createClient",
       "norm_label": "boardorder"
     },
     {
@@ -13694,8 +13705,8 @@
       "source_location": "L22",
       "_origin": "ast",
       "id": "src_app_kitchen_page_columns",
-      "community": 71,
-      "community_name": "database.ts",
+      "community": 0,
+      "community_name": "createClient",
       "norm_label": "columns"
     },
     {
@@ -13705,8 +13716,8 @@
       "source_location": "L28",
       "_origin": "ast",
       "id": "src_app_kitchen_page_kitchenboardpage",
-      "community": 71,
-      "community_name": "database.ts",
+      "community": 0,
+      "community_name": "createClient",
       "norm_label": "kitchenboardpage()"
     },
     {
@@ -13914,8 +13925,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_components_staff_staffheader",
-      "community": 6,
-      "community_name": "getStaffUser.ts",
+      "community": 122,
+      "community_name": "integration/helpers.ts",
       "norm_label": "staffheader.tsx"
     },
     {
@@ -13925,8 +13936,8 @@
       "source_location": "L6",
       "_origin": "ast",
       "id": "src_components_staff_staffheader_staffheader",
-      "community": 6,
-      "community_name": "getStaffUser.ts",
+      "community": 122,
+      "community_name": "integration/helpers.ts",
       "norm_label": "staffheader()"
     },
     {
@@ -13936,8 +13947,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_lib_auth_getstaffuser",
-      "community": 6,
-      "community_name": "getStaffUser.ts",
+      "community": 122,
+      "community_name": "integration/helpers.ts",
       "norm_label": "getstaffuser.ts"
     },
     {
@@ -13947,8 +13958,8 @@
       "source_location": "L5",
       "_origin": "ast",
       "id": "src_lib_auth_getstaffuser_role",
-      "community": 6,
-      "community_name": "getStaffUser.ts",
+      "community": 122,
+      "community_name": "integration/helpers.ts",
       "norm_label": "role"
     },
     {
@@ -13958,8 +13969,8 @@
       "source_location": "L9",
       "_origin": "ast",
       "id": "src_lib_auth_getstaffuser_getstaffuser",
-      "community": 6,
-      "community_name": "getStaffUser.ts",
+      "community": 122,
+      "community_name": "integration/helpers.ts",
       "norm_label": "getstaffuser()"
     },
     {
@@ -14134,8 +14145,8 @@
       "source_location": "L58",
       "_origin": "ast",
       "id": "src_lib_customer_sessionprovider_usecustomersession",
-      "community": 8,
-      "community_name": "(customer)/page.tsx",
+      "community": 1,
+      "community_name": "menu/page.tsx",
       "norm_label": "usecustomersession()"
     },
     {
@@ -14442,8 +14453,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_lib_supabase_server",
-      "community": 6,
-      "community_name": "getStaffUser.ts",
+      "community": 122,
+      "community_name": "integration/helpers.ts",
       "norm_label": "server.ts"
     },
     {
@@ -14453,8 +14464,8 @@
       "source_location": "L5",
       "_origin": "ast",
       "id": "src_lib_supabase_server_createclient",
-      "community": 6,
-      "community_name": "getStaffUser.ts",
+      "community": 122,
+      "community_name": "integration/helpers.ts",
       "norm_label": "createclient()"
     },
     {
@@ -14497,8 +14508,8 @@
       "source_location": "L10",
       "_origin": "ast",
       "id": "src_lib_validation_admin_categoryformvalues",
-      "community": 63,
-      "community_name": "ItemsSection.tsx",
+      "community": 0,
+      "community_name": "createClient",
       "norm_label": "categoryformvalues"
     },
     {
@@ -14717,8 +14728,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_types_database",
-      "community": 71,
-      "community_name": "database.ts",
+      "community": 0,
+      "community_name": "createClient",
       "norm_label": "database.ts"
     },
     {
@@ -14728,8 +14739,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_types_database_json",
-      "community": 71,
-      "community_name": "database.ts",
+      "community": 0,
+      "community_name": "createClient",
       "norm_label": "json"
     },
     {
@@ -14739,8 +14750,8 @@
       "source_location": "L9",
       "_origin": "ast",
       "id": "src_types_database_database",
-      "community": 6,
-      "community_name": "getStaffUser.ts",
+      "community": 122,
+      "community_name": "integration/helpers.ts",
       "norm_label": "database"
     },
     {
@@ -14750,8 +14761,8 @@
       "source_location": "L320",
       "_origin": "ast",
       "id": "src_types_database_databasewithoutinternals",
-      "community": 71,
-      "community_name": "database.ts",
+      "community": 0,
+      "community_name": "createClient",
       "norm_label": "databasewithoutinternals"
     },
     {
@@ -14761,8 +14772,8 @@
       "source_location": "L322",
       "_origin": "ast",
       "id": "src_types_database_defaultschema",
-      "community": 71,
-      "community_name": "database.ts",
+      "community": 0,
+      "community_name": "createClient",
       "norm_label": "defaultschema"
     },
     {
@@ -14783,8 +14794,8 @@
       "source_location": "L353",
       "_origin": "ast",
       "id": "src_types_database_tablesinsert",
-      "community": 71,
-      "community_name": "database.ts",
+      "community": 0,
+      "community_name": "createClient",
       "norm_label": "tablesinsert"
     },
     {
@@ -14794,8 +14805,8 @@
       "source_location": "L378",
       "_origin": "ast",
       "id": "src_types_database_tablesupdate",
-      "community": 71,
-      "community_name": "database.ts",
+      "community": 0,
+      "community_name": "createClient",
       "norm_label": "tablesupdate"
     },
     {
@@ -14805,8 +14816,8 @@
       "source_location": "L403",
       "_origin": "ast",
       "id": "src_types_database_enums",
-      "community": 71,
-      "community_name": "database.ts",
+      "community": 0,
+      "community_name": "createClient",
       "norm_label": "enums"
     },
     {
@@ -14816,8 +14827,8 @@
       "source_location": "L420",
       "_origin": "ast",
       "id": "src_types_database_compositetypes",
-      "community": 71,
-      "community_name": "database.ts",
+      "community": 0,
+      "community_name": "createClient",
       "norm_label": "compositetypes"
     },
     {
@@ -14827,8 +14838,8 @@
       "source_location": "L437",
       "_origin": "ast",
       "id": "src_types_database_constants",
-      "community": 71,
-      "community_name": "database.ts",
+      "community": 0,
+      "community_name": "createClient",
       "norm_label": "constants"
     },
     {
@@ -34097,7 +34108,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "backend/RestaurantQrOrdering.Api/Program.cs",
-      "source_location": "L230",
+      "source_location": "L231",
       "weight": 1.0,
       "_origin": "ast",
       "source": "backend_restaurantqrordering_api_program",
@@ -39945,6 +39956,17 @@
       "_origin": "ast",
       "source": "frontend_src_app_features_rating_rating_rating",
       "target": "frontend_src_app_features_rating_rating_ts_component",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend/src/main.ts",
+      "source_location": "L6",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "frontend_src_main",
+      "target": "frontend_src_main_islocalhost",
       "confidence_score": 1.0
     },
     {
@@ -47239,5 +47261,5 @@
       "source_file": "README.md"
     }
   ],
-  "built_at_commit": "1184c7b99b344f78608b8de9352b69b9d5e42027"
+  "built_at_commit": "c239ce7c0708e43123dfda6c59942cdaa6d98c6e"
 }

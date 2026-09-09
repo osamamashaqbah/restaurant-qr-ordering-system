@@ -24,6 +24,7 @@ builder.WebHost.UseSentry(options =>
     options.Dsn = builder.Configuration["SENTRY_DSN"] ?? string.Empty;
     options.SendDefaultPii = false;
     options.TracesSampleRate = builder.Environment.IsProduction() ? 0.1 : 0;
+    options.AddExceptionFilterForType<Microsoft.AspNetCore.Http.BadHttpRequestException>();
 });
 
 // Add services to the container.

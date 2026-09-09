@@ -640,8 +640,8 @@
     "semantic_hash": ""
   },
   "backend/RestaurantQrOrdering.Api/Program.cs": {
-    "mtime": 1788979999.0285847,
-    "ast_hash": "85e2fdc790c6b5f162a75b17b9bc706a",
+    "mtime": 1788990809.9892788,
+    "ast_hash": "13afb6dd3754b56c762da3ff69a3ce75",
     "semantic_hash": ""
   },
   "backend/RestaurantQrOrdering.Api/Properties/launchSettings.json": {
@@ -970,8 +970,8 @@
     "semantic_hash": ""
   },
   "frontend/src/main.ts": {
-    "mtime": 1788979999.0371344,
-    "ast_hash": "5290aa17d7c826e926cadcde49989cd2",
+    "mtime": 1788990810.0461156,
+    "ast_hash": "47f216e128597db0dce50e7d4dd77f60",
     "semantic_hash": ""
   },
   "frontend/src/proxy.conf.json": {

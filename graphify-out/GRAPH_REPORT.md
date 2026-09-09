@@ -1,16 +1,16 @@
 # Graph Report - Restaurant QR Ordering System  (2026-09-10)
 
 ## Corpus Check
-- 219 files · ~55,999 words
+- 219 files · ~56,008 words
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
-- 1409 nodes · 2362 edges · 125 communities (101 shown, 24 thin omitted)
+- 1410 nodes · 2363 edges · 124 communities (102 shown, 22 thin omitted)
 - Extraction: 100% EXTRACTED · 0% INFERRED · 0% AMBIGUOUS · INFERRED: 8 edges (avg confidence: 0.82)
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `1184c7b9`
+- Built from commit: `c239ce7c`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
@@ -21,7 +21,7 @@
 - devDependencies
 - First-admin bootstrap
 - compilerOptions
-- getStaffUser.ts
+- .Submit
 - dependencies
 - (customer)/page.tsx
 - cashier/page.tsx
@@ -50,7 +50,7 @@
 - public-menu.ts
 - KitchenTests
 - devDependencies
-- .Submit
+- PublicRatingResult
 - StaffAuthTests
 - admin/admin.ts
 - http
@@ -63,7 +63,7 @@
 - CartProvider.tsx
 - RestaurantQrOrdering.Api.Tests.csproj
 - Exception
-- CreateOrderRequest
+- .CreateAsync
 - .Create
 - StaffAuthService
 - ItemsSection.tsx
@@ -74,7 +74,7 @@
 - HealthEndpointTests
 - dependencies
 - serve
-- database.ts
+- PublicRatingTests
 - Role-gated access
 - Restaurant QR Ordering System
 - Next.js agent rules
@@ -83,7 +83,7 @@
 - restaurant-qr-ordering-web
 - RestaurantQrOrderingWeb
 - RestaurantQrOrdering.Api.Features.PublicOrders
-- IPublicOrderStore
+- .CreateAsync
 - angular.json
 - build
 - .Validate
@@ -96,7 +96,7 @@
 - Single-QR ordering app
 - public.get_public_order
 - 20260823040000_staff_order_commands.sql
-- .Invalid_tracking_tokens_are_rejected_without_database_access
+- ReportsPanel.tsx
 - public.staff_close_order
 - public.staff_set_item_availability
 - public.admin_get_sales_summary
@@ -112,7 +112,6 @@
 - AdminMenu
 - AdminMenuService
 - Admin
-- Login
 - integration/helpers.ts
 - Guide
 - rxjs
@@ -135,12 +134,12 @@
   AGENTS.md → README.md
 - `orderAsCustomer()` --references--> `browser`  [EXTRACTED]
   e2e/edge-cases.spec.ts → frontend/angular.json
-- `KitchenBoardPage()` --calls--> `createClient()`  [EXTRACTED]
-  src/app/kitchen/page.tsx → src/lib/supabase/client.ts
 - `FakeMenuStore` --implements--> `IPublicMenuStore`  [EXTRACTED]
   backend/RestaurantQrOrdering.Api.Tests/CashierTests.cs → backend/RestaurantQrOrdering.Api/Features/PublicMenu/IPublicMenuStore.cs
 - `HealthEndpointTests` --references--> `TestAppFactory`  [EXTRACTED]
   backend/RestaurantQrOrdering.Api.Tests/HealthEndpointTests.cs → backend/RestaurantQrOrdering.Api.Tests/TestAppFactory.cs
+- `FakeMenuStore` --implements--> `IPublicMenuStore`  [EXTRACTED]
+  backend/RestaurantQrOrdering.Api.Tests/PublicMenuTests.cs → backend/RestaurantQrOrdering.Api/Features/PublicMenu/IPublicMenuStore.cs
 
 ## Import Cycles
 - None detected.
@@ -150,15 +149,15 @@
 - **Layered staff dashboard access** — readme_staff_login, readme_src_proxy, readme_staff_layouts, readme_getstaffuser, readme_kitchen_dashboard, readme_cashier_dashboard, readme_admin_dashboard [EXTRACTED 1.00]
 - **Database security enforcement** — readme_profiles, readme_create_order, readme_order_status_transitions, readme_set_item_availability, readme_customer_pii, readme_ratings, readme_security_events [EXTRACTED 1.00]
 
-## Communities (125 total, 24 thin omitted)
+## Communities (124 total, 22 thin omitted)
 
 ### Community 0 - "createClient"
-Cohesion: 0.11
-Nodes (19): CategoriesSection(), Category, CategoryForm(), ItemsSection(), Category, MenuPanel(), TabId, TABS (+11 more)
+Cohesion: 0.08
+Nodes (29): CategoriesSection(), Category, CategoryForm(), ItemsSection(), Category, MenuPanel(), TabId, TABS (+21 more)
 
 ### Community 1 - "menu/page.tsx"
-Cohesion: 0.13
-Nodes (20): CartPage(), Category, ItemCard(), MenuItem, MenuPage(), OrderItemRow, OrderStatus, OrderTrackerPage() (+12 more)
+Cohesion: 0.14
+Nodes (21): CartPage(), Category, ItemCard(), MenuItem, MenuPage(), OrderItemRow, OrderStatus, OrderTrackerPage() (+13 more)
 
 ### Community 2 - "Supabase"
 Cohesion: 0.20
@@ -176,9 +175,9 @@ Nodes (30): admin role, Admin → Staff view, Anonymous orders column grant, aut
 Cohesion: 0.07
 Nodes (29): dom, dom.iterable, esnext, frontend, **/*.mts, .next/dev/types/**/*.ts, next-env.d.ts, .next/types/**/*.ts (+21 more)
 
-### Community 6 - "getStaffUser.ts"
-Cohesion: 0.29
-Nodes (8): AdminLayout(), CashierLayout(), KitchenLayout(), StaffHeader(), getStaffUser(), Role, createClient(), Database
+### Community 6 - ".Submit"
+Cohesion: 0.18
+Nodes (8): PublicRatingRequest, ActionResult, CancellationToken, EnableRateLimiting, HttpPost, ProducesResponseType, Task, PublicRatingController
 
 ### Community 7 - "dependencies"
 Cohesion: 0.05
@@ -186,7 +185,7 @@ Nodes (37): @hookform/resolvers, next, dependencies, @hookform/resolvers, next, 
 
 ### Community 8 - "(customer)/page.tsx"
 Cohesion: 0.18
-Nodes (13): EntryPage(), Hero3D, inputClass(), RatingPage(), useCustomerSession(), COUNTRY_CODES, CountryCode, OTHER_COUNTRY_VALUE (+5 more)
+Nodes (12): EntryPage(), Hero3D, inputClass(), RatingPage(), COUNTRY_CODES, CountryCode, OTHER_COUNTRY_VALUE, cartItemNoteSchema (+4 more)
 
 ### Community 9 - "cashier/page.tsx"
 Cohesion: 0.17
@@ -252,9 +251,9 @@ Nodes (30): CancellationToken, Guid, IReadOnlyList, Task, IKitchenStore, Kitchen
 Cohesion: 0.12
 Nodes (17): @angular/build, @angular/cli, @angular/compiler-cli, devDependencies, @angular/build, @angular/cli, @angular/compiler-cli, jsdom (+9 more)
 
-### Community 47 - ".Submit"
-Cohesion: 0.07
-Nodes (26): CancellationToken, ReadOnlyMemory, Task, IPublicRatingStore, PublicRatingStoreUnavailableException, CancellationToken, ReadOnlyMemory, Task (+18 more)
+### Community 47 - "PublicRatingResult"
+Cohesion: 0.16
+Nodes (13): CancellationToken, ReadOnlyMemory, Task, IPublicRatingStore, CancellationToken, ReadOnlyMemory, Task, NpgsqlPublicRatingStore (+5 more)
 
 ### Community 48 - "StaffAuthTests"
 Cohesion: 0.12
@@ -281,8 +280,8 @@ Cohesion: 0.13
 Nodes (15): AuthorizationHandler, AuthorizationHandlerContext, AuthorizationMiddlewareResultHandler, AuthorizationPolicy, string, Task, StaffAuthorizationMiddlewareResultHandler, StaffRoleAuthorizationHandler (+7 more)
 
 ### Community 54 - "PublicMenuResponse"
-Cohesion: 0.15
-Nodes (12): CancellationToken, Task, IPublicMenuStore, PublicMenuStoreUnavailableException, CancellationToken, Task, NpgsqlPublicMenuStore, UnavailablePublicMenuStore (+4 more)
+Cohesion: 0.18
+Nodes (11): CancellationToken, Task, IPublicMenuStore, CancellationToken, Task, NpgsqlPublicMenuStore, UnavailablePublicMenuStore, PublicCategory (+3 more)
 
 ### Community 55 - "KitchenService"
 Cohesion: 0.15
@@ -301,27 +300,27 @@ Cohesion: 0.12
 Nodes (13): net8.0, net8.0, coverlet.collector (6.0.0), Microsoft.AspNetCore.Authentication.JwtBearer (8.0.23), Microsoft.AspNetCore.Mvc.Testing (8.0.23), Microsoft.NET.Test.Sdk (17.8.0), Npgsql (8.0.6), Sentry.AspNetCore (6.10.0) (+5 more)
 
 ### Community 59 - "Exception"
-Cohesion: 0.15
-Nodes (8): PublicOrderIdempotencyConflictException, PublicOrderStoreUnavailableException, AdminMenuStoreUnavailableException, AdminStoreUnavailableException, CashierStoreUnavailableException, KitchenStoreUnavailableException, StaffProfileStoreUnavailableException, Exception
+Cohesion: 0.13
+Nodes (9): PublicMenuStoreUnavailableException, PublicOrderIdempotencyConflictException, PublicOrderStoreUnavailableException, AdminMenuStoreUnavailableException, AdminStoreUnavailableException, CashierStoreUnavailableException, KitchenStoreUnavailableException, StaffProfileStoreUnavailableException (+1 more)
 
-### Community 60 - "CreateOrderRequest"
-Cohesion: 0.23
-Nodes (9): CancellationToken, Guid, JsonSerializerOptions, ReadOnlyMemory, Task, NpgsqlPublicOrderStore, UnavailablePublicOrderStore, IReadOnlyList (+1 more)
+### Community 60 - ".CreateAsync"
+Cohesion: 0.29
+Nodes (8): IPublicOrderStore, CancellationToken, Guid, JsonSerializerOptions, ReadOnlyMemory, Task, NpgsqlPublicOrderStore, UnavailablePublicOrderStore
 
 ### Community 61 - ".Create"
-Cohesion: 0.20
-Nodes (9): ActionResult, CancellationToken, EnableRateLimiting, HttpGet, HttpPost, ProducesResponseType, Task, PublicOrdersController (+1 more)
+Cohesion: 0.16
+Nodes (11): ActionResult, CancellationToken, EnableRateLimiting, HttpGet, HttpPost, ProducesResponseType, Task, PublicOrdersController (+3 more)
 
 ### Community 63 - "ItemsSection.tsx"
-Cohesion: 0.20
-Nodes (12): Category, ItemForm(), MenuItem, ALLERGEN_CODES, AllergenCode, allergenLabels, ALLOWED_IMAGE_TYPES, CategoryFormValues (+4 more)
+Cohesion: 0.22
+Nodes (11): Category, ItemForm(), MenuItem, ALLERGEN_CODES, AllergenCode, allergenLabels, ALLOWED_IMAGE_TYPES, categorySchema (+3 more)
 
 ### Community 64 - "PublicOrderTracking"
-Cohesion: 0.20
-Nodes (10): Guid, CreateOrderItemRequest, CreateOrderResponse, PublicOrderItem, PublicOrderTracking, CancellationToken, Exception, Guid (+2 more)
+Cohesion: 0.36
+Nodes (6): PublicOrderTracking, CancellationToken, Exception, Guid, ReadOnlyMemory, RecordingStore
 
 ### Community 65 - "RestaurantQrOrdering.Api.Features.Staff"
-Cohesion: 0.25
+Cohesion: 0.27
 Nodes (4): Program, RestaurantQrOrdering.Api.Features.Staff, RestaurantQrOrdering.Api.Features.PublicMenu, RestaurantQrOrdering.Api.Tests
 
 ### Community 66 - ".GetAsync"
@@ -344,9 +343,9 @@ Nodes (19): @angular/common, @angular/compiler, @angular/core, @angular/forms, @
 Cohesion: 0.20
 Nodes (10): serve, production, proxyConfig, budgets, buildTarget, outputHashing, builder, configurations (+2 more)
 
-### Community 71 - "database.ts"
-Cohesion: 0.15
-Nodes (12): BoardOrder, COLUMNS, KitchenBoardPage(), OrderStatus, CompositeTypes, Constants, DatabaseWithoutInternals, DefaultSchema (+4 more)
+### Community 71 - "PublicRatingTests"
+Cohesion: 0.50
+Nodes (4): Fact, Task, PublicRatingTests, RecordingRatingStore
 
 ### Community 72 - "Role-gated access"
 Cohesion: 0.39
@@ -361,8 +360,8 @@ Cohesion: 0.25
 Nodes (6): Deprecation notices, Next.js local guide directory, Next.js (repository version), Next.js agent rules, @AGENTS.md reference, Next.js
 
 ### Community 75 - "supabase-auth.ts"
-Cohesion: 0.36
-Nodes (6): staffAuthInterceptor(), provideSupabaseAuth(), StaffIdentity, SUPABASE_CLIENT, SUPABASE_RUNTIME_CONFIG, SupabaseRuntimeConfig
+Cohesion: 0.24
+Nodes (6): staffAuthInterceptor(), StaffIdentity, SUPABASE_CLIENT, SUPABASE_RUNTIME_CONFIG, Login, Component
 
 ### Community 76 - "options"
 Cohesion: 0.25
@@ -377,12 +376,12 @@ Cohesion: 0.25
 Nodes (7): Additional Resources, Building, Code scaffolding, Development server, RestaurantQrOrderingWeb, Running unit tests, Runtime configuration
 
 ### Community 79 - "RestaurantQrOrdering.Api.Features.PublicOrders"
-Cohesion: 0.22
-Nodes (4): PublicOrderCanonicalizer, JsonSerializerOptions, PublicOrderRequestFingerprint, RestaurantQrOrdering.Api.Features.PublicOrders
+Cohesion: 0.12
+Nodes (11): PublicRatingStoreUnavailableException, PublicOrderCanonicalizer, Guid, IReadOnlyList, CreateOrderItemRequest, CreateOrderRequest, CreateOrderResponse, PublicOrderItem (+3 more)
 
-### Community 80 - "IPublicOrderStore"
-Cohesion: 0.43
-Nodes (5): CancellationToken, Guid, ReadOnlyMemory, Task, IPublicOrderStore
+### Community 80 - ".CreateAsync"
+Cohesion: 0.47
+Nodes (4): CancellationToken, Guid, ReadOnlyMemory, Task
 
 ### Community 81 - "angular.json"
 Cohesion: 0.25
@@ -401,8 +400,8 @@ Cohesion: 0.25
 Nodes (8): scripts, build, deploy:cloudflare, ng, preview:live, start, test, watch
 
 ### Community 85 - "app.config.ts"
-Cohesion: 0.23
-Nodes (8): App, appConfig, RestaurantRuntimeConfig, runtime, RuntimeWindow, Component, API_BASE_URL, apiBaseUrlInterceptor()
+Cohesion: 0.18
+Nodes (11): App, appConfig, RestaurantRuntimeConfig, runtime, RuntimeWindow, Component, API_BASE_URL, apiBaseUrlInterceptor() (+3 more)
 
 ### Community 86 - "TestAppFactory"
 Cohesion: 0.33
@@ -432,6 +431,10 @@ Nodes (3): public.get_public_order(), public.order_items, public.orders
 Cohesion: 0.67
 Nodes (3): public.enforce_order_transition(), public.staff_transition_order(), public.profiles
 
+### Community 93 - "ReportsPanel.tsx"
+Cohesion: 0.40
+Nodes (3): isoDate(), ReportsPanel(), SalesSummary
+
 ### Community 110 - "Cashier"
 Cohesion: 0.22
 Nodes (3): PublicMenuItem, Cashier, Component
@@ -441,7 +444,7 @@ Cohesion: 0.26
 Nodes (3): CartItem, CartService, Injectable
 
 ### Community 112 - ".GetOrders"
-Cohesion: 0.35
+Cohesion: 0.31
 Nodes (9): ActionResult, CancellationToken, Guid, HttpGet, HttpPost, IReadOnlyList, ProducesResponseType, Task (+1 more)
 
 ### Community 113 - "frontend/package.json"
@@ -457,32 +460,32 @@ Cohesion: 0.19
 Nodes (5): AdminMenuService, CategoryInput, MenuItemInput, Injectable, PublicMenuResponse
 
 ### Community 122 - "integration/helpers.ts"
-Cohesion: 0.14
-Nodes (11): getRequiredRoleForPath(), ROLE_PREFIXES, updateSession(), config, proxy(), anonClient(), hasAllRoleCreds, hasRoleCreds (+3 more)
+Cohesion: 0.10
+Nodes (19): AdminLayout(), CashierLayout(), KitchenLayout(), StaffHeader(), getStaffUser(), Role, getRequiredRoleForPath(), ROLE_PREFIXES (+11 more)
 
 ### Community 134 - ".GetAsync"
 Cohesion: 0.29
 Nodes (5): CancellationToken, Fact, Task, FakeMenuStore, PublicMenuTests
 
 ## Knowledge Gaps
-- **279 isolated node(s):** `net8.0`, `coverlet.collector (6.0.0)`, `Microsoft.AspNetCore.Mvc.Testing (8.0.23)`, `Microsoft.NET.Test.Sdk (17.8.0)`, `xunit (2.9.3)` (+274 more)
+- **280 isolated node(s):** `net8.0`, `coverlet.collector (6.0.0)`, `Microsoft.AspNetCore.Mvc.Testing (8.0.23)`, `Microsoft.NET.Test.Sdk (17.8.0)`, `xunit (2.9.3)` (+275 more)
   These have ≤1 connection - possible missing edges or undocumented components.
-- **24 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
+- **22 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
 
 ## Suggested Questions
 _Questions this graph is uniquely positioned to answer:_
 
-- **Why does `RestaurantQrOrdering.Api.Features.Staff` connect `RestaurantQrOrdering.Api.Features.Staff` to `.Get`, `Task`, `AdminMenuCommandResult`, `CashierCommandResult`, `KitchenTests`, `StaffAuthTests`, `.Get`, `.HandleAsync`, `Exception`?**
+- **Why does `RestaurantQrOrdering.Api.Features.Staff` connect `RestaurantQrOrdering.Api.Features.Staff` to `.Get`, `Task`, `AdminMenuCommandResult`, `CashierCommandResult`, `KitchenTests`, `.GetOrders`, `StaffAuthTests`, `.Get`, `.HandleAsync`, `Exception`?**
   _High betweenness centrality (0.082) - this node is a cross-community bridge._
-- **Why does `RestaurantQrOrdering.Api.Features.PublicOrders` connect `RestaurantQrOrdering.Api.Features.PublicOrders` to `PublicOrderTracking`, `RestaurantQrOrdering.Api.Features.Staff`, `.Submit`, `.Validate`, `Exception`, `CreateOrderRequest`, `.Create`?**
+- **Why does `RestaurantQrOrdering.Api.Features.PublicOrders` connect `RestaurantQrOrdering.Api.Features.PublicOrders` to `RestaurantQrOrdering.Api.Features.Staff`, `.Submit`, `PublicRatingResult`, `.Validate`, `Exception`, `.CreateAsync`, `.Create`?**
   _High betweenness centrality (0.023) - this node is a cross-community bridge._
 - **Why does `RestaurantQrOrdering.Api.Tests` connect `RestaurantQrOrdering.Api.Features.Staff` to `.GetAsync`, `HealthEndpointTests`, `.GetAsync`, `RestaurantQrOrdering.Api.Features.PublicOrders`, `TestAppFactory`?**
   _High betweenness centrality (0.019) - this node is a cross-community bridge._
 - **What connects `net8.0`, `coverlet.collector (6.0.0)`, `Microsoft.AspNetCore.Mvc.Testing (8.0.23)` to the rest of the system?**
-  _279 weakly-connected nodes found - possible documentation gaps or missing edges._
+  _280 weakly-connected nodes found - possible documentation gaps or missing edges._
 - **Should `createClient` be split into smaller, more focused modules?**
-  _Cohesion score 0.11182795698924732 - nodes in this community are weakly interconnected._
+  _Cohesion score 0.08333333333333333 - nodes in this community are weakly interconnected._
 - **Should `menu/page.tsx` be split into smaller, more focused modules?**
-  _Cohesion score 0.13333333333333333 - nodes in this community are weakly interconnected._
+  _Cohesion score 0.13763440860215054 - nodes in this community are weakly interconnected._
 - **Should `devDependencies` be split into smaller, more focused modules?**
   _Cohesion score 0.06060606060606061 - nodes in this community are weakly interconnected._

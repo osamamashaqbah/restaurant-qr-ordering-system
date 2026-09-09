@@ -1,34 +1,23 @@
-@switch (state()) {
-  @case ('loading') {
-    <p class="message">Loading order…</p>
-  }
-  @case ('not-found') {
-    <p class="message">This order link is invalid or has expired.</p>
-  }
-  @case ('error') {
-    <p class="message">We could not load this order. Please try again.</p>
-  }
-  @case ('ready') {
-    @if (order(); as currentOrder) {
-      <div class="order">
-        <p class="status-label">Status</p>
-        <h2>{{ currentOrder.status }}</h2>
-        <div class="items">
-          @for (item of currentOrder.items; track $index) {
-            <div class="item">
-              <span>{{ item.quantity }}× {{ item.nameEn }}</span>
-              <span>{{ item.unitPrice * item.quantity | number: '1.2-2' }}</span>
-            </div>
-          }
-        </div>
-        <div class="total">
-          <span>Total</span>
-          <strong>{{ currentOrder.total | number: '1.2-2' }}</strong>
-        </div>
-        @if (currentOrder.status === 'closed') {
-          <a class="rating-link" routerLink="/rate">Rate your order</a>
-        }
-      </div>
+<section class="tracking-page" aria-labelledby="tracking-title">
+  @switch (state()) {
+    @case ('loading') { <div class="loading-state" aria-live="polite"><span class="loading-mark" aria-hidden="true"></span><p class="message">Loading order…</p></div> }
+    @case ('not-found') { <div class="empty-state"><b aria-hidden="true">!</b><h1 id="tracking-title">Order unavailable</h1><p class="message">This order link is invalid or has expired.</p><a routerLink="/menu">Return to menu</a></div> }
+    @case ('error') { <div class="empty-state"><b aria-hidden="true">!</b><h1 id="tracking-title">We lost the signal</h1><p class="message">We could not load this order. Please try again.</p></div> }
+    @case ('ready') {
+      @if (order(); as currentOrder) {
+        <header class="tracking-header"><p class="eyebrow">Live from the kitchen</p><h1 id="tracking-title">Good things<br /><em>{{ currentOrder.status === 'cancelled' ? 'paused.' : 'are cooking.' }}</em></h1><p>This page updates automatically. No refresh needed.</p></header>
+        <section class="status-card" [attr.data-status]="currentOrder.status" aria-label="Order progress">
+          <div class="pulse-mark" aria-hidden="true"><i></i></div><p class="status-label">Current status</p><h2>{{ currentOrder.status }}</h2>
+          <div class="progress">
+            <div class="step" [class.current]="currentOrder.status === 'new'" [class.done]="currentOrder.status !== 'new' && currentOrder.status !== 'cancelled'"><i>{{ currentOrder.status !== 'new' && currentOrder.status !== 'cancelled' ? '✓' : '01' }}</i><span>Received</span></div>
+            <div class="step" [class.current]="currentOrder.status === 'preparing'" [class.done]="currentOrder.status === 'ready' || currentOrder.status === 'closed'"><i>{{ currentOrder.status === 'ready' || currentOrder.status === 'closed' ? '✓' : '02' }}</i><span>Preparing</span></div>
+            <div class="step" [class.current]="currentOrder.status === 'ready'" [class.done]="currentOrder.status === 'closed'"><i>{{ currentOrder.status === 'closed' ? '✓' : '03' }}</i><span>Ready</span></div>
+            <div class="step" [class.current]="currentOrder.status === 'closed'"><i>04</i><span>Completed</span></div>
+          </div>
+          <div class="status-copy"><span>RIGHT NOW</span><h3>@switch (currentOrder.status) { @case ('new') { Your order reached the kitchen. } @case ('preparing') { The coals are glowing. } @case ('ready') { Your table is calling. } @case ('closed') { Your evening is served. } @default { Please speak with our team. } }</h3></div>
+        </section>
+        <aside class="receipt" aria-label="Order receipt"><div class="receipt-heading"><div><p class="eyebrow">Your receipt</p><h2>Order details</h2></div><span>{{ currentOrder.items.length }} dishes</span></div><div class="items">@for (item of currentOrder.items; track $index) { <div class="item"><span><b>{{ item.quantity }}×</b> {{ item.nameEn }}</span><span>{{ item.unitPrice * item.quantity | number: '1.2-2' }}</span></div> }</div><div class="total"><span>Total</span><strong>{{ currentOrder.total | number: '1.2-2' }}</strong></div>@if (currentOrder.status === 'closed') { <a class="rating-link" routerLink="/rate">Rate your order <span aria-hidden="true">→</span></a> }</aside>
+      }
     }
   }
-}
+</section>

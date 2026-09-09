@@ -26,19 +26,19 @@ export class AdminMenu {
   readonly editingItemId = signal<string | null>(null);
 
   readonly categoryForm = this.formBuilder.nonNullable.group({
-    nameEn: ['', Validators.required],
-    nameAr: ['', Validators.required],
-    sortOrder: [0],
+    nameEn: ['', [Validators.required, Validators.maxLength(100)]],
+    nameAr: ['', [Validators.required, Validators.maxLength(100)]],
+    sortOrder: [0, [Validators.min(0), Validators.max(10_000)]],
   });
   readonly itemForm = this.formBuilder.nonNullable.group({
     categoryId: ['', Validators.required],
-    nameEn: ['', Validators.required],
-    nameAr: ['', Validators.required],
+    nameEn: ['', [Validators.required, Validators.maxLength(150)]],
+    nameAr: ['', [Validators.required, Validators.maxLength(150)]],
     descriptionEn: ['', Validators.maxLength(1000)],
     descriptionAr: ['', Validators.maxLength(1000)],
     price: [0, [Validators.required, Validators.min(0)]],
     imageUrl: ['', Validators.maxLength(500)],
-    allergens: [''],
+    allergens: ['', Validators.maxLength(2000)],
     isAvailable: [true],
   });
 
@@ -97,12 +97,17 @@ export class AdminMenu {
   saveItem(): void {
     if (this.itemForm.invalid || this.busyId()) return;
     const value = this.itemForm.getRawValue();
+    const allergens = value.allergens.split(',').map((allergen) => allergen.trim()).filter(Boolean);
+    if (allergens.length > 20) {
+      this.error.set('Use at most 20 allergens.');
+      return;
+    }
     const input: MenuItemInput = {
       ...value,
       descriptionEn: value.descriptionEn.trim(),
       descriptionAr: value.descriptionAr.trim(),
       imageUrl: value.imageUrl.trim() || null,
-      allergens: value.allergens.split(',').map((allergen) => allergen.trim()).filter(Boolean),
+      allergens,
     };
     const id = this.editingItemId();
     this.busyId.set(id ?? 'new-item');

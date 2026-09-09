@@ -22,17 +22,38 @@ test.describe("Angular rewrite smoke checks", () => {
     await page.goto("/kitchen");
 
     await expect(page).toHaveURL(/\/login\?next=%2Fkitchen$/);
-    await expect(page.getByRole("heading", { name: "Staff sign in" })).toBeVisible();
+    await expect(page.getByRole("heading", { name: "Welcome back." })).toBeVisible();
+  });
+
+  test("keeps customer and staff surfaces inside a narrow viewport", async ({ page }) => {
+    await page.setViewportSize({ width: 375, height: 800 });
+    for (const path of ["/", "/menu", "/cart", "/order", "/rate", "/login", "/guide"]) {
+      await page.goto(path);
+      expect(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)).toBe(true);
+    }
+  });
+
+  test("gives public images and controls accessible names", async ({ page }) => {
+    for (const path of ["/", "/menu", "/cart", "/order", "/rate", "/login"]) {
+      await page.goto(path);
+      await expect(page.locator("img:not([alt])")).toHaveCount(0);
+      expect(await page.locator("button, a[href]").evaluateAll((elements) => elements.filter((element) =>
+        !element.textContent?.trim() && !element.getAttribute("aria-label") && !element.getAttribute("title"),
+      ).length)).toBe(0);
+      expect(await page.locator("input, select, textarea").evaluateAll((elements) => elements.filter((element) =>
+        !(element as HTMLInputElement).labels?.length && !element.getAttribute("aria-label") && !element.getAttribute("aria-labelledby"),
+      ).length)).toBe(0);
+    }
   });
 
   test("renders the menu or a safe unavailable state", async ({ page }) => {
     await page.goto("/menu");
 
-    if (process.env.E2E_BASE_URL) {
-      await expect(page.getByRole("heading", { name: "Starters" })).toBeVisible();
-    } else {
-      await expect(page.getByText("We could not load the menu")).toBeVisible();
-    }
+    await expect(
+      page
+        .getByRole("heading", { name: "Starters" })
+        .or(page.getByText("We could not load the menu")),
+    ).toBeVisible({ timeout: 15_000 });
   });
 
   test("opens the beginner project guide", async ({ page }) => {

@@ -10,7 +10,7 @@ Sentry.init({
   integrations: [Sentry.browserTracingIntegration()],
   sendDefaultPii: false,
   tracesSampleRate: 0.1,
-  tracePropagationTargets: ['localhost', /^\/api\//],
+  tracePropagationTargets: ['localhost', /^\/api\//, 'https://restaurant-qr-ordering-api.onrender.com'],
 });
 
 bootstrapApplication(App, appConfig)

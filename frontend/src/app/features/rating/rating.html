@@ -1,33 +1,12 @@
 <section class="rating" aria-labelledby="rating-title">
-  @switch (state()) {
-    @case ('success') {
-      <h1 id="rating-title">Thank you</h1>
-      <p>Your feedback has been recorded.</p>
-      <a routerLink="/menu">Back to menu</a>
+  <div class="rating-art" aria-hidden="true"><img src="/assets/courtyard-feast.webp" alt="" width="1536" height="1024" /><span>THE TABLE REMEMBERS</span></div>
+  <div class="rating-panel">
+    @switch (state()) {
+      @case ('success') { <div class="success-mark" aria-hidden="true">✓</div><p class="eyebrow">Feedback received</p><h1 id="rating-title">Thank you</h1><p>Your feedback has been recorded.</p><a routerLink="/menu">Back to menu →</a> }
+      @case ('not-found') { <div class="empty-state"><b aria-hidden="true">!</b><p class="message">This order link is invalid or no longer available.</p></div> }
+      @case ('already-rated') { <div class="empty-state"><b aria-hidden="true">✓</b><p class="message">This order has already been rated.</p></div> }
+      @case ('error') { <div class="empty-state"><b aria-hidden="true">!</b><p class="message">We could not submit your rating. Please try again.</p></div> }
+      @default { <p class="eyebrow">Your feedback</p><h1 id="rating-title">How was<br /><em>your evening?</em></h1><p class="intro">A few seconds from you helps our kitchen serve better.</p><div class="stars" role="group" aria-label="Rating from one to five stars">@for (star of [1, 2, 3, 4, 5]; track star) { <button type="button" [class.selected]="star <= stars()" [attr.aria-label]="star + ' stars'" (click)="setStars(star)">★</button> }</div><form [formGroup]="form" (ngSubmit)="submit()"><label><span>Anything we should know? <small>Optional</small></span><textarea formControlName="comment" maxlength="500" placeholder="Tell us what stood out…"></textarea></label><button type="submit" [disabled]="stars() === 0 || form.invalid || state() === 'submitting'">{{ state() === 'submitting' ? 'Sending…' : 'Send feedback' }} <span aria-hidden="true">→</span></button></form> }
     }
-    @case ('not-found') {
-      <p class="message">This order link is invalid or no longer available.</p>
-    }
-    @case ('already-rated') {
-      <p class="message">This order has already been rated.</p>
-    }
-    @case ('error') {
-      <p class="message">We could not submit your rating. Please try again.</p>
-    }
-    @default {
-      <p class="eyebrow">Your feedback</p>
-      <h1 id="rating-title">How was your order?</h1>
-      <div class="stars" role="group" aria-label="Rating from one to five stars">
-        @for (star of [1, 2, 3, 4, 5]; track star) {
-          <button type="button" [class.selected]="star <= stars()" [attr.aria-label]="star + ' stars'" (click)="setStars(star)">★</button>
-        }
-      </div>
-      <form [formGroup]="form" (ngSubmit)="submit()">
-        <textarea formControlName="comment" maxlength="500" placeholder="Tell us more (optional)"></textarea>
-        <button type="submit" [disabled]="stars() === 0 || form.invalid || state() === 'submitting'">
-          {{ state() === 'submitting' ? 'Sending…' : 'Send feedback' }}
-        </button>
-      </form>
-    }
-  }
+  </div>
 </section>

@@ -1,28 +1,4 @@
 <section class="login-card" aria-labelledby="login-title">
-  <p class="eyebrow">Restaurant QR Ordering</p>
-  <h1 id="login-title">Staff sign in</h1>
-  <p class="copy">Sign in to open your role-specific workspace.</p>
-
-  <form [formGroup]="form" (ngSubmit)="submit()" novalidate>
-    <label>
-      Email
-      <input type="email" autocomplete="email" formControlName="email" />
-    </label>
-    @if (form.controls.email.touched && form.controls.email.invalid) {
-      <small>Enter a valid email.</small>
-    }
-
-    <label>
-      Password
-      <input type="password" autocomplete="current-password" formControlName="password" />
-    </label>
-
-    @if (error()) {
-      <p class="error" role="alert">{{ error() }}</p>
-    }
-
-    <button type="submit" [disabled]="form.invalid || submitting()">
-      {{ submitting() ? 'Signing in…' : 'Sign in' }}
-    </button>
-  </form>
+  <aside class="login-story" aria-hidden="true"><img src="/assets/courtyard-feast.webp" alt="" width="1536" height="1024" /><div><span class="live-pill"><i></i> Operations live</span><blockquote>“Great service starts with a calm, connected team.”</blockquote><p>KITCHEN · CASHIER · ADMINISTRATION</p></div></aside>
+  <div class="login-form"><p class="eyebrow">Staff access</p><h1 id="login-title">Welcome<br /><em>back.</em></h1><p class="copy">Use your assigned account to open the right workspace.</p><form [formGroup]="form" (ngSubmit)="submit()" novalidate><label><span>Email address</span><input type="email" autocomplete="email" formControlName="email" placeholder="name@restaurant.com" /></label>@if (form.controls.email.touched && form.controls.email.invalid) { <small>Enter a valid email.</small> }<label><span>Password</span><input type="password" autocomplete="current-password" formControlName="password" placeholder="••••••••" /></label>@if (error()) { <p class="error" role="alert">{{ error() }}</p> }<button type="submit" [disabled]="form.invalid || submitting()">{{ submitting() ? 'Signing in…' : 'Sign in' }} <span aria-hidden="true">→</span></button></form><p class="secure-note">⌁ Protected workspace · Role-based access</p></div>
 </section>

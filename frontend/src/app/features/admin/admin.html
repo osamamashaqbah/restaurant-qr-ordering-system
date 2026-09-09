@@ -1,11 +1,11 @@
 <section class="staff-page" aria-labelledby="admin-title">
   <header class="staff-header">
     <div>
-      <p class="eyebrow">Admin</p>
-      <h1 id="admin-title">{{ tab() === 'staff' ? 'Staff roles' : 'Sales reports' }}</h1>
-      <a class="menu-link" routerLink="/admin/menu">Edit menu</a>
+      <p class="eyebrow">Administration</p>
+      <h1 id="admin-title">The room,<br /><em>at a glance.</em></h1>
+      <p class="header-copy">Manage access, follow performance and keep service moving.</p>
     </div>
-    <button type="button" class="sign-out" (click)="auth.signOut()">Sign out</button>
+    <div class="header-actions"><a class="menu-link" routerLink="/admin/menu">Edit menu <span aria-hidden="true">→</span></a><button type="button" class="sign-out" (click)="auth.signOut()">Sign out</button></div>
   </header>
 
   @if (error()) {
@@ -71,9 +71,9 @@
       <p class="message">We could not load the report.</p>
     } @else if (report(); as currentReport) {
       <div class="report-stats">
-        <div><span>Revenue</span><strong>{{ currentReport.revenue | number: '1.2-2' }}</strong></div>
-        <div><span>Closed orders</span><strong>{{ currentReport.orderCount }}</strong></div>
-        <div><span>Average order</span><strong>{{ currentReport.averageOrderValue | number: '1.2-2' }}</strong></div>
+        <div><i class="stat-icon" aria-hidden="true">↗</i><span>Revenue</span><strong>{{ currentReport.revenue | number: '1.2-2' }}</strong></div>
+        <div><i class="stat-icon green" aria-hidden="true">✓</i><span>Closed orders</span><strong>{{ currentReport.orderCount }}</strong></div>
+        <div><i class="stat-icon yellow" aria-hidden="true">◌</i><span>Average order</span><strong>{{ currentReport.averageOrderValue | number: '1.2-2' }}</strong></div>
       </div>
       <h2 class="section-title">Revenue by day</h2>
       @if (currentReport.daily.length === 0) {

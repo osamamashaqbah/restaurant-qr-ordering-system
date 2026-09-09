@@ -17,7 +17,7 @@
     "@react-three/fiber": "^9.6.1",
     "@supabase/ssr": "^0.12.3",
     "@supabase/supabase-js": "^2.110.7",
-    "next": "16.3.2",
+    "next": "16.3.4",
     "react": "19.2.4",
     "react-dom": "19.2.4",
     "react-hook-form": "^7.82.0",
@@ -36,13 +36,14 @@
     "@vitejs/plugin-react": "^6.0.3",
     "dotenv": "^17.4.2",
     "eslint": "^9",
-    "eslint-config-next": "16.3.2",
+    "eslint-config-next": "16.3.4",
     "jsdom": "^29.1.1",
     "tailwindcss": "^4",
     "typescript": "^5",
-    "vitest": "^4.1.10"
+    "vitest": "4.1.11"
   },
   "overrides": {
-    "sharp": "^0.35.3"
+    "sharp": "^0.35.4",
+    "js-yaml": "^4.3.2"
   }
 }

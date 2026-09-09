@@ -10,6 +10,7 @@ public class CreateCategoryRequest
     [Required, StringLength(100, MinimumLength = 1)]
     public string NameAr { get; init; } = string.Empty;
 
+    [Range(0, 10000)]
     public int SortOrder { get; init; }
 }
 
@@ -38,6 +39,7 @@ public class CreateMenuItemRequest
     [StringLength(500)]
     public string? ImageUrl { get; init; }
 
+    [MaxLength(20)]
     public string[] Allergens { get; init; } = [];
 
     public bool IsAvailable { get; init; } = true;

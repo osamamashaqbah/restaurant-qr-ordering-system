@@ -1,42 +1,46 @@
-@switch (state()) {
-  @case ('loading') {
-    <p class="message">Loading menu…</p>
-  }
-  @case ('error') {
-    <p class="message">We could not load the menu. Please try again.</p>
-  }
-  @case ('ready') {
-    @if (menu(); as currentMenu) {
-      @for (category of currentMenu.categories; track category.id) {
-        <section class="category">
-          <h2>{{ category.nameEn }}</h2>
-          <p class="category-ar" dir="rtl">{{ category.nameAr }}</p>
-          <div class="items">
-            @for (item of itemsByCategory().get(category.id); track item.id) {
-              <article class="item" [class.unavailable]="!item.isAvailable">
-                <div>
-                  <h3>{{ item.nameEn }}</h3>
-                  <p dir="rtl">{{ item.nameAr }}</p>
-                  @if (item.descriptionEn) {
-                    <small>{{ item.descriptionEn }}</small>
-                  }
-                </div>
-                <div class="item-actions">
-                  <strong>{{ item.price | number: '1.2-2' }}</strong>
-                  @if (item.isAvailable) {
-                    <button type="button" (click)="cart.add(item)">Add</button>
-                  } @else {
-                    <small>Unavailable</small>
-                  }
-                </div>
-              </article>
-            }
-          </div>
-        </section>
-      }
-      @if (cart.count() > 0) {
-        <a class="cart-link" routerLink="/cart">View cart ({{ cart.count() }})</a>
+<section class="menu-page" aria-labelledby="menu-title">
+  <header class="menu-hero">
+    <div><p class="eyebrow">Made for sharing · <span dir="rtl">صُنعت للمشاركة</span></p><h1 id="menu-title">Tonight's<br /><em>feast.</em></h1></div>
+    <div class="hero-copy"><p>Levantine favourites, prepared fresh and sent straight to your table.</p><span class="open-badge"><i aria-hidden="true"></i> Fresh orders welcome</span></div>
+  </header>
+  @switch (state()) {
+    @case ('loading') { <div class="loading-state" aria-live="polite"><span class="loading-mark" aria-hidden="true"></span><p class="message">Loading menu…</p></div> }
+    @case ('error') { <div class="empty-state" role="alert"><b aria-hidden="true">!</b><p class="message">We could not load the menu. Please try again.</p></div> }
+    @case ('ready') {
+      @if (menu(); as currentMenu) {
+        <nav class="category-nav" aria-label="Menu categories">
+          @for (category of currentMenu.categories; track category.id) { <a [href]="'#category-' + category.id">{{ category.nameEn }}</a> }
+        </nav>
+        <div class="menu-sections">
+          @for (category of currentMenu.categories; track category.id; let categoryIndex = $index) {
+            <section class="category" [id]="'category-' + category.id">
+              <header class="category-heading"><div><p class="category-ar" dir="rtl">{{ category.nameAr }}</p><h2>{{ category.nameEn }}</h2></div><span>{{ itemsByCategory().get(category.id)?.length || 0 }} dishes</span></header>
+              <div class="items">
+                @for (item of itemsByCategory().get(category.id); track item.id; let itemIndex = $index) {
+                  <article class="item" [class.unavailable]="!item.isAvailable" [class.featured]="categoryIndex === 0 && itemIndex === 0">
+                    <div class="item-media">
+                      @if (item.imageUrl) { <img [src]="item.imageUrl" [alt]="item.nameEn" width="560" height="420" loading="lazy" /> }
+                      @else { <span aria-hidden="true">م</span> }
+                      <b>{{ item.isAvailable ? 'Made fresh' : 'Unavailable' }}</b>
+                    </div>
+                    <div class="item-copy">
+                      <small>{{ category.nameEn }}</small>
+                      <h3>{{ item.nameEn }}</h3><p class="arabic" dir="rtl">{{ item.nameAr }}</p>
+                      @if (item.descriptionEn) { <p class="description">{{ item.descriptionEn }}</p> }
+                      @if (item.allergens.length > 0) { <span class="allergens">Contains {{ item.allergens.join(', ') }}</span> }
+                      <div class="item-actions"><strong>{{ item.price | number: '1.2-2' }}</strong>
+                        @if (item.isAvailable) { <button type="button" (click)="cart.add(item)" [attr.aria-label]="'Add ' + item.nameEn + ' to cart'">Add <span aria-hidden="true">＋</span></button> }
+                        @else { <small>Unavailable</small> }
+                      </div>
+                    </div>
+                  </article>
+                } @empty { <p class="empty">No dishes in this category yet.</p> }
+              </div>
+            </section>
+          }
+        </div>
+        @if (cart.count() > 0) { <a class="cart-link" routerLink="/cart"><b>{{ cart.count() }}</b><span>Your table</span><strong>{{ cart.total() | number: '1.2-2' }}</strong><span aria-hidden="true">→</span></a> }
       }
     }
   }
-}
+</section>

@@ -1,30 +1,19 @@
 import { Routes } from '@angular/router';
-import { OrderTracking } from './features/order-tracking/order-tracking';
-import { Menu } from './features/menu/menu';
-import { Entry } from './features/entry/entry';
-import { Cart } from './features/cart/cart';
-import { Login } from './features/login/login';
-import { Kitchen } from './features/kitchen/kitchen';
-import { Cashier } from './features/cashier/cashier';
-import { Admin } from './features/admin/admin';
-import { AdminMenu } from './features/admin-menu/admin-menu';
-import { Rating } from './features/rating/rating';
-import { Guide } from './features/guide/guide';
 import { staffRoleGuard } from './core/staff-role.guard';
 
 export const routes: Routes = [
-  { path: '', component: Entry },
-  { path: 'menu', component: Menu },
-  { path: 'cart', component: Cart },
-  { path: 'order', component: OrderTracking },
-  { path: 'order/:trackingToken', component: OrderTracking }, // legacy capability URL: stripped into sessionStorage
-  { path: 'rate', component: Rating },
-  { path: 'rate/:trackingToken', component: Rating }, // legacy capability URL: stripped into sessionStorage
-  { path: 'guide', component: Guide },
-  { path: 'login', component: Login },
-  { path: 'kitchen', component: Kitchen, canActivate: [staffRoleGuard('kitchen')] },
-  { path: 'cashier', component: Cashier, canActivate: [staffRoleGuard('cashier')] },
-  { path: 'admin', component: Admin, canActivate: [staffRoleGuard('admin')] },
-  { path: 'admin/menu', component: AdminMenu, canActivate: [staffRoleGuard('admin')] },
+  { path: '', loadComponent: () => import('./features/entry/entry').then(({ Entry }) => Entry) },
+  { path: 'menu', loadComponent: () => import('./features/menu/menu').then(({ Menu }) => Menu) },
+  { path: 'cart', loadComponent: () => import('./features/cart/cart').then(({ Cart }) => Cart) },
+  { path: 'order', loadComponent: () => import('./features/order-tracking/order-tracking').then(({ OrderTracking }) => OrderTracking) },
+  { path: 'order/:trackingToken', loadComponent: () => import('./features/order-tracking/order-tracking').then(({ OrderTracking }) => OrderTracking) }, // legacy capability URL: stripped into sessionStorage
+  { path: 'rate', loadComponent: () => import('./features/rating/rating').then(({ Rating }) => Rating) },
+  { path: 'rate/:trackingToken', loadComponent: () => import('./features/rating/rating').then(({ Rating }) => Rating) }, // legacy capability URL: stripped into sessionStorage
+  { path: 'guide', loadComponent: () => import('./features/guide/guide').then(({ Guide }) => Guide) },
+  { path: 'login', loadComponent: () => import('./features/login/login').then(({ Login }) => Login) },
+  { path: 'kitchen', loadComponent: () => import('./features/kitchen/kitchen').then(({ Kitchen }) => Kitchen), canActivate: [staffRoleGuard('kitchen')] },
+  { path: 'cashier', loadComponent: () => import('./features/cashier/cashier').then(({ Cashier }) => Cashier), canActivate: [staffRoleGuard('cashier')] },
+  { path: 'admin', loadComponent: () => import('./features/admin/admin').then(({ Admin }) => Admin), canActivate: [staffRoleGuard('admin')] },
+  { path: 'admin/menu', loadComponent: () => import('./features/admin-menu/admin-menu').then(({ AdminMenu }) => AdminMenu), canActivate: [staffRoleGuard('admin')] },
   { path: '**', redirectTo: 'menu' },
 ];

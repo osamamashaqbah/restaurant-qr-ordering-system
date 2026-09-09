@@ -27,6 +27,7 @@ export function provideSupabaseAuth(config: SupabaseRuntimeConfig): EnvironmentP
 
         return import('@supabase/supabase-js').then(({ createClient }) => createClient(runtime.url, runtime.anonKey, {
           auth: {
+            storage: globalThis.sessionStorage,
             persistSession: true,
             autoRefreshToken: true,
             detectSessionInUrl: false,
@@ -89,14 +90,13 @@ export class StaffAuthService {
     const client = await this.resolveClient();
     if (!client) return;
 
-    client.auth.onAuthStateChange((_event, session) => {
-      this.sessionState.set(session);
-      if (!session) {
-        this.identityState.set(null);
-        return;
-      }
-
-      queueMicrotask(() => void this.loadIdentity(true));
+    client.auth.onAuthStateChange(() => {
+      queueMicrotask(async () => {
+        const { data } = await client.auth.getSession();
+        this.sessionState.set(data.session);
+        if (data.session) await this.loadIdentity(true);
+        else this.identityState.set(null);
+      });
     });
 
     const { data } = await client.auth.getSession();

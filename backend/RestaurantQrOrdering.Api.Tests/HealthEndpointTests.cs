@@ -74,6 +74,34 @@ public sealed class HealthEndpointTests : IClassFixture<TestAppFactory>
     }
 
     [Fact]
+    public async Task Configured_client_ip_header_keeps_visitors_in_separate_rate_limit_buckets()
+    {
+        using var factory = new TestAppFactory().WithWebHostBuilder(builder =>
+        {
+            builder.UseSetting("RateLimiting:PublicOrdersPerMinute", "1");
+            builder.UseSetting("RateLimiting:ClientIpHeader", "CF-Connecting-IP");
+        });
+        using var client = factory.CreateClient();
+
+        using var firstRequest = new HttpRequestMessage(HttpMethod.Post, "/api/public/orders")
+        {
+            Content = new StringContent("{}", System.Text.Encoding.UTF8, "application/json"),
+        };
+        firstRequest.Headers.Add("CF-Connecting-IP", "192.0.2.10");
+        using var secondRequest = new HttpRequestMessage(HttpMethod.Post, "/api/public/orders")
+        {
+            Content = new StringContent("{}", System.Text.Encoding.UTF8, "application/json"),
+        };
+        secondRequest.Headers.Add("CF-Connecting-IP", "192.0.2.11");
+
+        using var firstResponse = await client.SendAsync(firstRequest);
+        using var secondResponse = await client.SendAsync(secondRequest);
+
+        Assert.NotEqual(HttpStatusCode.TooManyRequests, firstResponse.StatusCode);
+        Assert.NotEqual(HttpStatusCode.TooManyRequests, secondResponse.StatusCode);
+    }
+
+    [Fact]
     public async Task Public_rating_is_rate_limited()
     {
         using var factory = new TestAppFactory().WithWebHostBuilder(builder =>

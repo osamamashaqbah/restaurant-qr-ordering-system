@@ -1,18 +1,71 @@
 @use './app/features/guide/guide';
 
-/* You can add global styles to this file, and also import other style files */
-html,
-body {
-  margin: 0;
-  font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+:root {
+  color-scheme: light;
+  --coffee: #35170e;
+  --cocoa: #562718;
+  --clay: #bd5232;
+  --apricot: #ee9d5a;
+  --sun: #f2bd45;
+  --cream: #fff3dc;
+  --linen: #f3dfbd;
+  --pistachio: #738253;
+  --ink: #30170f;
+  --muted: #79685d;
+  --line: rgb(53 23 14 / 15%);
+  --surface: rgb(255 243 220 / 92%);
+  --danger: #a9362a;
+  --out: cubic-bezier(.22, 1, .36, 1);
+  --shadow: 0 1.25rem 3.5rem rgb(53 23 14 / 12%);
+  --radius-sm: .7rem;
+  --radius-md: 1rem;
+  --radius-lg: 1.5rem;
+  --motion-fast: 160ms;
+  --motion-standard: 240ms;
+  font-family: "Segoe UI", Tahoma, Arial, sans-serif;
+  font-synthesis: none;
 }
 
-*,
-*::before,
-*::after {
-  box-sizing: border-box;
-}
+html { min-width: 20rem; scroll-behavior: smooth; background: var(--linen); }
+body { min-width: 20rem; min-height: 100vh; margin: 0; color: var(--ink); background: var(--linen); line-height: 1.5; text-rendering: optimizeLegibility; }
+body::after { content: ''; position: fixed; z-index: 100; inset: 0; pointer-events: none; opacity: .025; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 150 150' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.92' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"); }
+*, *::before, *::after { box-sizing: border-box; }
+button, input, select, textarea { font: inherit; color: inherit; }
+button, a { -webkit-tap-highlight-color: transparent; }
+button:not(:disabled), a { cursor: pointer; }
+a { color: inherit; }
+img { display: block; max-width: 100%; }
+:focus-visible { outline: .2rem solid var(--sun); outline-offset: .2rem; }
+::selection { background: rgb(242 189 69 / 45%); }
 
-app-guide {
-  display: block;
+.sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; }
+.eyebrow { margin: 0; color: var(--clay); font-size: .7rem; font-weight: 900; letter-spacing: .18em; text-transform: uppercase; }
+.message, .empty { color: var(--muted); }
+.error { color: var(--danger); }
+.loading-state, .empty-state { min-height: 20rem; display: grid; place-items: center; align-content: center; gap: .85rem; color: var(--muted); text-align: center; }
+.loading-mark { width: 2.25rem; height: 2.25rem; border: .2rem solid rgb(53 23 14 / 12%); border-top-color: var(--clay); border-radius: 50%; animation: ui-spin 700ms linear infinite; }
+.empty-state > b:first-child { display: grid; width: 2.5rem; height: 2.5rem; place-items: center; border-radius: 50%; color: var(--cream); background: var(--clay); }
+
+.staff-page { width: min(100%, 92rem); margin: 0 auto; padding: clamp(1.25rem, 4vw, 4rem); }
+.staff-header { display: flex; align-items: flex-end; justify-content: space-between; gap: 1.5rem; padding-bottom: 1.75rem; border-bottom: 1px solid var(--line); }
+.staff-header h1 { margin: .35rem 0 0; font: 500 clamp(2.8rem, 6vw, 5.7rem)/.9 Georgia, "Times New Roman", serif; letter-spacing: -.055em; }
+.staff-header p { margin: 0; }
+.staff-header .header-copy { max-width: 35rem; margin-top: 1rem; color: var(--muted); }
+.sign-out { min-height: 2.7rem; padding: .7rem 1rem; border: 1px solid var(--line); border-radius: 999px; background: transparent; color: inherit; font-size: .8rem; font-weight: 750; }
+.tabs { width: fit-content; display: flex; gap: .4rem; margin-top: 1.5rem; padding: .3rem; border: 1px solid var(--line); border-radius: 999px; background: rgb(255 243 220 / 52%); }
+.tabs button { min-height: 2.4rem; padding: .55rem 1rem; border: 0; border-radius: 999px; background: transparent; color: var(--muted); font-weight: 750; }
+.tabs button.active { color: var(--cream); background: var(--coffee); }
+
+@keyframes ui-spin { to { transform: rotate(1turn); } }
+@keyframes page-in { from { opacity: 0; transform: translateY(.75rem); } to { opacity: 1; transform: none; } }
+app-guide { display: block; }
+
+@media (max-width: 42rem) {
+  .staff-page { padding: 2.5rem 1.1rem 5rem; }
+  .staff-header { align-items: flex-start; flex-direction: column; }
+  .staff-header h1 { font-size: clamp(3rem, 15vw, 4.4rem); }
+}
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
 }

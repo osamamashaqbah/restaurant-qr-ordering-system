@@ -1,52 +1,23 @@
-.message {
-  margin: 2rem 0 0;
-  color: #6f675e;
-}
-
-.order {
-  margin-top: 2rem;
-}
-
-.status-label {
-  margin: 0;
-  color: #a65d3e;
-  font-size: 0.75rem;
-  font-weight: 700;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-}
-
-h2 {
-  margin: 0.5rem 0 0;
-  text-transform: capitalize;
-}
-
-.items {
-  display: grid;
-  gap: 0.5rem;
-  margin-top: 1.5rem;
-}
-
-.item,
-.total {
-  display: flex;
-  justify-content: space-between;
-  gap: 1rem;
-}
-
-.rating-link {
-  display: inline-block;
-  margin-top: 1.5rem;
-  color: #a65d3e;
-  font-weight: 700;
-}
-
-.item {
-  color: #6f675e;
-}
-
-.total {
-  margin-top: 1rem;
-  padding-top: 1rem;
-  border-top: 1px dashed #e1d8c9;
-}
+.tracking-page { min-height: calc(100vh - 4.75rem); display: grid; grid-template-columns: .7fr 1.15fr .6fr; align-items: center; gap: 1.8rem; padding: clamp(2.5rem, 6vw, 5rem) clamp(1.1rem, 5vw, 5rem) 6rem; }
+.tracking-header h1 { margin: .65rem 0 1.4rem; font: 500 clamp(3.7rem, 7vw, 7rem)/.85 Georgia, serif; letter-spacing: -.06em; }
+.tracking-header em { color: var(--clay); font-weight: 400; }
+.tracking-header > p:last-child { max-width: 22rem; color: var(--muted); }
+.status-card { position: relative; padding: 2rem; color: var(--cream); background: var(--clay); box-shadow: 1rem 1.1rem 0 var(--sun); }
+.pulse-mark { position: absolute; right: 1.5rem; top: 1.5rem; width: 1rem; height: 1rem; display: grid; place-items: center; border: 1px solid rgb(255 255 255 / 35%); border-radius: 50%; }
+.pulse-mark i { width: .4rem; height: .4rem; border-radius: 50%; background: var(--sun); animation: pulse 1.6s infinite; }
+.status-label, .status-copy > span { margin: 0; color: var(--sun); font-size: .62rem; font-weight: 900; letter-spacing: .18em; text-transform: uppercase; }
+.status-card h2 { margin: .6rem 0 1.7rem; font: 500 clamp(2.8rem, 5vw, 4.6rem)/1 Georgia, serif; text-transform: capitalize; }
+.progress { display: grid; grid-template-columns: repeat(4, 1fr); overflow-x: auto; border-block: 1px solid rgb(255 255 255 / 18%); }
+.step { min-width: 5rem; display: grid; justify-items: center; gap: .45rem; padding: 1rem .25rem; color: rgb(255 255 255 / 44%); font-size: .7rem; }
+.step i { width: 2.2rem; height: 2.2rem; display: grid; place-items: center; border-radius: 50%; background: rgb(255 255 255 / 12%); font-style: normal; font-weight: 800; }
+.step.current, .step.done { color: white; }.step.current i { background: var(--coffee); }.step.done i { color: var(--coffee); background: var(--sun); }
+.status-copy { min-height: 8rem; padding-top: 1.5rem; }.status-copy h3 { margin: .5rem 0; font: 500 1.9rem Georgia, serif; }
+.receipt { align-self: stretch; min-height: 28rem; display: flex; flex-direction: column; padding: 1.6rem; background: var(--cream); box-shadow: var(--shadow); }
+.receipt-heading { display: flex; justify-content: space-between; gap: 1rem; }.receipt-heading h2 { margin: .35rem 0; font: 500 1.8rem Georgia, serif; }.receipt-heading > span { color: var(--muted); font-size: .72rem; }
+.items { margin-top: 2rem; }.item { display: flex; justify-content: space-between; gap: 1rem; padding: .8rem 0; border-bottom: 1px dashed var(--line); }.item b { color: var(--clay); }
+.total { display: flex; align-items: flex-end; justify-content: space-between; margin-top: auto; padding-top: 1.5rem; }.total strong { color: var(--clay); font: 700 2.2rem Georgia, serif; }
+.rating-link { display: flex; justify-content: space-between; margin-top: 1rem; padding: .8rem; color: var(--cream); background: var(--coffee); text-decoration: none; font-weight: 800; }
+.empty-state { grid-column: 1 / -1; }.empty-state h1 { font-family: Georgia, serif; }.empty-state a { color: var(--clay); }
+@keyframes pulse { 50% { transform: scale(.55); opacity: .55; } }
+@media (max-width: 66rem) { .tracking-page { grid-template-columns: 1fr 1fr; align-items: start; } .tracking-header { grid-column: 1 / -1; } }
+@media (max-width: 46rem) { .tracking-page { min-height: calc(100vh - 4.15rem); grid-template-columns: 1fr; padding: 2.75rem 1.1rem 6rem; } .tracking-header { grid-column: auto; } .tracking-header h1 { font-size: clamp(3.6rem, 17vw, 5rem); } }

@@ -1,6 +1,9 @@
 /*
   X-Content-Type-Options: nosniff
   X-Frame-Options: DENY
-  Referrer-Policy: strict-origin-when-cross-origin
+  Referrer-Policy: no-referrer
   Permissions-Policy: camera=(), microphone=(), geolocation=()
   Strict-Transport-Security: max-age=31536000; includeSubDomains
+  Content-Security-Policy: default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; connect-src 'self' https://restaurant-qr-ordering-api.onrender.com https://zoncuwmawsolmnqmzrax.supabase.co wss://zoncuwmawsolmnqmzrax.supabase.co https://o4512044603801600.ingest.de.sentry.io; object-src 'none'; base-uri 'self'; frame-ancestors 'none'; form-action 'self'
+  Cross-Origin-Opener-Policy: same-origin
+  X-Permitted-Cross-Domain-Policies: none

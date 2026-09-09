@@ -1,33 +1,29 @@
-<form class="form" [formGroup]="form" (ngSubmit)="submit()" novalidate>
-  <label>
-    <span>Name</span>
-    <input formControlName="name" autocomplete="name" />
-    @if (form.controls.name.touched && form.controls.name.invalid) {
-      <small>Name is required and must be at most 100 characters.</small>
-    }
-  </label>
-
-  <div class="phone-row">
-    <label>
-      <span>Country code</span>
-      <input formControlName="countryCode" inputmode="numeric" />
-    </label>
-    <label>
-      <span>WhatsApp number</span>
-      <input formControlName="whatsappLocal" inputmode="tel" autocomplete="tel" />
-    </label>
+<section class="entry" aria-labelledby="entry-title">
+  <div class="entry-story">
+    <img src="/assets/courtyard-feast.webp" alt="A warm courtyard table set for dinner at sunset" width="1536" height="1024" fetchpriority="high" />
+    <div class="story-content">
+      <p>WELCOME TO THE TABLE</p>
+      <h1 id="entry-title">Good food,<br /><em>right to you.</em></h1>
+    </div>
+    <div class="story-points" aria-label="Service promises">
+      <span><b>01</b> Fresh plates</span><span><b>02</b> Live updates</span><span><b>03</b> No waiting</span>
+    </div>
   </div>
-  @if (form.controls.whatsappLocal.touched && form.controls.whatsappLocal.invalid) {
-    <small>Enter a valid WhatsApp number.</small>
-  }
-
-  <label>
-    <span>Table number</span>
-    <input formControlName="tableNumber" />
-    @if (form.controls.tableNumber.touched && form.controls.tableNumber.invalid) {
-      <small>Table number is required and must be at most 20 characters.</small>
-    }
-  </label>
-
-  <button type="submit">See the menu</button>
-</form>
+  <form class="form" [formGroup]="form" (ngSubmit)="submit()" novalidate>
+    <span class="form-number" aria-hidden="true">12</span>
+    <header class="form-heading"><p class="eyebrow">Your evening starts here</p><h2>Find your table.</h2><p>Three quick details, then tonight's menu is yours.</p></header>
+    <label><span>Your name</span><input formControlName="name" autocomplete="name" placeholder="e.g. Sara" />
+      @if (form.controls.name.touched && form.controls.name.invalid) { <small>Name is required and must be at most 100 characters.</small> }
+    </label>
+    <div class="phone-row">
+      <label><span>Code</span><input formControlName="countryCode" inputmode="numeric" aria-label="Country code" /></label>
+      <label><span>WhatsApp number</span><input formControlName="whatsappLocal" inputmode="tel" autocomplete="tel" placeholder="07 9000 0000" /></label>
+    </div>
+    @if (form.controls.whatsappLocal.touched && form.controls.whatsappLocal.invalid) { <small>Enter a valid WhatsApp number.</small> }
+    <label><span>Table number</span><input formControlName="tableNumber" inputmode="numeric" placeholder="e.g. 12" />
+      @if (form.controls.tableNumber.touched && form.controls.tableNumber.invalid) { <small>Table number is required and must be at most 20 characters.</small> }
+    </label>
+    <button type="submit">See the menu <span aria-hidden="true">→</span></button>
+    <p class="privacy-note"><span aria-hidden="true">⌁</span> Details are used only for this order.</p>
+  </form>
+</section>

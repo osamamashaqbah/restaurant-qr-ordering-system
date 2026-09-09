@@ -102,7 +102,7 @@ export class Cashier {
   }
 
   private refresh(): void {
-    this.service.getOrders().subscribe({
+    this.service.getOrders().pipe(takeUntilDestroyed(this.destroyRef)).subscribe({
       next: (orders) => this.orders.set(orders),
       error: () => this.error.set('Could not refresh cashier orders.'),
     });

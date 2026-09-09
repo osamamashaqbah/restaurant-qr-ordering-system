@@ -1,37 +1,14 @@
-@if (!customer()) {
-  <p class="message">Start with your table details before ordering.</p>
-  <a routerLink="/">Enter customer details</a>
-} @else if (cart.items().length === 0) {
-  <p class="message">Your cart is empty.</p>
-  <a routerLink="/menu">Browse menu</a>
-} @else {
-  <div class="items">
-    @for (item of cart.items(); track item.menuItemId) {
-      <article class="item">
-        <div>
-          <h2>{{ item.nameEn }}</h2>
-          <p dir="rtl">{{ item.nameAr }}</p>
-          <input [value]="item.notes" maxlength="300" placeholder="Notes" (input)="updateNotes(item.menuItemId, $event)" />
-        </div>
-        <div class="controls">
-          <button type="button" (click)="cart.updateQuantity(item.menuItemId, item.quantity - 1)">−</button>
-          <span>{{ item.quantity }}</span>
-          <button type="button" (click)="cart.updateQuantity(item.menuItemId, item.quantity + 1)">+</button>
-          <strong>{{ item.price * item.quantity | number: '1.2-2' }}</strong>
-        </div>
-      </article>
-    }
-  </div>
-
-  <div class="summary">
-    <span>Total</span>
-    <strong>{{ cart.total() | number: '1.2-2' }}</strong>
-  </div>
-  @if (error(); as message) {
-    <p class="error">{{ message }}</p>
+<section class="cart-page" aria-labelledby="cart-title">
+  <header class="cart-header"><div><a class="back-link" routerLink="/menu">← Back to menu</a><p class="eyebrow">Almost there</p><h1 id="cart-title">Your table,<br /><em>ready to send.</em></h1></div>@if (customer()) { <span class="table-chip">Table {{ customer()?.tableNumber }}</span> }</header>
+  @if (!customer()) {
+    <div class="empty-state"><b aria-hidden="true">⌁</b><p class="message">Start with your table details before ordering.</p><a routerLink="/">Enter customer details</a></div>
+  } @else if (cart.items().length === 0) {
+    <div class="empty-state"><b aria-hidden="true">0</b><p class="message">Your cart is empty.</p><a routerLink="/menu">Browse menu</a></div>
+  } @else {
+    <div class="cart-layout"><div class="items">
+      @for (item of cart.items(); track item.menuItemId) {
+        <article class="item"><div class="item-copy"><span class="item-number">{{ $index + 1 < 10 ? '0' : '' }}{{ $index + 1 }}</span><div><h2>{{ item.nameEn }}</h2><p dir="rtl">{{ item.nameAr }}</p><label><span class="sr-only">Notes for {{ item.nameEn }}</span><input [value]="item.notes" maxlength="300" placeholder="Add a note for the kitchen" (input)="updateNotes(item.menuItemId, $event)" /></label></div></div><div class="controls"><button type="button" [attr.aria-label]="'Remove one ' + item.nameEn" (click)="cart.updateQuantity(item.menuItemId, item.quantity - 1)">−</button><span aria-live="polite">{{ item.quantity }}</span><button type="button" [attr.aria-label]="'Add one ' + item.nameEn" (click)="cart.updateQuantity(item.menuItemId, item.quantity + 1)">+</button><strong>{{ item.price * item.quantity | number: '1.2-2' }}</strong></div></article>
+      }
+    </div><aside class="checkout-panel" aria-label="Order summary"><span class="receipt-top" aria-hidden="true"></span><p class="eyebrow">Order summary</p><div class="summary"><span>{{ cart.count() }} dishes</span><strong>{{ cart.total() | number: '1.2-2' }}</strong></div><p class="checkout-copy">Your order goes directly to the kitchen. Live tracking starts immediately.</p>@if (error(); as message) { <p class="error" role="alert">{{ message }}</p> }<button class="submit" type="button" [disabled]="submitting()" (click)="submit()">{{ submitting() ? 'Sending…' : 'Send order to kitchen' }} <span aria-hidden="true">→</span></button><span class="secure-note">✓ Details confirmed · Live tracking included</span></aside></div>
   }
-  <button class="submit" type="button" [disabled]="submitting()" (click)="submit()">
-    {{ submitting() ? 'Sending…' : 'Send order to kitchen' }}
-  </button>
-  <a routerLink="/menu">Back to menu</a>
-}
+</section>

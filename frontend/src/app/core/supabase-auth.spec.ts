@@ -10,6 +10,7 @@ describe('StaffAuthService', () => {
   let controller: HttpTestingController;
   let session: Session | null;
   let signOut: ReturnType<typeof vi.fn>;
+  let authStateChanged: ((event: string, session: Session | null) => void) | undefined;
 
   beforeEach(async () => {
     session = null;
@@ -20,7 +21,10 @@ describe('StaffAuthService', () => {
     const client = {
       auth: {
         getSession: vi.fn(async () => ({ data: { session }, error: null })),
-        onAuthStateChange: vi.fn(() => ({ data: { subscription: { unsubscribe: vi.fn() } } })),
+        onAuthStateChange: vi.fn((callback) => {
+          authStateChanged = callback;
+          return { data: { subscription: { unsubscribe: vi.fn() } } };
+        }),
         signInWithPassword: vi.fn(async () => {
           session = { access_token: 'access-token', refresh_token: 'refresh-token' } as Session;
           return { data: { session, user: null }, error: null };
@@ -70,5 +74,21 @@ describe('StaffAuthService', () => {
 
     expect(await service.signIn('chef@example.com', 'wrong')).toBe('Invalid email or password.');
     expect(service.identity()).toBeNull();
+  });
+
+  it('keeps the current tab session when another tab broadcasts a sign-in', async () => {
+    const signIn = service.signIn('kitchen@example.com', 'secret');
+    await new Promise<void>((resolve) => setTimeout(resolve, 0));
+    controller.expectOne('/api/staff/me').flush({ role: 'kitchen', fullName: 'Kitchen' });
+    await signIn;
+
+    authStateChanged?.('SIGNED_IN', { access_token: 'cashier-token', refresh_token: 'cashier-refresh' } as Session);
+
+    expect(service.session()?.access_token).toBe('access-token');
+    await new Promise<void>((resolve) => setTimeout(resolve, 0));
+    const request = controller.expectOne('/api/staff/me');
+    expect(request.request.headers.get('Authorization')).toBe('Bearer access-token');
+    request.flush({ role: 'kitchen', fullName: 'Kitchen' });
+    expect(service.identity()?.role).toBe('kitchen');
   });
 });

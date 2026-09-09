@@ -1,5 +1,6 @@
 import { DecimalPipe } from '@angular/common';
-import { Component, inject, signal } from '@angular/core';
+import { Component, DestroyRef, inject, signal } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { Router, RouterLink } from '@angular/router';
 import { CartService } from '../../core/cart';
 import { CustomerSessionService } from '../../core/customer-session';
@@ -18,6 +19,7 @@ export class Cart {
   private readonly orders = inject(PublicOrdersService);
   private readonly trackingToken = inject(TrackingTokenSessionService);
   private readonly router = inject(Router);
+  private readonly destroyRef = inject(DestroyRef);
 
   readonly customer = this.session.session;
   readonly error = signal<string | null>(null);
@@ -44,6 +46,7 @@ export class Cart {
           notes: item.notes,
         })),
       }, this.cart.getOrderAttemptKey())
+      .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe({
         next: (response) => {
           this.cart.clear();

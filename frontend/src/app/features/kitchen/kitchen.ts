@@ -63,7 +63,7 @@ export class Kitchen {
     request.pipe(takeUntilDestroyed(this.destroyRef)).subscribe({
       next: () => {
         this.busyId.set(null);
-        this.service.getOrders().subscribe({
+        this.service.getOrders().pipe(takeUntilDestroyed(this.destroyRef)).subscribe({
           next: (orders) => this.orders.set(orders),
           error: () => this.error.set('Could not refresh the kitchen board.'),
         });

@@ -1,8 +1,9 @@
 <section class="staff-page" aria-labelledby="cashier-title">
   <header class="staff-header">
     <div>
-      <p class="eyebrow">Cashier</p>
+      <p class="eyebrow">Cashier desk</p>
       <h1 id="cashier-title">{{ tab() === 'orders' ? 'Ready orders' : 'Menu availability' }}</h1>
+      <p class="header-copy">Keep pickup quick and the menu accurate.</p>
     </div>
     <button type="button" class="sign-out" (click)="auth.signOut()">Sign out</button>
   </header>
@@ -21,11 +22,12 @@
   } @else if (tab() === 'orders' && state() === 'error') {
     <p class="message">We could not load cashier orders.</p>
   } @else if (tab() === 'orders') {
-    <p class="summary">{{ newCount() }} new · {{ preparingCount() }} preparing · {{ readyOrders().length }} ready</p>
+    <div class="summary"><span><b>{{ newCount() }}</b> new</span><span><b>{{ preparingCount() }}</b> preparing</span><span class="ready-count"><b>{{ readyOrders().length }}</b> ready</span></div>
 
     <div class="orders">
       @for (order of readyOrders(); track order.id) {
         <article class="order-card">
+          <p class="ready-label"><i aria-hidden="true"></i> Ready for pickup</p>
           <div class="order-heading">
             <div>
               <strong>Table {{ order.tableNumber }}</strong>
@@ -39,7 +41,7 @@
             }
           </ul>
           <button type="button" (click)="close(order.id)" [disabled]="busyId() === order.id">
-            Confirm payment & close
+            <span aria-hidden="true">✓</span> Confirm payment & close
           </button>
         </article>
       } @empty {
@@ -71,7 +73,7 @@
                     [class.off]="!item.isAvailable"
                     [disabled]="busyId() === item.id"
                     (click)="toggleAvailability(item)">
-                    {{ item.isAvailable ? 'Available' : 'Unavailable' }}
+                    <i aria-hidden="true"></i>{{ item.isAvailable ? 'Available' : 'Unavailable' }}
                   </button>
                 </div>
               }

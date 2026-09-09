@@ -35,12 +35,13 @@ builder.Services.AddSingleton<PublicMenuCache>();
 var publicOrderCreateRateLimit = RequiredPositiveRateLimit(builder.Configuration, "RateLimiting:PublicOrdersPerMinute", 30);
 var publicOrderTrackingRateLimit = RequiredPositiveRateLimit(builder.Configuration, "RateLimiting:PublicOrderTrackingPerMinute", 120);
 var publicOrderRatingRateLimit = RequiredPositiveRateLimit(builder.Configuration, "RateLimiting:PublicOrderRatingsPerMinute", 10);
+var clientIpHeader = builder.Configuration["RateLimiting:ClientIpHeader"];
 builder.Services.AddRateLimiter(options =>
 {
     options.RejectionStatusCode = StatusCodes.Status429TooManyRequests;
-    options.AddPolicy("public-order-create", context => PublicRateLimit("create", context, publicOrderCreateRateLimit));
-    options.AddPolicy("public-order-track", context => PublicRateLimit("track", context, publicOrderTrackingRateLimit));
-    options.AddPolicy("public-order-rating", context => PublicRateLimit("rating", context, publicOrderRatingRateLimit));
+    options.AddPolicy("public-order-create", context => PublicRateLimit("create", context, publicOrderCreateRateLimit, clientIpHeader));
+    options.AddPolicy("public-order-track", context => PublicRateLimit("track", context, publicOrderTrackingRateLimit, clientIpHeader));
+    options.AddPolicy("public-order-rating", context => PublicRateLimit("rating", context, publicOrderRatingRateLimit, clientIpHeader));
     options.OnRejected = (context, _) =>
     {
         context.HttpContext.Response.Headers.RetryAfter = "60";
@@ -205,9 +206,9 @@ static int RequiredPositiveRateLimit(IConfiguration configuration, string key, i
         : throw new InvalidOperationException($"{key} must be a positive integer.");
 }
 
-static RateLimitPartition<string> PublicRateLimit(string operation, HttpContext context, int permitLimit) =>
+static RateLimitPartition<string> PublicRateLimit(string operation, HttpContext context, int permitLimit, string? clientIpHeader) =>
     RateLimitPartition.GetFixedWindowLimiter(
-        $"{operation}:{context.Connection.RemoteIpAddress?.ToString() ?? "unknown"}",
+        $"{operation}:{GetClientIp(context, clientIpHeader)}",
         _ => new FixedWindowRateLimiterOptions
         {
             PermitLimit = permitLimit,
@@ -215,5 +216,15 @@ static RateLimitPartition<string> PublicRateLimit(string operation, HttpContext 
             QueueLimit = 0,
             AutoReplenishment = true,
         });
+
+static string GetClientIp(HttpContext context, string? clientIpHeader)
+{
+    if (!string.IsNullOrWhiteSpace(clientIpHeader)
+        && context.Request.Headers.TryGetValue(clientIpHeader, out var value)
+        && IPAddress.TryParse(value.ToString(), out var forwardedIp))
+        return forwardedIp.ToString();
+
+    return context.Connection.RemoteIpAddress?.ToString() ?? "unknown";
+}
 
 public partial class Program;

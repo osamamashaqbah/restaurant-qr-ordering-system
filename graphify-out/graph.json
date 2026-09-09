@@ -2133,7 +2133,7 @@
       },
       "_origin": "ast",
       "id": "backend_restaurantqrordering_api_tests_publicratingtests_restaurantqrordering_api_tests_publicratingtests",
-      "community": 71,
+      "community": 112,
       "community_name": "PublicRatingTests",
       "norm_label": "publicratingtests"
     },
@@ -2150,7 +2150,7 @@
       },
       "_origin": "ast",
       "id": "backend_restaurantqrordering_api_tests_publicratingtests_restaurantqrordering_api_tests_publicratingtests_invalid_rating_token_returns_not_found_without_store_access",
-      "community": 71,
+      "community": 112,
       "community_name": "PublicRatingTests",
       "norm_label": ".invalid_rating_token_returns_not_found_without_store_access()"
     },
@@ -2161,7 +2161,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "backend_restaurantqrordering_api_tests_publicratingtests_cs_task",
-      "community": 71,
+      "community": 112,
       "community_name": "PublicRatingTests",
       "norm_label": "task"
     },
@@ -2172,7 +2172,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "backend_restaurantqrordering_api_tests_publicratingtests_cs_fact",
-      "community": 71,
+      "community": 112,
       "community_name": "PublicRatingTests",
       "norm_label": "fact"
     },
@@ -2189,7 +2189,7 @@
       },
       "_origin": "ast",
       "id": "backend_restaurantqrordering_api_tests_publicratingtests_restaurantqrordering_api_tests_publicratingtests_valid_rating_returns_no_content_and_no_store_cache",
-      "community": 71,
+      "community": 112,
       "community_name": "PublicRatingTests",
       "norm_label": ".valid_rating_returns_no_content_and_no_store_cache()"
     },
@@ -2206,7 +2206,7 @@
       },
       "_origin": "ast",
       "id": "backend_restaurantqrordering_api_tests_publicratingtests_restaurantqrordering_api_tests_publicratingtests_duplicate_rating_returns_conflict",
-      "community": 71,
+      "community": 112,
       "community_name": "PublicRatingTests",
       "norm_label": ".duplicate_rating_returns_conflict()"
     },
@@ -2223,7 +2223,7 @@
       },
       "_origin": "ast",
       "id": "backend_restaurantqrordering_api_tests_publicratingtests_restaurantqrordering_api_tests_publicratingtests_createcontroller",
-      "community": 71,
+      "community": 112,
       "community_name": "PublicRatingTests",
       "norm_label": ".createcontroller()"
     },
@@ -2234,7 +2234,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "recordingratingstore",
-      "community": 71,
+      "community": 112,
       "community_name": "PublicRatingTests",
       "norm_label": "recordingratingstore"
     },
@@ -2706,7 +2706,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "backend_restaurantqrordering_api_tests_testappfactory",
-      "community": 86,
+      "community": 114,
       "community_name": "TestAppFactory",
       "norm_label": "testappfactory.cs"
     },
@@ -2723,7 +2723,7 @@
       },
       "_origin": "ast",
       "id": "backend_restaurantqrordering_api_tests_testappfactory_restaurantqrordering_api_tests_testappfactory",
-      "community": 86,
+      "community": 114,
       "community_name": "TestAppFactory",
       "norm_label": "testappfactory"
     },
@@ -2734,7 +2734,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "webapplicationfactory",
-      "community": 86,
+      "community": 114,
       "community_name": "TestAppFactory",
       "norm_label": "webapplicationfactory"
     },
@@ -2745,7 +2745,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "backend_restaurantqrordering_api_tests_testappfactory_cs_string",
-      "community": 86,
+      "community": 114,
       "community_name": "TestAppFactory",
       "norm_label": "string"
     },
@@ -2762,7 +2762,7 @@
       },
       "_origin": "ast",
       "id": "backend_restaurantqrordering_api_tests_testappfactory_restaurantqrordering_api_tests_testappfactory_configurewebhost",
-      "community": 86,
+      "community": 114,
       "community_name": "TestAppFactory",
       "norm_label": ".configurewebhost()"
     },
@@ -2773,7 +2773,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "iwebhostbuilder",
-      "community": 86,
+      "community": 114,
       "community_name": "TestAppFactory",
       "norm_label": "iwebhostbuilder"
     },
@@ -2784,8 +2784,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "backend_restaurantqrordering_api_features_publicmenu_ipublicmenustore",
-      "community": 59,
-      "community_name": "Exception",
+      "community": 54,
+      "community_name": "PublicMenuResponse",
       "norm_label": "ipublicmenustore.cs"
     },
     {
@@ -2873,8 +2873,8 @@
       },
       "_origin": "ast",
       "id": "backend_restaurantqrordering_api_features_publicmenu_ipublicmenustore_restaurantqrordering_api_features_publicmenu_publicmenustoreunavailableexception",
-      "community": 59,
-      "community_name": "Exception",
+      "community": 54,
+      "community_name": "PublicMenuResponse",
       "norm_label": "publicmenustoreunavailableexception"
     },
     {
@@ -3203,7 +3203,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "backend_restaurantqrordering_api_features_publicmenu_publicmenucontroller",
-      "community": 114,
+      "community": 71,
       "community_name": ".Get",
       "norm_label": "publicmenucontroller.cs"
     },
@@ -3220,7 +3220,7 @@
       },
       "_origin": "ast",
       "id": "backend_restaurantqrordering_api_features_publicmenu_publicmenucontroller_restaurantqrordering_api_features_publicmenu_publicmenucontroller",
-      "community": 114,
+      "community": 71,
       "community_name": ".Get",
       "norm_label": "publicmenucontroller"
     },
@@ -3231,7 +3231,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "controllerbase",
-      "community": 114,
+      "community": 71,
       "community_name": ".Get",
       "norm_label": "controllerbase"
     },
@@ -3248,7 +3248,7 @@
       },
       "_origin": "ast",
       "id": "backend_restaurantqrordering_api_features_publicmenu_publicmenucontroller_restaurantqrordering_api_features_publicmenu_publicmenucontroller_get",
-      "community": 114,
+      "community": 71,
       "community_name": ".Get",
       "norm_label": ".get()"
     },
@@ -3259,7 +3259,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "backend_restaurantqrordering_api_features_publicmenu_publicmenucontroller_cs_cancellationtoken",
-      "community": 114,
+      "community": 71,
       "community_name": ".Get",
       "norm_label": "cancellationtoken"
     },
@@ -3270,7 +3270,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "backend_restaurantqrordering_api_features_publicmenu_publicmenucontroller_cs_task",
-      "community": 114,
+      "community": 71,
       "community_name": ".Get",
       "norm_label": "task"
     },
@@ -3281,7 +3281,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "backend_restaurantqrordering_api_features_publicmenu_publicmenucontroller_cs_actionresult",
-      "community": 114,
+      "community": 71,
       "community_name": ".Get",
       "norm_label": "actionresult"
     },
@@ -3292,7 +3292,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "backend_restaurantqrordering_api_features_publicmenu_publicmenucontroller_cs_httpget",
-      "community": 114,
+      "community": 71,
       "community_name": ".Get",
       "norm_label": "httpget"
     },
@@ -3303,7 +3303,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "backend_restaurantqrordering_api_features_publicmenu_publicmenucontroller_cs_producesresponsetype",
-      "community": 114,
+      "community": 71,
       "community_name": ".Get",
       "norm_label": "producesresponsetype"
     },
@@ -4287,7 +4287,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "backend_restaurantqrordering_api_features_publicorders_publicratingcontracts",
-      "community": 6,
+      "community": 86,
       "community_name": ".Submit",
       "norm_label": "publicratingcontracts.cs"
     },
@@ -4304,7 +4304,7 @@
       },
       "_origin": "ast",
       "id": "backend_restaurantqrordering_api_features_publicorders_publicratingcontracts_restaurantqrordering_api_features_publicorders_publicratingrequest",
-      "community": 6,
+      "community": 86,
       "community_name": ".Submit",
       "norm_label": "publicratingrequest"
     },
@@ -4332,7 +4332,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "backend_restaurantqrordering_api_features_publicorders_publicratingcontroller",
-      "community": 6,
+      "community": 86,
       "community_name": ".Submit",
       "norm_label": "publicratingcontroller.cs"
     },
@@ -4349,7 +4349,7 @@
       },
       "_origin": "ast",
       "id": "backend_restaurantqrordering_api_features_publicorders_publicratingcontroller_restaurantqrordering_api_features_publicorders_publicratingcontroller",
-      "community": 6,
+      "community": 86,
       "community_name": ".Submit",
       "norm_label": "publicratingcontroller"
     },
@@ -4366,7 +4366,7 @@
       },
       "_origin": "ast",
       "id": "backend_restaurantqrordering_api_features_publicorders_publicratingcontroller_restaurantqrordering_api_features_publicorders_publicratingcontroller_submit",
-      "community": 6,
+      "community": 86,
       "community_name": ".Submit",
       "norm_label": ".submit()"
     },
@@ -4377,7 +4377,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "backend_restaurantqrordering_api_features_publicorders_publicratingcontroller_cs_cancellationtoken",
-      "community": 6,
+      "community": 86,
       "community_name": ".Submit",
       "norm_label": "cancellationtoken"
     },
@@ -4388,7 +4388,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "backend_restaurantqrordering_api_features_publicorders_publicratingcontroller_cs_task",
-      "community": 6,
+      "community": 86,
       "community_name": ".Submit",
       "norm_label": "task"
     },
@@ -4399,7 +4399,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "backend_restaurantqrordering_api_features_publicorders_publicratingcontroller_cs_actionresult",
-      "community": 6,
+      "community": 86,
       "community_name": ".Submit",
       "norm_label": "actionresult"
     },
@@ -4410,7 +4410,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "backend_restaurantqrordering_api_features_publicorders_publicratingcontroller_cs_httppost",
-      "community": 6,
+      "community": 86,
       "community_name": ".Submit",
       "norm_label": "httppost"
     },
@@ -4421,7 +4421,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "backend_restaurantqrordering_api_features_publicorders_publicratingcontroller_cs_enableratelimiting",
-      "community": 6,
+      "community": 86,
       "community_name": ".Submit",
       "norm_label": "enableratelimiting"
     },
@@ -4432,7 +4432,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "backend_restaurantqrordering_api_features_publicorders_publicratingcontroller_cs_producesresponsetype",
-      "community": 6,
+      "community": 86,
       "community_name": ".Submit",
       "norm_label": "producesresponsetype"
     },
@@ -5385,7 +5385,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "backend_restaurantqrordering_api_features_staff_cashiercontroller",
-      "community": 112,
+      "community": 6,
       "community_name": ".GetOrders",
       "norm_label": "cashiercontroller.cs"
     },
@@ -5402,7 +5402,7 @@
       },
       "_origin": "ast",
       "id": "backend_restaurantqrordering_api_features_staff_cashiercontroller_restaurantqrordering_api_features_staff_cashiercontroller",
-      "community": 112,
+      "community": 6,
       "community_name": ".GetOrders",
       "norm_label": "cashiercontroller"
     },
@@ -5419,7 +5419,7 @@
       },
       "_origin": "ast",
       "id": "backend_restaurantqrordering_api_features_staff_cashiercontroller_restaurantqrordering_api_features_staff_cashiercontroller_getorders",
-      "community": 112,
+      "community": 6,
       "community_name": ".GetOrders",
       "norm_label": ".getorders()"
     },
@@ -5430,7 +5430,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "backend_restaurantqrordering_api_features_staff_cashiercontroller_cs_cancellationtoken",
-      "community": 112,
+      "community": 6,
       "community_name": ".GetOrders",
       "norm_label": "cancellationtoken"
     },
@@ -5441,7 +5441,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "backend_restaurantqrordering_api_features_staff_cashiercontroller_cs_task",
-      "community": 112,
+      "community": 6,
       "community_name": ".GetOrders",
       "norm_label": "task"
     },
@@ -5452,7 +5452,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "backend_restaurantqrordering_api_features_staff_cashiercontroller_cs_actionresult",
-      "community": 112,
+      "community": 6,
       "community_name": ".GetOrders",
       "norm_label": "actionresult"
     },
@@ -5463,7 +5463,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "backend_restaurantqrordering_api_features_staff_cashiercontroller_cs_ireadonlylist",
-      "community": 112,
+      "community": 6,
       "community_name": ".GetOrders",
       "norm_label": "ireadonlylist"
     },
@@ -5474,7 +5474,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "backend_restaurantqrordering_api_features_staff_cashiercontroller_cs_httpget",
-      "community": 112,
+      "community": 6,
       "community_name": ".GetOrders",
       "norm_label": "httpget"
     },
@@ -5485,7 +5485,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "backend_restaurantqrordering_api_features_staff_cashiercontroller_cs_producesresponsetype",
-      "community": 112,
+      "community": 6,
       "community_name": ".GetOrders",
       "norm_label": "producesresponsetype"
     },
@@ -5502,7 +5502,7 @@
       },
       "_origin": "ast",
       "id": "backend_restaurantqrordering_api_features_staff_cashiercontroller_restaurantqrordering_api_features_staff_cashiercontroller_close",
-      "community": 112,
+      "community": 6,
       "community_name": ".GetOrders",
       "norm_label": ".close()"
     },
@@ -5513,7 +5513,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "backend_restaurantqrordering_api_features_staff_cashiercontroller_cs_guid",
-      "community": 112,
+      "community": 6,
       "community_name": ".GetOrders",
       "norm_label": "guid"
     },
@@ -5524,7 +5524,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "backend_restaurantqrordering_api_features_staff_cashiercontroller_cs_httppost",
-      "community": 112,
+      "community": 6,
       "community_name": ".GetOrders",
       "norm_label": "httppost"
     },
@@ -5541,7 +5541,7 @@
       },
       "_origin": "ast",
       "id": "backend_restaurantqrordering_api_features_staff_cashiercontroller_restaurantqrordering_api_features_staff_cashiercontroller_getmenu",
-      "community": 112,
+      "community": 6,
       "community_name": ".GetOrders",
       "norm_label": ".getmenu()"
     },
@@ -5558,7 +5558,7 @@
       },
       "_origin": "ast",
       "id": "backend_restaurantqrordering_api_features_staff_cashiercontroller_restaurantqrordering_api_features_staff_cashiercontroller_setavailability",
-      "community": 112,
+      "community": 6,
       "community_name": ".GetOrders",
       "norm_label": ".setavailability()"
     },
@@ -7896,7 +7896,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "backend_restaurantqrordering_api_features_staff_staffmecontroller",
-      "community": 114,
+      "community": 71,
       "community_name": ".Get",
       "norm_label": "staffmecontroller.cs"
     },
@@ -7913,7 +7913,7 @@
       },
       "_origin": "ast",
       "id": "backend_restaurantqrordering_api_features_staff_staffmecontroller_restaurantqrordering_api_features_staff_staffmecontroller",
-      "community": 114,
+      "community": 71,
       "community_name": ".Get",
       "norm_label": "staffmecontroller"
     },
@@ -47261,5 +47261,5 @@
       "source_file": "README.md"
     }
   ],
-  "built_at_commit": "c239ce7c0708e43123dfda6c59942cdaa6d98c6e"
+  "built_at_commit": "23b65d04049a0c45c069e0f21f1fe64a60fde357"
 }

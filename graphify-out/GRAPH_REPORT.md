@@ -10,7 +10,7 @@
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `c239ce7c`
+- Built from commit: `23b65d04`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
@@ -21,7 +21,7 @@
 - devDependencies
 - First-admin bootstrap
 - compilerOptions
-- .Submit
+- .GetOrders
 - dependencies
 - (customer)/page.tsx
 - cashier/page.tsx
@@ -74,7 +74,7 @@
 - HealthEndpointTests
 - dependencies
 - serve
-- PublicRatingTests
+- .Get
 - Role-gated access
 - Restaurant QR Ordering System
 - Next.js agent rules
@@ -89,7 +89,7 @@
 - .Validate
 - scripts
 - app.config.ts
-- TestAppFactory
+- .Submit
 - public.get_public_order_by_tracking_token
 - Security remediation baseline
 - development
@@ -105,9 +105,9 @@
 - public.order_tracking
 - Cashier
 - CartService
-- .GetOrders
+- PublicRatingTests
 - frontend/package.json
-- .Get
+- TestAppFactory
 - staff-role.guard.ts
 - AdminMenu
 - AdminMenuService
@@ -175,9 +175,9 @@ Nodes (30): admin role, Admin → Staff view, Anonymous orders column grant, aut
 Cohesion: 0.07
 Nodes (29): dom, dom.iterable, esnext, frontend, **/*.mts, .next/dev/types/**/*.ts, next-env.d.ts, .next/types/**/*.ts (+21 more)
 
-### Community 6 - ".Submit"
-Cohesion: 0.18
-Nodes (8): PublicRatingRequest, ActionResult, CancellationToken, EnableRateLimiting, HttpPost, ProducesResponseType, Task, PublicRatingController
+### Community 6 - ".GetOrders"
+Cohesion: 0.31
+Nodes (9): ActionResult, CancellationToken, Guid, HttpGet, HttpPost, IReadOnlyList, ProducesResponseType, Task (+1 more)
 
 ### Community 7 - "dependencies"
 Cohesion: 0.05
@@ -280,8 +280,8 @@ Cohesion: 0.13
 Nodes (15): AuthorizationHandler, AuthorizationHandlerContext, AuthorizationMiddlewareResultHandler, AuthorizationPolicy, string, Task, StaffAuthorizationMiddlewareResultHandler, StaffRoleAuthorizationHandler (+7 more)
 
 ### Community 54 - "PublicMenuResponse"
-Cohesion: 0.18
-Nodes (11): CancellationToken, Task, IPublicMenuStore, CancellationToken, Task, NpgsqlPublicMenuStore, UnavailablePublicMenuStore, PublicCategory (+3 more)
+Cohesion: 0.15
+Nodes (12): CancellationToken, Task, IPublicMenuStore, PublicMenuStoreUnavailableException, CancellationToken, Task, NpgsqlPublicMenuStore, UnavailablePublicMenuStore (+4 more)
 
 ### Community 55 - "KitchenService"
 Cohesion: 0.15
@@ -300,8 +300,8 @@ Cohesion: 0.12
 Nodes (13): net8.0, net8.0, coverlet.collector (6.0.0), Microsoft.AspNetCore.Authentication.JwtBearer (8.0.23), Microsoft.AspNetCore.Mvc.Testing (8.0.23), Microsoft.NET.Test.Sdk (17.8.0), Npgsql (8.0.6), Sentry.AspNetCore (6.10.0) (+5 more)
 
 ### Community 59 - "Exception"
-Cohesion: 0.13
-Nodes (9): PublicMenuStoreUnavailableException, PublicOrderIdempotencyConflictException, PublicOrderStoreUnavailableException, AdminMenuStoreUnavailableException, AdminStoreUnavailableException, CashierStoreUnavailableException, KitchenStoreUnavailableException, StaffProfileStoreUnavailableException (+1 more)
+Cohesion: 0.15
+Nodes (8): PublicOrderIdempotencyConflictException, PublicOrderStoreUnavailableException, AdminMenuStoreUnavailableException, AdminStoreUnavailableException, CashierStoreUnavailableException, KitchenStoreUnavailableException, StaffProfileStoreUnavailableException, Exception
 
 ### Community 60 - ".CreateAsync"
 Cohesion: 0.29
@@ -343,9 +343,9 @@ Nodes (19): @angular/common, @angular/compiler, @angular/core, @angular/forms, @
 Cohesion: 0.20
 Nodes (10): serve, production, proxyConfig, budgets, buildTarget, outputHashing, builder, configurations (+2 more)
 
-### Community 71 - "PublicRatingTests"
-Cohesion: 0.50
-Nodes (4): Fact, Task, PublicRatingTests, RecordingRatingStore
+### Community 71 - ".Get"
+Cohesion: 0.18
+Nodes (8): ActionResult, CancellationToken, HttpGet, ProducesResponseType, Task, PublicMenuController, StaffMeController, ControllerBase
 
 ### Community 72 - "Role-gated access"
 Cohesion: 0.39
@@ -403,9 +403,9 @@ Nodes (8): scripts, build, deploy:cloudflare, ng, preview:live, start, test, wat
 Cohesion: 0.18
 Nodes (11): App, appConfig, RestaurantRuntimeConfig, runtime, RuntimeWindow, Component, API_BASE_URL, apiBaseUrlInterceptor() (+3 more)
 
-### Community 86 - "TestAppFactory"
-Cohesion: 0.33
-Nodes (4): string, TestAppFactory, IWebHostBuilder, WebApplicationFactory
+### Community 86 - ".Submit"
+Cohesion: 0.18
+Nodes (8): PublicRatingRequest, ActionResult, CancellationToken, EnableRateLimiting, HttpPost, ProducesResponseType, Task, PublicRatingController
 
 ### Community 87 - "public.get_public_order_by_tracking_token"
 Cohesion: 0.47
@@ -443,17 +443,17 @@ Nodes (3): PublicMenuItem, Cashier, Component
 Cohesion: 0.26
 Nodes (3): CartItem, CartService, Injectable
 
-### Community 112 - ".GetOrders"
-Cohesion: 0.31
-Nodes (9): ActionResult, CancellationToken, Guid, HttpGet, HttpPost, IReadOnlyList, ProducesResponseType, Task (+1 more)
+### Community 112 - "PublicRatingTests"
+Cohesion: 0.50
+Nodes (4): Fact, Task, PublicRatingTests, RecordingRatingStore
 
 ### Community 113 - "frontend/package.json"
 Cohesion: 0.25
 Nodes (7): name, overrides, hono, sharp, packageManager, private, version
 
-### Community 114 - ".Get"
-Cohesion: 0.18
-Nodes (8): ActionResult, CancellationToken, HttpGet, ProducesResponseType, Task, PublicMenuController, StaffMeController, ControllerBase
+### Community 114 - "TestAppFactory"
+Cohesion: 0.33
+Nodes (4): string, TestAppFactory, IWebHostBuilder, WebApplicationFactory
 
 ### Community 118 - "AdminMenuService"
 Cohesion: 0.19
@@ -475,9 +475,9 @@ Nodes (5): CancellationToken, Fact, Task, FakeMenuStore, PublicMenuTests
 ## Suggested Questions
 _Questions this graph is uniquely positioned to answer:_
 
-- **Why does `RestaurantQrOrdering.Api.Features.Staff` connect `RestaurantQrOrdering.Api.Features.Staff` to `.Get`, `Task`, `AdminMenuCommandResult`, `CashierCommandResult`, `KitchenTests`, `.GetOrders`, `StaffAuthTests`, `.Get`, `.HandleAsync`, `Exception`?**
+- **Why does `RestaurantQrOrdering.Api.Features.Staff` connect `RestaurantQrOrdering.Api.Features.Staff` to `.Get`, `.GetOrders`, `.Get`, `Task`, `AdminMenuCommandResult`, `CashierCommandResult`, `KitchenTests`, `StaffAuthTests`, `.HandleAsync`, `Exception`?**
   _High betweenness centrality (0.082) - this node is a cross-community bridge._
-- **Why does `RestaurantQrOrdering.Api.Features.PublicOrders` connect `RestaurantQrOrdering.Api.Features.PublicOrders` to `RestaurantQrOrdering.Api.Features.Staff`, `.Submit`, `PublicRatingResult`, `.Validate`, `Exception`, `.CreateAsync`, `.Create`?**
+- **Why does `RestaurantQrOrdering.Api.Features.PublicOrders` connect `RestaurantQrOrdering.Api.Features.PublicOrders` to `RestaurantQrOrdering.Api.Features.Staff`, `PublicRatingResult`, `.Validate`, `.Submit`, `Exception`, `.CreateAsync`, `.Create`?**
   _High betweenness centrality (0.023) - this node is a cross-community bridge._
 - **Why does `RestaurantQrOrdering.Api.Tests` connect `RestaurantQrOrdering.Api.Features.Staff` to `.GetAsync`, `HealthEndpointTests`, `.GetAsync`, `RestaurantQrOrdering.Api.Features.PublicOrders`, `TestAppFactory`?**
   _High betweenness centrality (0.019) - this node is a cross-community bridge._
